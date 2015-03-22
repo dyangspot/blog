@@ -42,6 +42,9 @@ highlight:
   line_number: true
   tab_replace:
 
+# Duoshuo short_name
+duoshuo_shortname: dyang1988  
+
 # Category & Tag
 default_category: 
   per_page: 10
@@ -51,9 +54,6 @@ tag_map:
 # Site Map
 sitemap:
     path: sitemap.xml
-
-# Duoshuo comments
-duoshuo_shortname: dyang1988.duoshuo.com
 
 # Tag
 tag_generator:
