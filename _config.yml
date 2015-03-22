@@ -48,6 +48,10 @@ default_category:
 category_map:
 tag_map:
 
+# Site Map
+sitemap:
+    path: sitemap.xml
+
 # Tag
 tag_generator:
   per_page: 10
