@@ -92,3 +92,4 @@ deploy:
   type: git
   repo: git@github.com:dyangspot/dyangspot.github.io.git
   branch: master
+

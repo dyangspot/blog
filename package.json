@@ -14,8 +14,10 @@
     "hexo-generator-sitemap": "^1.0.1",
     "hexo-generator-tag": "^0.1.0",
     "hexo-renderer-ejs": "^0.1.0",
+
     "hexo-renderer-markdown-it": "^2.2.0",
     "hexo-renderer-stylus": "^0.2.0",
     "hexo-server": "^0.1.2"
   }
 }
+
