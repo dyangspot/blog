@@ -2,6 +2,8 @@ title: "Emberjs资料索引"
 date: 2015-03-22 11:11:05
 tags: emberjs
 ---
+# Ember.js 资料索引
+此索引[Github repo](https://github.com/astray1988/Emberjs_reference_cn)
 
 ## 中文资料
 - [Emberjs教程指南](http://www.emberjs.cn/guides/)
