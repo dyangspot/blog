@@ -52,6 +52,9 @@ tag_map:
 sitemap:
     path: sitemap.xml
 
+# Duoshuo comments
+duoshuo_shortname: dyang1988.duoshuo.com
+
 # Tag
 tag_generator:
   per_page: 10
