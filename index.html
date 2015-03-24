@@ -208,11 +208,12 @@
 <p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3>Depth-first search code</h3>
 <p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://imgs.xkcd.com/comics/wasted_time.png" alt="DFS for dating"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7nq6xzx00002xs7l6loitkg" class="article-share-link">Share</a>
+      <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7nspohp0000pds7ve8oni1u" class="article-share-link">Share</a>
       
         <a href="http://dyangspot.github.io/2015/03/24/depth-first-search/#duoshuo_thread" class="article-comment-link">Comments</a>
       
@@ -257,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="ci7nq6y1i00042xs7ask6jpc8" class="article-share-link">Share</a>
+      <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="ci7nspojd0004pds72hnn6bdh" class="article-share-link">Share</a>
       
         <a href="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/#duoshuo_thread" class="article-comment-link">Comments</a>
       
@@ -299,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dyangspot.github.io/2015/03/22/scala-test/" data-id="ci7nq6y1l00072xs7xn39t8bt" class="article-share-link">Share</a>
+      <a data-url="http://dyangspot.github.io/2015/03/22/scala-test/" data-id="ci7nspojh0007pds73yzq4aya" class="article-share-link">Share</a>
       
         <a href="http://dyangspot.github.io/2015/03/22/scala-test/#duoshuo_thread" class="article-comment-link">Comments</a>
       
@@ -398,7 +399,7 @@ Fundamentals</a></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="ci7nq6y1o00082xs7lcl7pr6z" class="article-share-link">Share</a>
+      <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="ci7nspojj0008pds7m5vwqm5b" class="article-share-link">Share</a>
       
         <a href="http://dyangspot.github.io/2015/03/22/emberjs-reference/#duoshuo_thread" class="article-comment-link">Comments</a>
       
