@@ -27,7 +27,7 @@ Retrace steps when no unvisted options
 Depth-first search
 
 Goal. Systematically search through a graph, find al">
-<meta property="og:image" content="http://imgs.xkcd.com/comics/wasted_time.png">
+<meta property="og:image" content="http://imgs.xkcd.com/comics/dfs.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="depth-first-search">
 <meta name="twitter:description" content="Graph
@@ -199,13 +199,7 @@ Goal. Systematically search through a graph, find al">
 <li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
 <li>Idea. Mimic maze exploration</li>
 </ul>
-<blockquote>
-<ul>
-<li>DFS(to visit a vertex v)</li>
-<li>Mark v as visited.</li>
-<li>Recursively visit all unmarked vertices w adjacent to v.</li>
-</ul>
-</blockquote>
+<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure></p>
 <h3>Design pattern</h3>
 <ul>
 <li>Decouple graph data type from graph processing.</li>
@@ -231,12 +225,12 @@ Goal. Systematically search through a graph, find al">
 <p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3>Depth-first search code</h3>
 <p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://imgs.xkcd.com/comics/wasted_time.png" alt="DFS for dating"></p>
+<p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7nspohp0000pds7ve8oni1u" class="article-share-link">Share</a>
+      <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7nstgkg0000sms7tx8jganc" class="article-share-link">Share</a>
       
         <a href="http://dyangspot.github.io/2015/03/24/depth-first-search/#duoshuo_thread" class="article-comment-link">Comments</a>
       
