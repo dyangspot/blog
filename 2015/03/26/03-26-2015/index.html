@@ -113,7 +113,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci7qz3rkd000ffws7ta3ofbex" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci7r21q4g000fh6s7rkofb7we" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
       
 
       
@@ -218,7 +218,99 @@
 
 
   
+    <div class="widget tag">
+    <h3 class="title">Calendar</h3>
+    <div class="Calendar">
+      <div id="idCalendarPre"><<</div>
+      <div id="idCalendarNext">>></div>
+      <span id="idCalendarYear">2008</span>年<span id="idCalendarMonth">8</span>月
+      <table cellspacing="0">
+        <thead>
+          <tr>
+            <td>日</td>
+            <td>一</td>
+            <td>二</td>
+            <td>三</td>
+            <td>四</td>
+            <td>五</td>
+            <td>六</td>
+          </tr>
+        </thead>
+        <tbody id="idCalendar">
+        </tbody>
+      </table>
+    </div>
+</div>
+<script language="JavaScript">
+var cale = new Calendar("idCalendar", {
+    //howiefh
+    /* SelectDay: new Date().setDate(10), */
+    SelectDay: new Date().setDate(this.Date),
+    onSelectDay: function(o){ o.className = "onSelect"; },
+    //howiefh
+    onToday: function(o){ o.className = "onToday"; },
+    onFinish: function(){
+        //howiefh
+        // $("idCalendarYear").innerHTML = this.Year; $("idCalendarMonth").innerHTML = this.Month;
+        $("idCalendarYear").innerHTML = "<a href='/" + "archives/" + this.Year + "/'>" + this.Year + " "+ "</a>"; 
+        if (this.Month < 10) {
+            $("idCalendarMonth").innerHTML = "<a href='/" + "archives/" + this.Year + "/" + "0" + this.Month + "/'>" + " " + this.Month + " " + "</a>";
+        } else {
+            $("idCalendarMonth").innerHTML = "<a href='/" + "archives/" + this.Year + "/" + this.Month + "/'>" + " " + this.Month + " " + "</a>";
+        }
+        // var flag = [10,15,20]; 
+        // for(var i = 0, len = flag.length; i < len; i++){ 
+            // this.Days[flag[i]].innerHTML = "<a href='javascript:void(0);' onclick=\"alert('日期是:"+this.Year+"/"+this.Month+"/"+flag[i]+"');return false;\">" + flag[i] + "</a>"; 
+        // } 
+        
+            var postdate = new Date("Mon Mar 23 2015 19:37:39 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“daysummary-03-23-2015&quot;'>" + day + "</a>";
+            } 
     
+            var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/22/scala-test/' title='scala-test'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/22/emberjs-reference/' title='Emberjs资料索引'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 00:29:30 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/depth-first-search/' title='depth-first-search'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 22:09:50 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/connected-components-dfs/' title='connected-components-dfs'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 22:09:35 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Mar 26 2015 22:10:04 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
+            } 
+    
+        //howiefh
+    }
+});
+$("idCalendarPre").onclick = function(){ cale.PreMonth(); }
+$("idCalendarNext").onclick = function(){ cale.NextMonth(); }
+</SCRIPT>
   
     
   <div class="widget-wrap">
