@@ -157,7 +157,7 @@ body,
   height: 100%;
 }
 body {
-  background: url("images/bg.png") #eee;
+  background: url("http://7xi7ot.com1.z0.glb.clouddn.com/bg.png") #eee;
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-text-size-adjust: 100%;
 }
@@ -208,7 +208,7 @@ body {
   -ms-transition: 0.2s ease-out;
   transition: 0.2s ease-out;
   z-index: 1;
-  background: url("images/bg.png") #eee;
+  background: url("http://7xi7ot.com1.z0.glb.clouddn.com/bg.png") #eee;
 }
 .mobile-nav-on #wrap {
   left: 280px;
@@ -392,7 +392,7 @@ body {
   z-index: -1;
 }
 #banner {
-  background: url("images/banner.png") center;
+  background: url("http://7xi7ot.com1.z0.glb.clouddn.com/banner.png") center;
 }
 #header-title {
   text-align: center;
