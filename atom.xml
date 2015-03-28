@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-03-27T05:00:37.000Z</updated>
+  <updated>2015-03-28T05:12:49.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[03-28-2015]]></title>
+    <link href="http://dyangspot.github.io/2015/03/28/03-28-2015/"/>
+    <id>http://dyangspot.github.io/2015/03/28/03-28-2015/</id>
+    <published>2015-03-28T04:47:00.000Z</published>
+    <updated>2015-03-28T05:12:49.000Z</updated>
+    <content type="html"><![CDATA[<p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，迷迷糊糊半路出家走上IT的道路，这一年的成长收货也是良多的，期间虽然经历过各种心酸挫折，到最后能够找到个不错的工作，也算是对自己努力的回报吧。
+今儿的工作依旧是在SharePoint平台上面进行Meetings模块的搭建，其实就是做各种XML的configuration嘛，真是自欺欺人orz。下午送走了Jin大叔，Jin是我进公司以来我认识的唯一一个华人同事，能够跟Jin一起工作，也是倍感荣幸的。
+发现自己自从做Sharepoint以来，好久没有写emberjs了，会不会手生了都忘光了呢？明儿又是周末了，whatever, 等下周再说吧...</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，]]>
+    </summary>
+    
+      <category term="work@point.io" scheme="http://dyangspot.github.io/tags/work-point-io/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[03-26-2015]]></title>

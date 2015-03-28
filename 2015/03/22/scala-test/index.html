@@ -189,7 +189,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -199,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 20px; color: #1db400">work@point.io</a>
     </div>
   </div>
 
@@ -209,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -302,6 +302,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/28/03-28-2015/' title='03-28-2015'>" + day + "</a>";
+            } 
+    
         //howiefh
     }
 });
@@ -314,6 +320,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
+          </li>
         
           <li>
             <a href="/2015/03/26/03-26-2015/">03-26-2015</a>
@@ -329,10 +339,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/24/depth-first-search/">depth-first-search</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/23/worksummary-03-23-2015/">“03-23-2015&quot;</a>
           </li>
         
       </ul>
