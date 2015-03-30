@@ -81,6 +81,29 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
       
+<a href="/2015/03/29/emberjs-notes/" class="archive-article-date">
+  <time datetime="2015-03-30T03:01:42.000Z" itemprop="datePublished">Mar 29</time>
+</a>
+
+
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/03/29/emberjs-notes/">emberjs-notes</a>
+    </h1>
+  
+
+    </header>
+  </div>
+</article>
+
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      
 <a href="/2015/03/28/03-28-2015/" class="archive-article-date">
   <time datetime="2015-03-28T04:47:00.000Z" itemprop="datePublished">Mar 28</time>
 </a>
@@ -290,7 +313,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -310,7 +333,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -379,6 +402,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/22/emberjs-reference/' title='Emberjs资料索引'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Mar 29 2015 23:01:42 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/29/emberjs-notes/' title='emberjs-notes'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Tue Mar 24 2015 00:29:30 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -397,16 +426,16 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
             } 
     
-            var postdate = new Date("Thu Mar 26 2015 22:10:04 GMT-0400"); 
-            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
-                var day = postdate.getDate();
-                this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
-            } 
-    
             var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/03/28/03-28-2015/' title='03-28-2015'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Mar 26 2015 22:10:04 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
             } 
     
         //howiefh
@@ -423,6 +452,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/03/29/emberjs-notes/">emberjs-notes</a>
+          </li>
+        
+          <li>
             <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
           </li>
         
@@ -436,10 +469,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/24/breadth-first-search/">breadth-first-search</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/24/depth-first-search/">depth-first-search</a>
           </li>
         
       </ul>

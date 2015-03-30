@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dylan&#39;s Blog</title>
+  <title>emberjs-notes | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dylan's Blog">
-<meta property="og:url" content="http://dyangspot.github.io/archives/2015/index.html">
+  <meta name="description" content="今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。
+错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详
+正确做法： 把List放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="emberjs-notes">
+<meta property="og:url" content="http://dyangspot.github.io/2015/03/29/emberjs-notes/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description">
+<meta property="og:description" content="今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。
+错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详
+正确做法： 把List放">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dylan's Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="emberjs-notes">
+<meta name="twitter:description" content="今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。
+错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详
+正确做法： 把List放">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -64,230 +70,102 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
+        <section id="main"><article id="post-emberjs-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/29/emberjs-notes/" class="archive-article-date">
-  <time datetime="2015-03-30T03:01:42.000Z" itemprop="datePublished">Mar 29</time>
+<a href="/2015/03/29/emberjs-notes/" class="article-date">
+  <time datetime="2015-03-30T03:01:42.000Z" itemprop="datePublished">2015-03-29</time>
 </a>
 
 
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/29/emberjs-notes/">emberjs-notes</a>
+    <h1 class="article-title" itemprop="name">
+      emberjs-notes
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。
+错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详</p>
+<p>正确做法： 把List放在ApplicationRouter中，Detail放在对应的DetailRouter中，List放在Application template下，Detail页面布局的  放在Application template下。</p>
+<p><a href="http://jsbin.com/ijejap/1/edit?html,js" target="_blank" rel="external">例子</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci7vbk5ps0008qks7qvs58l8i" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/03/29/emberjs-notes/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/29/emberjs-notes/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-03-29</time>
+</span>
+
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/03/28/03-28-2015/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">03-28-2015</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/28/03-28-2015/" class="archive-article-date">
-  <time datetime="2015-03-28T04:47:00.000Z" itemprop="datePublished">Mar 28</time>
-</a>
 
 
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/28/03-28-2015/">03-28-2015</a>
-    </h1>
-  
+<!-- 多说评论框 start -->
 
-    </header>
+<section id="comments">
+  <div class="ds-thread"  data-thread-key="/2015/03/29/emberjs-notes/" data-title="emberjs-notes" data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" id="ds_thread">
+    <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
-</article>
+</section>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/26/03-26-2015/" class="archive-article-date">
-  <time datetime="2015-03-27T02:10:04.000Z" itemprop="datePublished">Mar 26</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/26/03-26-2015/">03-26-2015</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/connected-components-dfs/" class="archive-article-date">
-  <time datetime="2015-03-25T02:09:50.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/connected-components-dfs/">connected-components-dfs</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/breadth-first-search/" class="archive-article-date">
-  <time datetime="2015-03-25T02:09:35.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/breadth-first-search/">breadth-first-search</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/depth-first-search/" class="archive-article-date">
-  <time datetime="2015-03-24T04:29:30.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/depth-first-search/">depth-first-search</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/23/worksummary-03-23-2015/" class="archive-article-date">
-  <time datetime="2015-03-23T23:37:39.000Z" itemprop="datePublished">Mar 23</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/23/worksummary-03-23-2015/">“03-23-2015&quot;</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/22/scala-test/" class="archive-article-date">
-  <time datetime="2015-03-23T03:58:15.000Z" itemprop="datePublished">Mar 22</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/22/scala-test/">scala-test</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/22/emberjs-reference/" class="archive-article-date">
-  <time datetime="2015-03-22T15:11:05.000Z" itemprop="datePublished">Mar 22</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/22/emberjs-reference/">Emberjs资料索引</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
+<!-- 多说评论框 end -->
 </section>
         
           
+  <div id="toc" class="toc-aside">
+  <h2 class="toc-title">文章目录</h2>
+    
+        
+    
+  </div>
+
 <aside id="sidebar">
 
   
@@ -562,6 +440,11 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
 	<script src="/js/gotop.js"></script>
 	-->
 
+
+	<a class="icon-toc-toggle" href="javascript:void(0)" title="文章目录"></a>
+	<!--
+	<script src="/js/toc_aside_toggle.js"></script>
+	-->
 
 </div>
 <script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
