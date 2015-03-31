@@ -97,7 +97,7 @@
       
 		
 		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>Contents</span></h2>
+			<h2 class="toc-title"><span>文章目录</span></h2>
 		
 			
 		
@@ -112,7 +112,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci7wnz6pd00080us7j0k20ojf" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci7wso77z00085os7lkj0qc67" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
       
 
       
@@ -124,7 +124,7 @@
 
 	  
 <span>
-Updated:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-03-29</time>
+更新日期:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-03-29</time>
 </span>
 
 
@@ -169,7 +169,7 @@ Updated:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-0
         
           
   <div id="toc" class="toc-aside">
-  <h2 class="toc-title">Contents</h2>
+  <h2 class="toc-title">文章目录</h2>
     
         
     
@@ -198,9 +198,9 @@ Updated:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-0
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -208,9 +208,9 @@ Updated:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-0
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
     </div>
   </div>
 
@@ -220,7 +220,7 @@ Updated:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-0
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -295,6 +295,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/29/emberjs-notes/' title='emberjs-notes'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Mar 30 2015 22:10:42 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/30/emberjs-fundamentals-notes/' title='Emberj.js Fundamentals Notes'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Mon Mar 30 2015 22:04:02 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -340,9 +346,13 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/30/emberjs-fundamentals-notes/">Emberj.js Fundamentals Notes</a>
+          </li>
         
           <li>
             <a href="/2015/03/30/directed-graphs/">Directed Graphs</a>
@@ -360,10 +370,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
             <a href="/2015/03/26/03-26-2015/">03-26-2015</a>
           </li>
         
-          <li>
-            <a href="/2015/03/24/connected-components-dfs/">connected-components-dfs</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -372,7 +378,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
     
 <div class="widget-wrap">
-  <h3 class="widget-title">Recent Comments</h3>
+  <h3 class="widget-title">最新评论</h3>
   <ul class="widget ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
 </div>
 <!-- 需要多说的公用代码 -->
@@ -381,7 +387,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
     
 <div class="widget-wrap">
-  <h3 class="widget-title">Links</h3>
+  <h3 class="widget-title">友情链接</h3>
   <ul class="widget">
     
     <li><a href="http://astray1988.github.io/rclab" target="_BLANK">Dyang&#39;s RCLab</a></li>
