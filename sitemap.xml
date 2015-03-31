@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2015/03/30/directed-graphs/</loc>
+    <lastmod>2015-03-31T02:05:57.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2015/03/29/emberjs-notes/</loc>
     <lastmod>2015-03-30T03:25:02.000Z</lastmod>
   </url>

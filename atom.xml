@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-03-30T03:25:02.000Z</updated>
+  <updated>2015-03-31T02:05:57.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Directed Graphs]]></title>
+    <link href="http://dyangspot.github.io/2015/03/30/directed-graphs/"/>
+    <id>http://dyangspot.github.io/2015/03/30/directed-graphs/</id>
+    <published>2015-03-31T02:04:02.000Z</published>
+    <updated>2015-03-31T02:05:57.000Z</updated>
+    <content type="html"><![CDATA[<h1>Directed Graphs</h1>
+<p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
+<p>Application:</p>
+<ul>
+<li>
+<p>Road network. Vertex = intersectiion; edge = one-way street</p>
+</li>
+<li>
+<p>Political blogosphere graph. Vertex=political blog;edge=link</p>
+</li>
+<li>
+<p>Overnight interbank loan graph. Vertex=bank; edge= overnigh load</p>
+</li>
+<li>
+<p>Combinational circuit. Vertex=logical gate;edge=wire</p>
+</li>
+<li>
+<p>WordNet graph. Vertex=synset;edge=hypernym relationship</p>
+</li>
+</ul>
+<h2>Digraph API</h2>
+<p><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Digraph</span><br><span class="line">____________________________</span><br><span class="line">			 Diagraph(<span class="keyword">int</span> V)	 <span class="comment">// create an empty diagraph with V vertices</span></span><br><span class="line">			 Diagraph(In <span class="keyword">in</span>)    <span class="comment">// create a diagraph from input stream</span></span><br><span class="line">		<span class="keyword">void</span> addEdge(<span class="keyword">int</span> v,<span class="keyword">int</span> w) <span class="comment">// add a directed edge v-&gt;w</span></span><br><span class="line">	Iterable&lt;Integer&gt; adj(<span class="keyword">int</span> v)	<span class="comment">// vertices pointing from w</span></span><br><span class="line">		 <span class="keyword">int</span> V()					<span class="comment">// # of vertices</span></span><br><span class="line">		 <span class="keyword">int</span> E()					<span class="comment">// # of edges</span></span><br><span class="line">	Digraph  reverse()				<span class="comment">// reverse of this digraph</span></span><br><span class="line">	String   toString()				<span class="comment">// string representation</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	In <span class="keyword">in</span> = <span class="keyword">new</span> In(args[<span class="number">0</span>]);</span><br><span class="line">	Diagraph G = <span class="keyword">new</span> Diagraph(<span class="keyword">in</span>);   <span class="comment">// read diagraph from input stream</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			StdOut.println(v + <span class="string">"-&gt;"</span> + w);	<span class="comment">// print out each edge(once)</span></span><br></pre></td></tr></table></figure></p>
+<p>Adjacency-lists graph representation: Java implementation</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> <span class="title">Digraph</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Bag&lt;Integer&gt;[] adj;		<span class="comment">// adjacency lists</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Digraph</span><span class="params">(<span class="keyword">int</span> V)</span></span>&#123;		<span class="comment">// create empty diagraph with v vertices</span></span><br><span class="line">		<span class="keyword">this</span>.V = V;</span><br><span class="line">		adj=(Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;V;v++)</span><br><span class="line">			adj[v]=<span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;   <span class="comment">// add edge v-&gt;w</span></span><br><span class="line">		adj[v].add[w]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Iterable&lt;Integer&gt; adj&lt;<span class="keyword">int</span> v&gt; &#123; <span class="comment">// iterator for vertices pointing from v</span></span><br><span class="line">		<span class="keyword">return</span> adj[v];		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Digraph Search</h2>
+<h3>DFS in directed graphs</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedDFS</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> [] marked;   <span class="comment">// true if from s </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> DirectedDFS)(Digraph G,<span class="keyword">int</span> s)&#123; <span class="comment">// constructor marks vertices reachable from s</span></span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">		dfs[(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G,<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// recursive DFS does the work</span></span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			<span class="keyword">if</span>(!marked[w]) dfs(G,w)			</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">visited</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// client can ask whether any vertex is reachable from s</span></span><br><span class="line">		<span class="keyword">return</span> marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>Depth-first search in digraphs summary</h4>
+<p>DFS enables direct solution of simple digraph problems.</p>
+<ul>
+<li>Reachability.</li>
+<li>Path finding.</li>
+<li>Topological sort.</li>
+<li>Directed cycle detection.
+Basis for solving difficult digraph problems</li>
+<li>2-satisfiability.</li>
+<li>Directed Euler path.</li>
+<li>Strongly-connected components.</li>
+</ul>
+<h3>BFS in digraphs</h3>
+<p>Proposition. BFS computes shortest pahts(fewest # of edges) from <em>s</em> to all other vertices n a digraph in time proportional to <em>E+V</em></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1>Directed Graphs</h1>
+<p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
+<p>Application:</p>
+<ul>
+<li]]>
+    </summary>
+    
+      <category term="Algorithm" scheme="http://dyangspot.github.io/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[emberjs-notes]]></title>
