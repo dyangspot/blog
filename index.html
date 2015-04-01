@@ -159,33 +159,32 @@ A resource is for a thing, a route is for something you do to that thing.</li>
 <ul>
 <li>Helpres</li>
 </ul>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;fromDate created_at&#125;&#125;</span><br><span class="line"></span><br><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">- $.post</span><br></pre></td></tr></table></figure></p>
-<p>Ember.$.post(url,{title:issueTitle,body:issueBody},function(result){
-//success..
-this.transitionToRoute(&quot;issues&quot;);
-})</p>
-<p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="bullet">- </span>needs vs. modelFor</span><br></pre></td></tr></table></figure></p>
-<p>Github.RepositoryController = Ember.ObjectController.extend({
-needs:['user'],
-user:Ember.computed.alias(&quot;controllers.user&quot;),
-forked: Ember.computed.alias(&quot;fork&quot;)
-});</p>
-<p>Github.RepositoryRoute = Ember.Route.extend({
-model:function(params){
-var user = this.modelFor(&quot;user&quot;);
-// ...
-}
-});
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Bascially, controllers can need other controllers, routes use other models in other routes</span><br><span class="line"></span><br><span class="line">- Resource vs.Route</span><br><span class="line">A resource has it's own route name, a route must include the resource name.</span><br><span class="line"></span><br><span class="line"><span class="string">|Template  | Route   | Controller  | Route Name  |   </span></span><br><span class="line"><span class="string">|---|---|---|---|---|</span></span><br><span class="line"><span class="string">|repositories RepositoriesRoute  |RepositoriesController   |repositories   |   |  </span></span><br><span class="line"><span class="string">|issues |IssuesRoute   |IssuesController   |issues   |   </span></span><br><span class="line"><span class="string">|commits   |CommitsRoute   |CommitsController   |commits   |   </span></span><br><span class="line"><span class="string">|**repository/newissue**   |**RepositoryNewissueRoute**   |**RepositoryNewissueController**   |**repository.newissue**   |   </span></span><br><span class="line"></span><br><span class="line">- Computed Properties</span><br></pre></td></tr></table></figure></p>
-<p>Github.REpositoryNewissueController = Ember.Controller.extend({
-issueTitle: &quot;Ember confused me&quot;  // set up issueTitle like this
-needs:['repository'],
-repo:Ember.computed.alias(&quot;controllers.repository&quot;),
-issue:function(){
-return Github.Issue.create();
-}.property(&quot;repo.model&quot;)
-});</p>
-<pre><code></code></pre>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;fromDate created_at&#125;&#125;</span><br><span class="line"></span><br><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>
+<p>$.post
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Ember</span>.$.post(url,&#123;title:issueTitle,body:issueBody&#125;,function(<span class="literal">result</span>)&#123;</span><br><span class="line">			//success..</span><br><span class="line">			this.transitionToRoute(<span class="string">"issues"</span>);</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>needs vs. modelFor</p>
+</li>
+</ul>
+<p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Github.RepositoryController = Ember.ObjectController.extend(&#123;</span><br><span class="line">	needs:[<span class="string">'user'</span>],</span><br><span class="line">	user:Ember.computed.alias(<span class="string">"controllers.user"</span>),</span><br><span class="line">	forked: Ember.computed.alias(<span class="string">"fork"</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Github.RepositoryRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="keyword">function</span>(params)&#123;</span><br><span class="line">		var user = this.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		// <span class="keyword">...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Bascially, controllers can need other controllers, routes use other models in other routes</p>
+<ul>
+<li>Resource vs.Route
+A resource has it's own route name, a route must include the resource name.</li>
+</ul>
+<p>|Template  | Route   | Controller  | Route Name  |<br>
+|---|---|---|---|---|
+|repositories RepositoriesRoute  |RepositoriesController   |repositories   |   |<br>
+|issues |IssuesRoute   |IssuesController   |issues   |<br>
+|commits   |CommitsRoute   |CommitsController   |commits  |<br>
+|<strong>repository/newissue</strong>   |<strong>RepositoryNewissueRoute</strong>   |<strong>RepositoryNewissueController</strong>   |<strong>repository.newissue</strong>   |</p>
+<ul>
+<li>Computed Properties</li>
+</ul>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Github.REpositoryNewissueController = Ember.Controller.extend(&#123;</span><br><span class="line">	issueTitle: <span class="string">"Ember confused me"</span>  <span class="comment">// set up issueTitle like this</span></span><br><span class="line">	needs:[<span class="string">'repository'</span>],</span><br><span class="line">	repo:Ember.computed.alias(<span class="string">"controllers.repository"</span>),</span><br><span class="line">	issue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Github.Issue.create();</span><br><span class="line">	&#125;.property(<span class="string">"repo.model"</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -203,7 +202,7 @@ return Github.Issue.create();
 
 	  
 <span>
-更新日期:<time datetime="2015-03-31T04:20:21.000Z" itemprop="dateModified">2015-03-31</time>
+更新日期:<time datetime="2015-04-01T03:51:02.000Z" itemprop="dateModified">2015-03-31</time>
 </span>
 
 
