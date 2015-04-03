@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dylan&#39;s Blog</title>
+  <title>Ember-in-action | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dylan's Blog">
-<meta property="og:url" content="http://dyangspot.github.io/archives/2015/page/2/index.html">
+  <meta name="description" content="App.js
+12345678910App = Ember.Application.create();App.Router.map(function()&amp;#123;	// put your routes here&amp;#125;);App.IndexRoute = Ember.Route.extend(&amp;#123;	model:function()&amp;#123;		return [&apos;red&apos;,&apos;yell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ember-in-action">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/03/Ember-in-action/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description">
+<meta property="og:description" content="App.js
+12345678910App = Ember.Application.create();App.Router.map(function()&amp;#123;	// put your routes here&amp;#125;);App.IndexRoute = Ember.Route.extend(&amp;#123;	model:function()&amp;#123;		return [&apos;red&apos;,&apos;yell">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dylan's Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Ember-in-action">
+<meta name="twitter:description" content="App.js
+12345678910App = Ember.Application.create();App.Router.map(function()&amp;#123;	// put your routes here&amp;#125;);App.IndexRoute = Ember.Route.extend(&amp;#123;	model:function()&amp;#123;		return [&apos;red&apos;,&apos;yell">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -64,69 +67,124 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
+        <section id="main"><article id="post-Ember-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/22/scala-test/" class="archive-article-date">
-  <time datetime="2015-03-23T03:58:15.000Z" itemprop="datePublished">Mar 22</time>
+<a href="/2015/04/03/Ember-in-action/" class="article-date">
+  <time datetime="2015-04-03T04:28:26.000Z" itemprop="datePublished">2015-04-03</time>
 </a>
 
 
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/22/scala-test/">scala-test</a>
+    <h1 class="article-title" itemprop="name">
+      Ember-in-action
     </h1>
   
 
-    </header>
-  </div>
-</article>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>App.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">App = Ember.Application.create();</span><br><span class="line">App.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// put your routes here</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">App.IndexRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>When you load <em><a href="http://localhost:8000" target="_blank" rel="external">http://localhost:8000</a></em> in browser:</p>
+<ol>
+<li>The HTML page loads, which loads and executes your app.js file.</li>
+<li>app.js instantiates an Ember Application</li>
+<li>When the Application starts up, it immediately looks to see if you’ve written your own <strong>ApplicationRoute</strong>,loading it if there is one, and loading its own either way.</li>
+<li>The Application does the same load-yours-too-if-you-wrote-one routine with <strong>ApplicationController</strong>.</li>
+<li>If you’ve defined your own ApplicationRoute- and defined any event hooks within that should be fired(such as an activate definition) - they will now be fired.</li>
+<li>Ember then looks for an <em>application template</em> in your HTML and sets it up with <strong>ApplicationController</strong> as its controller, which we’ll see later becomes the conduit through which data flows into your tempaltes, replacing placeholders with live data.</li>
+<li>Because we are at the <em>root URL</em> of your application(given that no route in particular is specified), Ember will now locate and instantiate the <strong>IndexRoute</strong> you specified in app.js.</li>
+<li>Ember will now identify that you didn’t specify an “”IndexController”” and will instantiate one for you,but Ember has some choices to make about what kind of default controller will be most useful. Because you defined a model in <strong>IndexRoute</strong> that is an array,Ember will instantiate an <em>ArrayController</em> as your <strong>IndexController</strong>.</li>
+<li>Ember will find the template named <em>index</em> in the HTML document and render it to the <em>outlet</em> helper in our application.</li>
+</ol>
+<p>When you load *<a href="http://localhost:8000/#/examples/1" target="_blank" rel="external">http://localhost:8000/#/examples/1</a> in browser, because we haven’t defined the route, let’s see what Ember will look for:</p>
+<ol>
+<li>Because of the <em>/examples</em>, Ember will look for a route named <strong>ExamplesRoute</strong>.</li>
+<li>Ember will look for or create an <strong>ExamplesController</strong>.</li>
+<li><p>Ember will cal the <em>model</em> function of <em>ExamplesRoute</em>, passing it the last portion of your URL, looking a bit like this, were you to define an <em>ExamplesRoute</em>:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mode</span><span class="variable">l:</span> <span class="function"><span class="keyword">function</span><span class="params">(params)</span>&#123;</span></span><br><span class="line">	<span class="keyword">return</span> App.Example.<span class="keyword">find</span>(params.example_id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Ember can now retrieve your model data and populate a template named <em>examples</em> in your HTML, rendering it to the <strong>outlet</strong> helper in your application template.</p>
+</li>
+<li></li>
+</ol>
 
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="ci8145he3000laxs7xenqv8z8" data_title="Ember-in-action" data_summary="App.js
+12345678910App = Emb..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/03/Ember-in-action/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/03/Ember-in-action/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-03T04:50:26.000Z" itemprop="dateModified">2015-04-03</time>
+</span>
+
+
+    </footer>
+  </div>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/22/emberjs-reference/" class="archive-article-date">
-  <time datetime="2015-03-22T15:11:05.000Z" itemprop="datePublished">Mar 22</time>
-</a>
-
-
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/22/emberjs-reference/">Emberjs资料索引</a>
-    </h1>
   
+    <a href="/2015/03/30/emberjs-fundamentals-notes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Emberj.js Fundamentals Notes</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
 
-  
-  
-    </div></section>
-  
+
+
+<!-- 多说评论框 start -->
+
+<section id="comments">
+  <div class="ds-thread"  data-thread-key="/2015/04/03/Ember-in-action/" data-title="Ember-in-action" data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" id="ds_thread">
+    <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
+  </div>
+</section>
+
+<!-- 多说评论框 end -->
 </section>
         
           
+  <div id="toc" class="toc-aside">
+  <h2 class="toc-title">文章目录</h2>
+    
+        
+    
+  </div>
+
 <aside id="sidebar">
 
   
@@ -419,6 +477,11 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
 	<script src="/js/gotop.js"></script>
 	-->
 
+
+	<a class="icon-toc-toggle" href="javascript:void(0)" title="文章目录"></a>
+	<!--
+	<script src="/js/toc_aside_toggle.js"></script>
+	-->
 
 </div>
 <script src="/js/toc_aside_toggle.js" type="text/javascript"></script>

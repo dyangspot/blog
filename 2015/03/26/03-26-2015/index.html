@@ -105,7 +105,7 @@
 		
         <p>今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下</p>
 <ul>
-<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz....</li>
+<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz….</li>
 <li>临近下班拿到Jin大叔分配的新任务，帮助他实现一个APIflow上的Emberjs模板的对数据的CRUD。 突然记起Jon之前实现过类似的东西，随后跟Jon要了源码，过几天研究一番，到是也省了不少力气不用重新搭建了。</li>
 </ul>
 
@@ -113,7 +113,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci7wso78y000n5os7b9eqwc36" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci8145he8000paxs7dcvsdqvu" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
       
 
       
@@ -201,7 +201,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -211,7 +211,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
     </div>
   </div>
 
@@ -221,7 +221,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -326,6 +326,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Fri Apr 03 2015 00:28:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -352,6 +358,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
+          </li>
+        
+          <li>
             <a href="/2015/03/30/emberjs-fundamentals-notes/">Emberj.js Fundamentals Notes</a>
           </li>
         
@@ -365,10 +375,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/26/03-26-2015/">03-26-2015</a>
           </li>
         
       </ul>

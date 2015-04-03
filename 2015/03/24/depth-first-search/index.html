@@ -5,40 +5,31 @@
   
   <title>depth-first-search | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Graph
-Tremaux maze exploration
-
+  <meta name="description" content="GraphTremaux maze exploration
 make each visited intersection and each visited passage
 Retrace steps when no unvisted options
 
 Depth-first search
-
-Goal. Systematically search through a graph, find al">
+Goal. Systematically search through a graph, find all v">
 <meta property="og:type" content="article">
 <meta property="og:title" content="depth-first-search">
 <meta property="og:url" content="http://dyangspot.github.io/2015/03/24/depth-first-search/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Graph
-Tremaux maze exploration
-
+<meta property="og:description" content="GraphTremaux maze exploration
 make each visited intersection and each visited passage
 Retrace steps when no unvisted options
 
 Depth-first search
-
-Goal. Systematically search through a graph, find al">
+Goal. Systematically search through a graph, find all v">
 <meta property="og:image" content="http://imgs.xkcd.com/comics/dfs.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="depth-first-search">
-<meta name="twitter:description" content="Graph
-Tremaux maze exploration
-
+<meta name="twitter:description" content="GraphTremaux maze exploration
 make each visited intersection and each visited passage
 Retrace steps when no unvisted options
 
 Depth-first search
-
-Goal. Systematically search through a graph, find al">
+Goal. Systematically search through a graph, find all v">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -118,55 +109,44 @@ Goal. Systematically search through a graph, find al">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-        <h1>Graph</h1>
-<h2>Tremaux maze exploration</h2>
-<ul>
+        <h1 id="Graph">Graph</h1><h2 id="Tremaux_maze_exploration">Tremaux maze exploration</h2><ul>
 <li>make each visited intersection and each visited passage</li>
 <li>Retrace steps when no unvisted options</li>
 </ul>
-<h2>Depth-first search</h2>
-<ul>
+<h2 id="Depth-first_search">Depth-first search</h2><ul>
 <li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
 <li>Idea. Mimic maze exploration</li>
 </ul>
-<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure></p>
-<h3>Design pattern</h3>
-<ul>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure>
+<h3 id="Design_pattern">Design pattern</h3><ul>
 <li>Decouple graph data type from graph processing.</li>
 <li>Create a Graph object.</li>
 <li>Pass the Graph to graph-processing routine.</li>
 <li>Query the graph-processing routine for information.</li>
 </ul>
-<h3>Algorithm.</h3>
-<ul>
+<h3 id="Algorithm-">Algorithm.</h3><ul>
 <li>Use recursion(ball of string).</li>
 <li>Mark each visited vertex(and keep track of edge taken to visit to it).</li>
 <li>Return(retrace steps) when no unvisited options.</li>
 </ul>
-<h3>Data structures.</h3>
-<ul>
+<h3 id="Data_structures-">Data structures.</h3><ul>
 <li><strong>boolean[] marked</strong> to mark visited vertices</li>
-<li><strong>int[] edgeTo</strong> to keep tree of paths.
-(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
+<li><strong>int[] edgeTo</strong> to keep tree of paths.<br>(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
 </ul>
-<h3>Java API</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure></p>
-<h3>Code Implemention</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Depth-first search code</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Java_API">Java API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Code_Implemention">Code Implemention</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Depth-first_search_code">Depth-first search code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7wso78g000f5os7gbwz9zzh" data_title="depth-first-search" data_summary="Graph
-Tremaux maze explorat..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci8145hdp000faxs7g8uv8bjj" data_title="depth-first-search" data_summary="GraphTremaux maze explorati..." class="article-share-link">Share</a>
       
 
       
@@ -225,7 +205,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
     
   </div>
 
@@ -254,7 +234,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -264,7 +244,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
     </div>
   </div>
 
@@ -274,7 +254,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -379,6 +359,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Fri Apr 03 2015 00:28:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -405,6 +391,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
+          </li>
+        
+          <li>
             <a href="/2015/03/30/emberjs-fundamentals-notes/">Emberj.js Fundamentals Notes</a>
           </li>
         
@@ -418,10 +408,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/26/03-26-2015/">03-26-2015</a>
           </li>
         
       </ul>

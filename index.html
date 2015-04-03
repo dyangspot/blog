@@ -66,6 +66,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Ember-in-action" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/03/Ember-in-action/" class="article-date">
+  <time datetime="2015-04-03T04:28:26.000Z" itemprop="datePublished">2015-04-03</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>App.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">App = Ember.Application.create();</span><br><span class="line">App.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// put your routes here</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">App.IndexRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>When you load <em><a href="http://localhost:8000" target="_blank" rel="external">http://localhost:8000</a></em> in browser:</p>
+<ol>
+<li>The HTML page loads, which loads and executes your app.js file.</li>
+<li>app.js instantiates an Ember Application</li>
+<li>When the Application starts up, it immediately looks to see if you’ve written your own <strong>ApplicationRoute</strong>,loading it if there is one, and loading its own either way.</li>
+<li>The Application does the same load-yours-too-if-you-wrote-one routine with <strong>ApplicationController</strong>.</li>
+<li>If you’ve defined your own ApplicationRoute- and defined any event hooks within that should be fired(such as an activate definition) - they will now be fired.</li>
+<li>Ember then looks for an <em>application template</em> in your HTML and sets it up with <strong>ApplicationController</strong> as its controller, which we’ll see later becomes the conduit through which data flows into your tempaltes, replacing placeholders with live data.</li>
+<li>Because we are at the <em>root URL</em> of your application(given that no route in particular is specified), Ember will now locate and instantiate the <strong>IndexRoute</strong> you specified in app.js.</li>
+<li>Ember will now identify that you didn’t specify an “”IndexController”” and will instantiate one for you,but Ember has some choices to make about what kind of default controller will be most useful. Because you defined a model in <strong>IndexRoute</strong> that is an array,Ember will instantiate an <em>ArrayController</em> as your <strong>IndexController</strong>.</li>
+<li>Ember will find the template named <em>index</em> in the HTML document and render it to the <em>outlet</em> helper in our application.</li>
+</ol>
+<p>When you load *<a href="http://localhost:8000/#/examples/1" target="_blank" rel="external">http://localhost:8000/#/examples/1</a> in browser, because we haven’t defined the route, let’s see what Ember will look for:</p>
+<ol>
+<li>Because of the <em>/examples</em>, Ember will look for a route named <strong>ExamplesRoute</strong>.</li>
+<li>Ember will look for or create an <strong>ExamplesController</strong>.</li>
+<li><p>Ember will cal the <em>model</em> function of <em>ExamplesRoute</em>, passing it the last portion of your URL, looking a bit like this, were you to define an <em>ExamplesRoute</em>:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mode</span><span class="variable">l:</span> <span class="function"><span class="keyword">function</span><span class="params">(params)</span>&#123;</span></span><br><span class="line">	<span class="keyword">return</span> App.Example.<span class="keyword">find</span>(params.example_id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Ember can now retrieve your model data and populate a template named <em>examples</em> in your HTML, rendering it to the <strong>outlet</strong> helper in your application template.</p>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="ci8145he3000laxs7xenqv8z8" data_title="Ember-in-action" data_summary="App.js
+12345678910App = Emb..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/03/Ember-in-action/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/03/Ember-in-action/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-03T04:50:26.000Z" itemprop="dateModified">2015-04-03</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-emberjs-fundamentals-notes" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -95,102 +187,113 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">First App,First Template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">The incantation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Conventional Wisdom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Nesting Routes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Sharing Data & Deep Nesting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">Use Third party JS API, Helper!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">Saving Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">Review</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#First_App,First_Template"><span class="toc-number">1.</span> <span class="toc-text">First App,First Template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The_incantation"><span class="toc-number">2.</span> <span class="toc-text">The incantation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conventional_Wisdom"><span class="toc-number">3.</span> <span class="toc-text">Conventional Wisdom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mapping_a_Route"><span class="toc-number">4.</span> <span class="toc-text">Mapping a Route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nesting_Routes"><span class="toc-number">5.</span> <span class="toc-text">Nesting Routes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sharing_Data_&_Deep_Nesting"><span class="toc-number">6.</span> <span class="toc-text">Sharing Data & Deep Nesting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary"><span class="toc-number">7.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Use_Third_party_JS_API,_Helper!"><span class="toc-number">8.</span> <span class="toc-text">Use Third party JS API, Helper!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Saving_Data"><span class="toc-number">9.</span> <span class="toc-text">Saving Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">10.</span> <span class="toc-text">Review</span></a></li></ol>
 		
 		</div>
 		
-        <p>This is <a href="http://www.pluralsight.com/training/Player?author=rob-conery&amp;name=ember-fundamentals-m2-github&amp;clip=4&amp;course=emberjs-fundamentals" target="_blank" rel="external">Ember.js Fundamental</a> course provided by Pluralsight, I'm taking notes and pushing them here, so i can later use this page as a Emberj.js quick reference.</p>
-<h3>First App,First Template</h3>
-<p>Debug: set Log_TRANSITION:True</p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"github-app"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-handlebars"</span>&gt;</span><span class="javascript"></span><br><span class="line">	&lt;h1&gt;Hello from Emberjs&lt;<span class="regexp">/h1&gt;</span><br><span class="line">	&#123;&#123;outlet&#125;&#125;</span><br><span class="line"></span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">	UserAdmin = Emberjs.Application.create(&#123;</span><br><span class="line">		rootElement:<span class="string">'#github-app'</span></span><br><span class="line">	&#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3>The incantation</h3>
-<ul>
+        <p>This is <a href="http://www.pluralsight.com/training/Player?author=rob-conery&amp;name=ember-fundamentals-m2-github&amp;clip=4&amp;course=emberjs-fundamentals" target="_blank" rel="external">Ember.js Fundamental</a> course provided by Pluralsight, I’m taking notes and pushing them here, so i can later use this page as a Emberj.js quick reference. </p>
+<h3 id="First_App,First_Template">First App,First Template</h3><p>Debug: set Log_TRANSITION:True</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"github-app"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-handlebars"</span>&gt;</span><span class="javascript"></span><br><span class="line">	&lt;h1&gt;Hello from Emberjs&lt;<span class="regexp">/h1&gt;</span><br><span class="line">	&#123;&#123;outlet&#125;&#125;</span><br><span class="line"></span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">	UserAdmin = Emberjs.Application.create(&#123;</span><br><span class="line">		rootElement:<span class="string">'#github-app'</span></span><br><span class="line">	&#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="The_incantation">The incantation</h3><ul>
 <li>A URL wants a Route</li>
 <li>a Route sets the Model</li>
 <li>A Route prepares the Controller</li>
 <li>The Controller backs the template</li>
 </ul>
-<h3>Conventional Wisdom</h3>
-<p>/ -&gt; IndexRoute -&gt; IndexController</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Github.IndexController = Ember.ArrayController.extend()&#123;</span><br><span class="line">	renderedOn:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">	&#125;.property()</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>###Mapping a Route
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="function"><span class="title">resource</span><span class="params">(<span class="string">"thing"</span>)</span></span></span><br><span class="line">this.<span class="function"><span class="title">route</span><span class="params">(<span class="string">"action"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
-<h3>Nesting Routes</h3>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Github.UserIndexRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.modelFor(<span class="string">'user'</span>); <span class="comment">// grab the model for user and return it. 		</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);	</span><br><span class="line">	</span><br><span class="line">Github.UserUserRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.modelFor(<span class="string">'user'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>As we can these, this.modelFor('') can be used in different routes sharing data.</p>
-<h3>Sharing Data &amp; Deep Nesting</h3>
-<p>Use <em>link-to</em> bind model as a parameter.
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">respository</span>' <span class="variable">this</span>&#125;&#125;</span><span class="xml"> </span><span class="expression">&#123;&#123;<span class="variable">name</span>&#125;&#125;</span><span class="xml"> </span><span class="expression">&#123;&#123;<span class="end-block">/link-to</span>&#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Conventional_Wisdom">Conventional Wisdom</h3><p>/ -&gt; IndexRoute -&gt; IndexController</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Github.IndexController = Ember.ArrayController.extend()&#123;</span><br><span class="line">	renderedOn:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">	&#125;.property()</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Mapping_a_Route">Mapping a Route</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.<span class="function"><span class="title">resource</span><span class="params">(<span class="string">"thing"</span>)</span></span></span><br><span class="line">this.<span class="function"><span class="title">route</span><span class="params">(<span class="string">"action"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Nesting_Routes">Nesting Routes</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Github.UserIndexRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.modelFor(<span class="string">'user'</span>); <span class="comment">// grab the model for user and return it. 		</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);	</span><br><span class="line">	</span><br><span class="line">Github.UserUserRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.modelFor(<span class="string">'user'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>As we can these, this.modelFor(‘’) can be used in different routes sharing data.</p>
+<h3 id="Sharing_Data_&amp;_Deep_Nesting">Sharing Data &amp; Deep Nesting</h3><p>Use <em>link-to</em> bind model as a parameter.<br><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">respository</span>' <span class="variable">this</span>&#125;&#125;</span><span class="xml"> </span><span class="expression">&#123;&#123;<span class="variable">name</span>&#125;&#125;</span><span class="xml"> </span><span class="expression">&#123;&#123;<span class="end-block">/link-to</span>&#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure></p>
 <p>Pass along <em>respository</em> model</p>
 <p>Share the data in Route and Controller.</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Github.RepositoriesRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;/:</span><br><span class="line">		<span class="keyword">var</span> user = <span class="keyword">this</span>.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(user.repos_url);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);	</span><br><span class="line"></span><br><span class="line">Github.RepositoriesController = Ember.ArrayController.extend(&#123;</span><br><span class="line">	needs:[<span class="string">"user"</span>], <span class="comment">// */user* route is the parent route for */respositories* route</span></span><br><span class="line">	user:Ember.computed.alias(<span class="string">"controllers.user"</span>); <span class="comment">// goes to controllers.user and alias it, when user changes, this also change</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3>Summary</h3>
-<ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Github.RepositoriesRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;/:</span><br><span class="line">		<span class="keyword">var</span> user = <span class="keyword">this</span>.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(user.repos_url);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);	</span><br><span class="line"></span><br><span class="line">Github.RepositoriesController = Ember.ArrayController.extend(&#123;</span><br><span class="line">	needs:[<span class="string">"user"</span>], <span class="comment">// */user* route is the parent route for */respositories* route</span></span><br><span class="line">	user:Ember.computed.alias(<span class="string">"controllers.user"</span>); <span class="comment">// goes to controllers.user and alias it, when user changes, this also change</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Summary">Summary</h3><ul>
 <li>$.getJSON, Emberjs does Promise</li>
 </ul>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Github.RepositoriesRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> user = <span class="keyword">this</span>.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(user.repos_url);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Github.RepositoriesRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> user = <span class="keyword">this</span>.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(user.repos_url);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Nested: Resource vs. Route
-A resource is for a thing, a route is for something you do to that thing.</li>
+<li>Nested: Resource vs. Route<br>A resource is for a thing, a route is for something you do to that thing.</li>
 </ul>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repository"</span>,&#123;path:<span class="string">"repositories/:reponame"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"issues"</span>);</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"forks"</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repository"</span>,&#123;path:<span class="string">"repositories/:reponame"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"issues"</span>);</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"forks"</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>If your UI is nested, your route should be nested.</p>
+<li>If your UI is nested, your route should be nested.</li>
+<li><p>Caching and Naming</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">user</span>' <span class="variable">this.login</span>&#125;&#125;</span><span class="xml">	</span><br><span class="line">  			vs </span><br><span class="line"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">user</span>' <span class="variable">this</span>&#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>Caching and Naming
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">user</span>' <span class="variable">this.login</span>&#125;&#125;</span><span class="xml">	</span><br><span class="line">  			vs </span><br><span class="line"></span><span class="expression">&#123;&#123;<span class="begin-block">#link-to </span>'<span class="variable">user</span>' <span class="variable">this</span>&#125;&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>Computed Properties
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Github</span>.<span class="constant">Repository</span>Controller = <span class="constant">Ember</span>.<span class="constant">Object</span>Controller.<span class="keyword">extend(&#123;</span></span><br><span class="line">	needs:[<span class="string">"user"</span>],</span><br><span class="line">	<span class="keyword">user</span>:<span class="constant">Ember</span>.conputed.<span class="literal">alias</span>(<span class="string">"controllers.user"</span>),</span><br><span class="line">	forked:<span class="constant">Ember</span>.computed.<span class="literal">alias</span>(<span class="string">"fork"</span>)</span><br><span class="line"><span class="keyword">&#125;</span>);</span><br></pre></td></tr></table></figure></p>
+<li><p>Computed Properties</p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Github</span>.<span class="constant">Repository</span>Controller = <span class="constant">Ember</span>.<span class="constant">Object</span>Controller.<span class="keyword">extend(&#123;</span></span><br><span class="line">	needs:[<span class="string">"user"</span>],</span><br><span class="line">	<span class="keyword">user</span>:<span class="constant">Ember</span>.conputed.<span class="literal">alias</span>(<span class="string">"controllers.user"</span>),</span><br><span class="line">	forked:<span class="constant">Ember</span>.computed.<span class="literal">alias</span>(<span class="string">"fork"</span>)</span><br><span class="line"><span class="keyword">&#125;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>Here tell ember to alias fork as 'forked', so we can use it in our template directly.</p>
-<h3>Use Third party JS API, Helper!</h3>
-<p>Register helper for moment.js</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Here tell ember to alias fork as ‘forked’, so we can use it in our template directly.</p>
+<h3 id="Use_Third_party_JS_API,_Helper!">Use Third party JS API, Helper!</h3><p>Register helper for moment.js </p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>In the template should goes</p>
-<p><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"text-muted"</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">fromDate</span> <span class="variable">created</span>_<span class="variable">at</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<h3>Saving Data</h3>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repository"</span>,&#123;path:<span class="string">"repositories/:reponame"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"issues"</span>);</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"forks"</span>);</span><br><span class="line">			<span class="keyword">this</span>.route(<span class="string">"newissue"</span>);  <span class="comment">// &lt;- </span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/x-handlebars"</span> id=<span class="string">"repository/newissue"</span>&gt; <span class="comment">// not a resource, so put nested route directly </span></span><br><span class="line">...</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&#123;&#123;#link-to <span class="string">'repository.newissue'</span>&#125;&#125;New Issue&#123;&#123;/link-to&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;input value=issueTitle <span class="class"><span class="keyword">class</span>="<span class="title">form</span>-<span class="title">control</span>" <span class="title">placeholder</span>="<span class="title">Title</span> <span class="title">of</span> <span class="title">issue</span>"&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span>&#123;&#123;textarea value=issueBody <span class="class"><span class="keyword">class</span>="<span class="title">form</span>-<span class="title">control</span>" <span class="title">placeholder</span>="<span class="title">What</span>'<span class="title">s</span> <span class="title">your</span> <span class="title">issue</span>" <span class="title">rows</span>=5&#125;&#125;</span><br><span class="line"></span><br><span class="line">//<span class="title">create</span> <span class="title">an</span> <span class="title">issue</span> <span class="title">object</span></span><br><span class="line"></span><br><span class="line"><span class="title">Github</span>.<span class="title">Issue</span> = <span class="title">Ember</span>.<span class="title">Object</span>.<span class="title">extend</span>(</span>&#123;</span><br><span class="line">	issueTitle:<span class="string">""</span>,</span><br><span class="line">	issueBody:<span class="string">""</span>,</span><br><span class="line">	isValid:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//do some validations...</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Github.REpositoryNewissueController = Ember.Controller.extend(&#123;</span><br><span class="line">	issueTitle: <span class="string">"Ember confused me"</span>  <span class="comment">// set up issueTitle like this</span></span><br><span class="line">	needs:[<span class="string">'repository'</span>],</span><br><span class="line">	repo:Ember.computed.alias(<span class="string">"controllers.repository"</span>),</span><br><span class="line">	issue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Github.Issue.create();</span><br><span class="line">	&#125;.property(<span class="string">"repo.model"</span>), <span class="comment">// create an issue,that is going to return, every time accessing issue, since add the binding into issue. whenever the repo changes, gonna change the binding in issue. which means when repo changes, gonna force a new issue to create</span></span><br><span class="line">	actions:&#123;</span><br><span class="line">		submitIssue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="comment">//var vals = this.getProperties("issueTitle","issueBody") // create an object for you </span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">var</span> issue = <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'issue'</span>); <span class="comment">// get the properity issue</span></span><br><span class="line">			<span class="keyword">var</span> url = <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">"repo"</span>).<span class="keyword">get</span>(<span class="string">"issues_url"</span>); <span class="comment">// get the properity 'repo'</span></span><br><span class="line">			</span><br><span class="line">			Ember.$.post(url,&#123;title:issueTitle,body:issueBody&#125;,<span class="function"><span class="keyword">function</span><span class="params">(result)</span></span>&#123;</span><br><span class="line">			<span class="comment">//success...</span></span><br><span class="line">			<span class="comment">//reset it </span></span><br><span class="line">			<span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">"issue"</span>,Github.Issue.create());</span><br><span class="line">			<span class="keyword">this</span>.transitionToRoute(<span class="string">"issues"</span>);</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3>Review</h3>
-<ul>
-<li>Helpres</li>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">p</span> <span class="attribute">class</span>=<span class="value">"text-muted"</span>&gt;</span></span><span class="expression">&#123;&#123;<span class="variable">fromDate</span> <span class="variable">created</span>_<span class="variable">at</span>&#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Saving_Data">Saving Data</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">Github.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.resource(<span class="string">"user"</span>,&#123;path:<span class="string">"users/:login"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repositories"</span>);</span><br><span class="line">		<span class="keyword">this</span>.resource(<span class="string">"repository"</span>,&#123;path:<span class="string">"repositories/:reponame"</span>&#125;,<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"issues"</span>);</span><br><span class="line">			<span class="keyword">this</span>.resource(<span class="string">"forks"</span>);</span><br><span class="line">			<span class="keyword">this</span>.route(<span class="string">"newissue"</span>);  <span class="comment">// &lt;- </span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/x-handlebars"</span> id=<span class="string">"repository/newissue"</span>&gt; <span class="comment">// not a resource, so put nested route directly </span></span><br><span class="line">...</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&#123;&#123;#link-to <span class="string">'repository.newissue'</span>&#125;&#125;New Issue&#123;&#123;/link-to&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&#123;input value=issueTitle <span class="class"><span class="keyword">class</span>="<span class="title">form</span>-<span class="title">control</span>" <span class="title">placeholder</span>="<span class="title">Title</span> <span class="title">of</span> <span class="title">issue</span>"&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span>&#123;&#123;textarea value=issueBody <span class="class"><span class="keyword">class</span>="<span class="title">form</span>-<span class="title">control</span>" <span class="title">placeholder</span>="<span class="title">What</span>'<span class="title">s</span> <span class="title">your</span> <span class="title">issue</span>" <span class="title">rows</span>=5&#125;&#125;</span><br><span class="line"></span><br><span class="line">//<span class="title">create</span> <span class="title">an</span> <span class="title">issue</span> <span class="title">object</span></span><br><span class="line"></span><br><span class="line"><span class="title">Github</span>.<span class="title">Issue</span> = <span class="title">Ember</span>.<span class="title">Object</span>.<span class="title">extend</span>(</span>&#123;</span><br><span class="line">	issueTitle:<span class="string">""</span>,</span><br><span class="line">	issueBody:<span class="string">""</span>,</span><br><span class="line">	isValid:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//do some validations...</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Github.REpositoryNewissueController = Ember.Controller.extend(&#123;</span><br><span class="line">	issueTitle: <span class="string">"Ember confused me"</span>  <span class="comment">// set up issueTitle like this</span></span><br><span class="line">	needs:[<span class="string">'repository'</span>],</span><br><span class="line">	repo:Ember.computed.alias(<span class="string">"controllers.repository"</span>),</span><br><span class="line">	issue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Github.Issue.create();</span><br><span class="line">	&#125;.property(<span class="string">"repo.model"</span>), <span class="comment">// create an issue,that is going to return, every time accessing issue, since add the binding into issue. whenever the repo changes, gonna change the binding in issue. which means when repo changes, gonna force a new issue to create</span></span><br><span class="line">	actions:&#123;</span><br><span class="line">		submitIssue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="comment">//var vals = this.getProperties("issueTitle","issueBody") // create an object for you </span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">var</span> issue = <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'issue'</span>); <span class="comment">// get the properity issue</span></span><br><span class="line">			<span class="keyword">var</span> url = <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">"repo"</span>).<span class="keyword">get</span>(<span class="string">"issues_url"</span>); <span class="comment">// get the properity 'repo'</span></span><br><span class="line">			</span><br><span class="line">			Ember.$.post(url,&#123;title:issueTitle,body:issueBody&#125;,<span class="function"><span class="keyword">function</span><span class="params">(result)</span></span>&#123;</span><br><span class="line">			<span class="comment">//success...</span></span><br><span class="line">			<span class="comment">//reset it </span></span><br><span class="line">			<span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">"issue"</span>,Github.Issue.create());</span><br><span class="line">			<span class="keyword">this</span>.transitionToRoute(<span class="string">"issues"</span>);</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Review">Review</h3><ul>
+<li>Helpres </li>
 </ul>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;fromDate created_at&#125;&#125;</span><br><span class="line"></span><br><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;fromDate created_at&#125;&#125;</span><br><span class="line"></span><br><span class="line">Ember.Handlebars.registerBoundHelper(<span class="string">'fromDate'</span>,<span class="function"><span class="keyword">function</span><span class="params">(theDate)</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> today = moment();</span><br><span class="line">	<span class="keyword">var</span> target = moment(theDate);</span><br><span class="line">	<span class="keyword">return</span> target.from(today);	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <ul>
-<li>
-<p>$.post
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Ember</span>.$.post(url,&#123;title:issueTitle,body:issueBody&#125;,function(<span class="literal">result</span>)&#123;</span><br><span class="line">			//success..</span><br><span class="line">			this.transitionToRoute(<span class="string">"issues"</span>);</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure></p>
+<li><p>$.post</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Ember</span>.$.post(url,&#123;title:issueTitle,body:issueBody&#125;,function(<span class="literal">result</span>)&#123;</span><br><span class="line">			//success..</span><br><span class="line">			this.transitionToRoute(<span class="string">"issues"</span>);</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>needs vs. modelFor</p>
+<li><p>needs vs. modelFor</p>
 </li>
 </ul>
-<p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Github.RepositoryController = Ember.ObjectController.extend(&#123;</span><br><span class="line">	needs:[<span class="string">'user'</span>],</span><br><span class="line">	user:Ember.computed.alias(<span class="string">"controllers.user"</span>),</span><br><span class="line">	forked: Ember.computed.alias(<span class="string">"fork"</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Github.RepositoryRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="keyword">function</span>(params)&#123;</span><br><span class="line">		var user = this.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		// <span class="keyword">...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Github.RepositoryController = Ember.ObjectController.extend(&#123;</span><br><span class="line">	needs:[<span class="string">'user'</span>],</span><br><span class="line">	user:Ember.computed.alias(<span class="string">"controllers.user"</span>),</span><br><span class="line">	forked: Ember.computed.alias(<span class="string">"fork"</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Github.RepositoryRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="keyword">function</span>(params)&#123;</span><br><span class="line">		var user = this.modelFor(<span class="string">"user"</span>);</span><br><span class="line">		// <span class="keyword">...</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>Bascially, controllers can need other controllers, routes use other models in other routes</p>
 <ul>
-<li>Resource vs.Route
-A resource has it's own route name, a route must include the resource name.</li>
+<li>Resource vs.Route<br>A resource has it’s own route name, a route must include the resource name.</li>
 </ul>
-<p>|Template  | Route   | Controller  | Route Name  |<br>
-|---|---|---|---|---|
-|repositories RepositoriesRoute  |RepositoriesController   |repositories   |   |<br>
-|issues |IssuesRoute   |IssuesController   |issues   |<br>
-|commits   |CommitsRoute   |CommitsController   |commits  |<br>
-|<strong>repository/newissue</strong>   |<strong>RepositoryNewissueRoute</strong>   |<strong>RepositoryNewissueController</strong>   |<strong>repository.newissue</strong>   |</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Route</th>
+<th>Controller</th>
+<th>Route Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>repositories RepositoriesRoute</td>
+<td>RepositoriesController</td>
+<td>repositories</td>
+<td></td>
+</tr>
+<tr>
+<td>issues</td>
+<td>IssuesRoute</td>
+<td>IssuesController</td>
+<td>issues</td>
+</tr>
+<tr>
+<td>commits</td>
+<td>CommitsRoute</td>
+<td>CommitsController</td>
+<td>commits</td>
+</tr>
+<tr>
+<td><strong>repository/newissue</strong></td>
+<td><strong>RepositoryNewissueRoute</strong></td>
+<td><strong>RepositoryNewissueController</strong></td>
+<td><strong>repository.newissue</strong></td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>Computed Properties</li>
 </ul>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Github.REpositoryNewissueController = Ember.Controller.extend(&#123;</span><br><span class="line">	issueTitle: <span class="string">"Ember confused me"</span>  <span class="comment">// set up issueTitle like this</span></span><br><span class="line">	needs:[<span class="string">'repository'</span>],</span><br><span class="line">	repo:Ember.computed.alias(<span class="string">"controllers.repository"</span>),</span><br><span class="line">	issue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Github.Issue.create();</span><br><span class="line">	&#125;.property(<span class="string">"repo.model"</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Github.REpositoryNewissueController = Ember.Controller.extend(&#123;</span><br><span class="line">	issueTitle: <span class="string">"Ember confused me"</span>  <span class="comment">// set up issueTitle like this</span></span><br><span class="line">	needs:[<span class="string">'repository'</span>],</span><br><span class="line">	repo:Ember.computed.alias(<span class="string">"controllers.repository"</span>),</span><br><span class="line">	issue:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> Github.Issue.create();</span><br><span class="line">	&#125;.property(<span class="string">"repo.model"</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="ci7wso782000a5os7buzmbsli" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="ci8145hdi000aaxs7rymy647p" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
       
 
       
@@ -247,58 +350,45 @@ A resource has it's own route name, a route must include the resource name.</li>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directed_Graphs"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_API"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_Search"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS_in_directed_graphs"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Depth-first_search_in_digraphs_summary"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_in_digraphs"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-        <h1>Directed Graphs</h1>
-<p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
-<p>Application:</p>
+        <h1 id="Directed_Graphs">Directed Graphs</h1><p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
+<p>Application: </p>
 <ul>
-<li>
-<p>Road network. Vertex = intersectiion; edge = one-way street</p>
+<li><p>Road network. Vertex = intersectiion; edge = one-way street</p>
 </li>
-<li>
-<p>Political blogosphere graph. Vertex=political blog;edge=link</p>
+<li><p>Political blogosphere graph. Vertex=political blog;edge=link</p>
 </li>
-<li>
-<p>Overnight interbank loan graph. Vertex=bank; edge= overnigh load</p>
+<li><p>Overnight interbank loan graph. Vertex=bank; edge= overnigh load</p>
 </li>
-<li>
-<p>Combinational circuit. Vertex=logical gate;edge=wire</p>
+<li><p>Combinational circuit. Vertex=logical gate;edge=wire</p>
 </li>
-<li>
-<p>WordNet graph. Vertex=synset;edge=hypernym relationship</p>
+<li><p>WordNet graph. Vertex=synset;edge=hypernym relationship</p>
 </li>
 </ul>
-<h2>Digraph API</h2>
-<p><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Digraph</span><br><span class="line">____________________________</span><br><span class="line">		Diagraph(<span class="keyword">int</span> V)	 <span class="comment">// create an empty diagraph with V vertices</span></span><br><span class="line">		Diagraph(In <span class="keyword">in</span>)    <span class="comment">// create a diagraph from input stream</span></span><br><span class="line">		<span class="keyword">void</span> addEdge(<span class="keyword">int</span> v,<span class="keyword">int</span> w) <span class="comment">// add a directed edge v-&gt;w</span></span><br><span class="line">Iterable&lt;Integer&gt; adj(<span class="keyword">int</span> v)	<span class="comment">// vertices pointing from w</span></span><br><span class="line">		 <span class="keyword">int</span> V()					<span class="comment">// # of vertices</span></span><br><span class="line">		 <span class="keyword">int</span> E()					<span class="comment">// # of edges</span></span><br><span class="line">	Digraph  reverse()				<span class="comment">// reverse of this digraph</span></span><br><span class="line">	String   toString()				<span class="comment">// string representation</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	In <span class="keyword">in</span> = <span class="keyword">new</span> In(args[<span class="number">0</span>]);</span><br><span class="line">	Diagraph G = <span class="keyword">new</span> Diagraph(<span class="keyword">in</span>);   <span class="comment">// read diagraph from input stream</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			StdOut.println(v + <span class="string">"-&gt;"</span> + w);	<span class="comment">// print out each edge(once)</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Digraph_API">Digraph API</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Digraph</span><br><span class="line">____________________________</span><br><span class="line">		Diagraph(<span class="keyword">int</span> V)	 <span class="comment">// create an empty diagraph with V vertices</span></span><br><span class="line">		Diagraph(In <span class="keyword">in</span>)    <span class="comment">// create a diagraph from input stream</span></span><br><span class="line">		<span class="keyword">void</span> addEdge(<span class="keyword">int</span> v,<span class="keyword">int</span> w) <span class="comment">// add a directed edge v-&gt;w</span></span><br><span class="line">Iterable&lt;Integer&gt; adj(<span class="keyword">int</span> v)	<span class="comment">// vertices pointing from w</span></span><br><span class="line">		 <span class="keyword">int</span> V()					<span class="comment">// # of vertices</span></span><br><span class="line">		 <span class="keyword">int</span> E()					<span class="comment">// # of edges</span></span><br><span class="line">	Digraph  reverse()				<span class="comment">// reverse of this digraph</span></span><br><span class="line">	String   toString()				<span class="comment">// string representation</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	In <span class="keyword">in</span> = <span class="keyword">new</span> In(args[<span class="number">0</span>]);</span><br><span class="line">	Diagraph G = <span class="keyword">new</span> Diagraph(<span class="keyword">in</span>);   <span class="comment">// read diagraph from input stream</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			StdOut.println(v + <span class="string">"-&gt;"</span> + w);	<span class="comment">// print out each edge(once)</span></span><br></pre></td></tr></table></figure>
 <p>Adjacency-lists graph representation: Java implementation</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> <span class="title">Digraph</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Bag&lt;Integer&gt;[] adj;		<span class="comment">// adjacency lists</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Digraph</span><span class="params">(<span class="keyword">int</span> V)</span></span>&#123;		<span class="comment">// create empty diagraph with v vertices</span></span><br><span class="line">		<span class="keyword">this</span>.V = V;</span><br><span class="line">		adj=(Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;V;v++)</span><br><span class="line">			adj[v]=<span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;   <span class="comment">// add edge v-&gt;w</span></span><br><span class="line">		adj[v].add[w]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Iterable&lt;Integer&gt; adj&lt;<span class="keyword">int</span> v&gt; &#123; <span class="comment">// iterator for vertices pointing from v</span></span><br><span class="line">		<span class="keyword">return</span> adj[v];		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2>Digraph Search</h2>
-<h3>DFS in directed graphs</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedDFS</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> [] marked;   <span class="comment">// true if from s </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> DirectedDFS)(Digraph G,<span class="keyword">int</span> s)&#123; <span class="comment">// constructor marks vertices reachable from s</span></span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">		dfs[(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G,<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// recursive DFS does the work</span></span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			<span class="keyword">if</span>(!marked[w]) dfs(G,w)			</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">visited</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// client can ask whether any vertex is reachable from s</span></span><br><span class="line">		<span class="keyword">return</span> marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4>Depth-first search in digraphs summary</h4>
-<p>DFS enables direct solution of simple digraph problems.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> <span class="title">Digraph</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Bag&lt;Integer&gt;[] adj;		<span class="comment">// adjacency lists</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Digraph</span><span class="params">(<span class="keyword">int</span> V)</span></span>&#123;		<span class="comment">// create empty diagraph with v vertices</span></span><br><span class="line">		<span class="keyword">this</span>.V = V;</span><br><span class="line">		adj=(Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;V;v++)</span><br><span class="line">			adj[v]=<span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;   <span class="comment">// add edge v-&gt;w</span></span><br><span class="line">		adj[v].add[w]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Iterable&lt;Integer&gt; adj&lt;<span class="keyword">int</span> v&gt; &#123; <span class="comment">// iterator for vertices pointing from v</span></span><br><span class="line">		<span class="keyword">return</span> adj[v];		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Digraph_Search">Digraph Search</h2><h3 id="DFS_in_directed_graphs">DFS in directed graphs</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedDFS</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> [] marked;   <span class="comment">// true if from s </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> DirectedDFS)(Digraph G,<span class="keyword">int</span> s)&#123; <span class="comment">// constructor marks vertices reachable from s</span></span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">		dfs[(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G,<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// recursive DFS does the work</span></span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			<span class="keyword">if</span>(!marked[w]) dfs(G,w)			</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">visited</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// client can ask whether any vertex is reachable from s</span></span><br><span class="line">		<span class="keyword">return</span> marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Depth-first_search_in_digraphs_summary">Depth-first search in digraphs summary</h4><p>DFS enables direct solution of simple digraph problems.</p>
 <ul>
 <li>Reachability.</li>
 <li>Path finding.</li>
 <li>Topological sort.</li>
-<li>Directed cycle detection.
-Basis for solving difficult digraph problems</li>
+<li>Directed cycle detection.<br>Basis for solving difficult digraph problems</li>
 <li>2-satisfiability.</li>
 <li>Directed Euler path.</li>
 <li>Strongly-connected components.</li>
 </ul>
-<h3>BFS in digraphs</h3>
-<p>Proposition. BFS computes shortest pahts(fewest # of edges) from <em>s</em> to all other vertices n a digraph in time proportional to <em>E+V</em></p>
+<h3 id="BFS_in_digraphs">BFS in digraphs</h3><p>Proposition. BFS computes shortest pahts(fewest # of edges) from <em>s</em> to all other vertices n a digraph in time proportional to <em>E+V</em> </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci7wso784000c5os7sxd1rk4j" data_title="Directed Graphs" data_summary="Directed Graphs
-Digraph. Se..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci8145hdl000caxs7fxxq3cl2" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
       
 
       
@@ -359,16 +449,15 @@ Digraph. Se..." class="article-share-link">Share</a>
 		
 		</div>
 		
-        <p>今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。
-错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详</p>
-<p>正确做法： 把List放在ApplicationRouter中，Detail放在对应的DetailRouter中，List放在Application template下，Detail页面布局的  放在Application template下。</p>
+        <p>今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。<br>错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详</p>
+<p>正确做法： 把List放在ApplicationRouter中，Detail放在对应的DetailRouter中，List放在Application template下，Detail页面布局的  放在Application template下。 </p>
 <p><a href="http://jsbin.com/ijejap/1/edit?html,js" target="_blank" rel="external">例子</a></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci7wso77z00085os7lkj0qc67" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci8145hdg0008axs770iidfhg" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
       
 
       
@@ -429,15 +518,13 @@ Digraph. Se..." class="article-share-link">Share</a>
 		
 		</div>
 		
-        <p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，迷迷糊糊半路出家走上IT的道路，这一年的成长收货也是良多的，期间虽然经历过各种心酸挫折，到最后能够找到个不错的工作，也算是对自己努力的回报吧。
-今儿的工作依旧是在SharePoint平台上面进行Meetings模块的搭建，其实就是做各种XML的configuration嘛，真是自欺欺人orz。下午送走了Jin大叔，Jin是我进公司以来我认识的唯一一个华人同事，能够跟Jin一起工作，也是倍感荣幸的。
-发现自己自从做Sharepoint以来，好久没有写emberjs了，会不会手生了都忘光了呢？明儿又是周末了，whatever, 等下周再说吧...</p>
+        <p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，迷迷糊糊半路出家走上IT的道路，这一年的成长收货也是良多的，期间虽然经历过各种心酸挫折，到最后能够找到个不错的工作，也算是对自己努力的回报吧。<br>今儿的工作依旧是在SharePoint平台上面进行Meetings模块的搭建，其实就是做各种XML的configuration嘛，真是自欺欺人orz。下午送走了Jin大叔，Jin是我进公司以来我认识的唯一一个华人同事，能够跟Jin一起工作，也是倍感荣幸的。<br>发现自己自从做Sharepoint以来，好久没有写emberjs了，会不会手生了都忘光了呢？明儿又是周末了，whatever, 等下周再说吧…</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/28/03-28-2015/" data-id="ci7wso78u000l5os7q8jqije0" data_title="03-28-2015" data_summary="自去年2月份以来，直接或间接的从事各种coding的工..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/28/03-28-2015/" data-id="ci8145he6000naxs7un8k5xev" data_title="03-28-2015" data_summary="自去年2月份以来，直接或间接的从事各种coding的工..." class="article-share-link">Share</a>
       
 
       
@@ -500,7 +587,7 @@ Digraph. Se..." class="article-share-link">Share</a>
 		
         <p>今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下</p>
 <ul>
-<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz....</li>
+<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz….</li>
 <li>临近下班拿到Jin大叔分配的新任务，帮助他实现一个APIflow上的Emberjs模板的对数据的CRUD。 突然记起Jon之前实现过类似的东西，随后跟Jon要了源码，过几天研究一番，到是也省了不少力气不用重新搭建了。</li>
 </ul>
 
@@ -508,7 +595,7 @@ Digraph. Se..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci7wso78y000n5os7b9eqwc36" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci8145he8000paxs7dcvsdqvu" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
       
 
       
@@ -565,30 +652,26 @@ Digraph. Se..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Application:_particle_detection"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
 		
 		</div>
 		
         <p>Def. Vertices <em>v</em> and <em>w</em> are connected if there is a path between them.</p>
 <p>Goal. Proepocess graph to answer queries of the form is <em>v</em> connected to <em>w</em> in <strong>constant</strong> time?</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> class CC</span><br><span class="line">	<span class="title">CC</span><span class="params">(Graph G)</span>	 	<span class="comment">// 	 find connected components in G</span></span><br><span class="line">	<span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span>        <span class="comment">//are v and w connected?</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> 					<span class="comment">//number of connected components</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> v)</span>			<span class="comment">// component identifier for v</span></span></span><br></pre></td></tr></table></figure></p>
-<p>The relation &quot;is connected to&quot; is an <em>equivalence relation</em>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> class CC</span><br><span class="line">	<span class="title">CC</span><span class="params">(Graph G)</span>	 	<span class="comment">// 	 find connected components in G</span></span><br><span class="line">	<span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span>        <span class="comment">//are v and w connected?</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> 					<span class="comment">//number of connected components</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> v)</span>			<span class="comment">// component identifier for v</span></span></span><br></pre></td></tr></table></figure>
+<p>The relation “is connected to” is an <em>equivalence relation</em>:</p>
 <ul>
-<li>
-<p>Relflexive: <em>v</em> is connected to <em>v</em>.</p>
+<li><p>Relflexive: <em>v</em> is connected to <em>v</em>.</p>
 </li>
-<li>
-<p>Symmetric: if <em>v</em> is connected to <em>w</em>,then <em>w</em> is connected to <em>v</em>.</p>
+<li><p>Symmetric: if <em>v</em> is connected to <em>w</em>,then <em>w</em> is connected to <em>v</em>.</p>
 </li>
-<li>
-<p>Transitive: if <em>v</em> connected to <em>w</em> and <em>w</em> connected to <em>x</em>, then <em>v</em> connected to <em>x</em>.</p>
+<li><p>Transitive: if <em>v</em> connected to <em>w</em> and <em>w</em> connected to <em>x</em>, then <em>v</em> connected to <em>x</em>.</p>
 </li>
 </ul>
-<p>Def. A ** connected component** is a maximal set of connected vertices.</p>
+<p>Def. A <strong> connected component</strong> is a maximal set of connected vertices.</p>
 <p>Goal. Partition vertices into connected components.</p>
-<p><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Initizlize all vertices *v* as unmarked.</span><br><span class="line">For each unmarked vertex *v*, run DFS to identify all vertices discovered as part of the same component.</span><br><span class="line">``` </span><br><span class="line"><span class="preprocessor">### Finding connected components with DFS</span></span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> boolan marked[];</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] id; <span class="comment">// id[v] = id of component containing v</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">count</span>; <span class="comment">// number of components</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> CC(Graph G)&#123;</span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()]; <span class="comment">// create marked array</span></span><br><span class="line">		id = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];		<span class="comment">// create id array</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)&#123;  <span class="comment">// go through every vertices in graph</span></span><br><span class="line">			<span class="keyword">if</span>(!marked[v])&#123; <span class="comment">// if v not marked </span></span><br><span class="line">				dfs(G,v);   <span class="comment">//</span></span><br><span class="line">				<span class="keyword">count</span>++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="keyword">count</span>()&#123;		<span class="comment">// # of components</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> id(<span class="keyword">int</span> v)&#123; <span class="comment">// id of component containing v</span></span><br><span class="line">		<span class="keyword">return</span> id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> dfs(Graph G,<span class="keyword">int</span> v)&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		id[v] = <span class="keyword">count</span>;			<span class="comment">// all vertices discovered in same call of dfs have same id</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Application: particle detection</h3>
-<p>Particle detection. Give grayscale image of particles, identify &quot;blobs.&quot;</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Initizlize all vertices *v* as unmarked.</span><br><span class="line">For each unmarked vertex *v*, run DFS to identify all vertices discovered as part of the same component.</span><br><span class="line">``` </span><br><span class="line"><span class="preprocessor">### Finding connected components with DFS</span></span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> boolan marked[];</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] id; <span class="comment">// id[v] = id of component containing v</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">count</span>; <span class="comment">// number of components</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> CC(Graph G)&#123;</span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()]; <span class="comment">// create marked array</span></span><br><span class="line">		id = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];		<span class="comment">// create id array</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)&#123;  <span class="comment">// go through every vertices in graph</span></span><br><span class="line">			<span class="keyword">if</span>(!marked[v])&#123; <span class="comment">// if v not marked </span></span><br><span class="line">				dfs(G,v);   <span class="comment">//</span></span><br><span class="line">				<span class="keyword">count</span>++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="keyword">count</span>()&#123;		<span class="comment">// # of components</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> id(<span class="keyword">int</span> v)&#123; <span class="comment">// id of component containing v</span></span><br><span class="line">		<span class="keyword">return</span> id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> dfs(Graph G,<span class="keyword">int</span> v)&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		id[v] = <span class="keyword">count</span>;			<span class="comment">// all vertices discovered in same call of dfs have same id</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Application:_particle_detection">Application: particle detection</h3><p>Particle detection. Give grayscale image of particles, identify “blobs.”</p>
 <ul>
 <li>Vertex:pixel</li>
 <li>Edge: between two adjacent pixels with grayscale value &gt;= 70</li>
@@ -599,7 +682,7 @@ Digraph. Se..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci7wso78j000h5os763bt9fp5" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci8145hdt000haxs7ec96u43h" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
       
 
       
@@ -656,7 +739,7 @@ Digraph. Se..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implementation"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_application:"><span class="toc-number">2.</span> <span class="toc-text">BFS application:</span></a></li></ol>
 		
 		</div>
 		
@@ -668,18 +751,15 @@ Digraph. Se..." class="article-share-link">Share</a>
 <p><strong>Shortest path</strong>. Find path from s to t that uses <strong>fewer number of edges</strong>.</p>
 <hr>
 <p>BFS(from source vertex s)</p>
-<p>Put s onto a FIFO queue, and mark s as visited.
-Repeat until the queue is empty:</p>
+<p>Put s onto a FIFO queue, and mark s as visited.<br>Repeat until the queue is empty:</p>
 <ul>
 <li>remove the least recently added vertex v.</li>
-<li>add each of v's unvisited neighbors to the queue, and mark them as visited.</li>
+<li>add each of v’s unvisited neighbors to the queue, and mark them as visited.</li>
 </ul>
 <hr>
 <p><strong>Proposition</strong>. BFS computs shortest paths(fewest number of edges) from <em>s</em> to all other vertices in a graph in time proportional to <em>E + V</em>(# of edges + # of vertices).</p>
-<h3>Code Implementation</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>###BFS application:</p>
-<ul>
+<h3 id="Code_Implementation">Code Implementation</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BFS_application:">BFS application:</h3><ul>
 <li>routing-&gt; Fewest number of hops in a communication network.</li>
 <li>Kevin Bacon numbers;</li>
 </ul>
@@ -688,7 +768,7 @@ Repeat until the queue is empty:</p>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="ci7wso78p000j5os7r8w922ir" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="ci8145hdy000jaxs76vk9lb9u" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
       
 
       
@@ -745,55 +825,44 @@ Repeat until the queue is empty:</p>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-        <h1>Graph</h1>
-<h2>Tremaux maze exploration</h2>
-<ul>
+        <h1 id="Graph">Graph</h1><h2 id="Tremaux_maze_exploration">Tremaux maze exploration</h2><ul>
 <li>make each visited intersection and each visited passage</li>
 <li>Retrace steps when no unvisted options</li>
 </ul>
-<h2>Depth-first search</h2>
-<ul>
+<h2 id="Depth-first_search">Depth-first search</h2><ul>
 <li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
 <li>Idea. Mimic maze exploration</li>
 </ul>
-<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure></p>
-<h3>Design pattern</h3>
-<ul>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure>
+<h3 id="Design_pattern">Design pattern</h3><ul>
 <li>Decouple graph data type from graph processing.</li>
 <li>Create a Graph object.</li>
 <li>Pass the Graph to graph-processing routine.</li>
 <li>Query the graph-processing routine for information.</li>
 </ul>
-<h3>Algorithm.</h3>
-<ul>
+<h3 id="Algorithm-">Algorithm.</h3><ul>
 <li>Use recursion(ball of string).</li>
 <li>Mark each visited vertex(and keep track of edge taken to visit to it).</li>
 <li>Return(retrace steps) when no unvisited options.</li>
 </ul>
-<h3>Data structures.</h3>
-<ul>
+<h3 id="Data_structures-">Data structures.</h3><ul>
 <li><strong>boolean[] marked</strong> to mark visited vertices</li>
-<li><strong>int[] edgeTo</strong> to keep tree of paths.
-(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
+<li><strong>int[] edgeTo</strong> to keep tree of paths.<br>(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
 </ul>
-<h3>Java API</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure></p>
-<h3>Code Implemention</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Depth-first search code</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Java_API">Java API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="Code_Implemention">Code Implemention</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Depth-first_search_code">Depth-first search code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci7wso78g000f5os7gbwz9zzh" data_title="depth-first-search" data_summary="Graph
-Tremaux maze explorat..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci8145hdp000faxs7g8uv8bjj" data_title="depth-first-search" data_summary="GraphTremaux maze explorati..." class="article-share-link">Share</a>
       
 
       
@@ -855,7 +924,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
 		</div>
 		
         <ol>
-<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了</li>
+<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 </li>
 <li>更新了Apiflow的非Ember的模板引擎</li>
 </ol>
 
@@ -863,7 +932,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="ci7wso77j00015os7238xxu8p" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="ci8145hcf0001axs7i5c8sbjx" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
       
 
       
@@ -876,71 +945,6 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
 	  
 <span>
 更新日期:<time datetime="2015-03-27T04:54:40.000Z" itemprop="dateModified">2015-03-27</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-scala-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/03/22/scala-test/" class="article-date">
-  <time datetime="2015-03-23T03:58:15.000Z" itemprop="datePublished">2015-03-22</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/22/scala-test/">scala-test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">"Hello,Scala!"</span>)</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/03/22/scala-test/" data-id="ci7wso77t00045os7oht0a5zx" data_title="scala-test" data_summary="1println("Hello,Scala!")..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/03/22/scala-test/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/22/scala-test/">暂无评论</a>
-      
-	  
-      
-	  
-<span>
-更新日期:<time datetime="2015-03-23T03:58:54.000Z" itemprop="dateModified">2015-03-22</time>
 </span>
 
 
@@ -989,7 +993,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -999,7 +1003,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 13px; color: #7dc3de">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
     </div>
   </div>
 
@@ -1009,7 +1013,7 @@ Tremaux maze explorat..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1114,6 +1118,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Fri Apr 03 2015 00:28:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1140,6 +1150,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
+          </li>
+        
+          <li>
             <a href="/2015/03/30/emberjs-fundamentals-notes/">Emberj.js Fundamentals Notes</a>
           </li>
         
@@ -1153,10 +1167,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/26/03-26-2015/">03-26-2015</a>
           </li>
         
       </ul>

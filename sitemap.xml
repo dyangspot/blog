@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2015/04/03/Ember-in-action/</loc>
+    <lastmod>2015-04-03T04:50:26.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/</loc>
     <lastmod>2015-04-01T03:51:02.000Z</lastmod>
   </url>
