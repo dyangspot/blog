@@ -5,30 +5,39 @@
   
   <title>Directed Graphs | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Directed GraphsDigraph. Set of vertices connected pairwise by directed edges.
-Application: 
+  <meta name="description" content="Directed Graphs
+Digraph. Set of vertices connected pairwise by directed edges.
+Application:
+
 
 Road network. Vertex = intersectiion; edge = one-way street
 
-Political blogosphere graph. Vertex=political">
+
+Political blogosphere graph. Vertex=politica">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Directed Graphs">
 <meta property="og:url" content="http://dyangspot.github.io/2015/03/30/directed-graphs/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Directed GraphsDigraph. Set of vertices connected pairwise by directed edges.
-Application: 
+<meta property="og:description" content="Directed Graphs
+Digraph. Set of vertices connected pairwise by directed edges.
+Application:
+
 
 Road network. Vertex = intersectiion; edge = one-way street
 
-Political blogosphere graph. Vertex=political">
+
+Political blogosphere graph. Vertex=politica">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Directed Graphs">
-<meta name="twitter:description" content="Directed GraphsDigraph. Set of vertices connected pairwise by directed edges.
-Application: 
+<meta name="twitter:description" content="Directed Graphs
+Digraph. Set of vertices connected pairwise by directed edges.
+Application:
+
 
 Road network. Vertex = intersectiion; edge = one-way street
 
-Political blogosphere graph. Vertex=political">
+
+Political blogosphere graph. Vertex=politica">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -108,45 +117,58 @@ Political blogosphere graph. Vertex=political">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directed_Graphs"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_API"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_Search"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS_in_directed_graphs"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Depth-first_search_in_digraphs_summary"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_in_digraphs"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-        <h1 id="Directed_Graphs">Directed Graphs</h1><p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
-<p>Application: </p>
+        <h1>Directed Graphs</h1>
+<p>Digraph. Set of vertices connected pairwise by <strong>directed</strong> edges.</p>
+<p>Application:</p>
 <ul>
-<li><p>Road network. Vertex = intersectiion; edge = one-way street</p>
+<li>
+<p>Road network. Vertex = intersectiion; edge = one-way street</p>
 </li>
-<li><p>Political blogosphere graph. Vertex=political blog;edge=link</p>
+<li>
+<p>Political blogosphere graph. Vertex=political blog;edge=link</p>
 </li>
-<li><p>Overnight interbank loan graph. Vertex=bank; edge= overnigh load</p>
+<li>
+<p>Overnight interbank loan graph. Vertex=bank; edge= overnigh load</p>
 </li>
-<li><p>Combinational circuit. Vertex=logical gate;edge=wire</p>
+<li>
+<p>Combinational circuit. Vertex=logical gate;edge=wire</p>
 </li>
-<li><p>WordNet graph. Vertex=synset;edge=hypernym relationship</p>
+<li>
+<p>WordNet graph. Vertex=synset;edge=hypernym relationship</p>
 </li>
 </ul>
-<h2 id="Digraph_API">Digraph API</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Digraph</span><br><span class="line">____________________________</span><br><span class="line">		Diagraph(<span class="keyword">int</span> V)	 <span class="comment">// create an empty diagraph with V vertices</span></span><br><span class="line">		Diagraph(In <span class="keyword">in</span>)    <span class="comment">// create a diagraph from input stream</span></span><br><span class="line">		<span class="keyword">void</span> addEdge(<span class="keyword">int</span> v,<span class="keyword">int</span> w) <span class="comment">// add a directed edge v-&gt;w</span></span><br><span class="line">Iterable&lt;Integer&gt; adj(<span class="keyword">int</span> v)	<span class="comment">// vertices pointing from w</span></span><br><span class="line">		 <span class="keyword">int</span> V()					<span class="comment">// # of vertices</span></span><br><span class="line">		 <span class="keyword">int</span> E()					<span class="comment">// # of edges</span></span><br><span class="line">	Digraph  reverse()				<span class="comment">// reverse of this digraph</span></span><br><span class="line">	String   toString()				<span class="comment">// string representation</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	In <span class="keyword">in</span> = <span class="keyword">new</span> In(args[<span class="number">0</span>]);</span><br><span class="line">	Diagraph G = <span class="keyword">new</span> Diagraph(<span class="keyword">in</span>);   <span class="comment">// read diagraph from input stream</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			StdOut.println(v + <span class="string">"-&gt;"</span> + w);	<span class="comment">// print out each edge(once)</span></span><br></pre></td></tr></table></figure>
+<h2>Digraph API</h2>
+<p><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> Digraph</span><br><span class="line">____________________________</span><br><span class="line">		Diagraph(<span class="keyword">int</span> V)	 <span class="comment">// create an empty diagraph with V vertices</span></span><br><span class="line">		Diagraph(In <span class="keyword">in</span>)    <span class="comment">// create a diagraph from input stream</span></span><br><span class="line">		<span class="keyword">void</span> addEdge(<span class="keyword">int</span> v,<span class="keyword">int</span> w) <span class="comment">// add a directed edge v-&gt;w</span></span><br><span class="line">Iterable&lt;Integer&gt; adj(<span class="keyword">int</span> v)	<span class="comment">// vertices pointing from w</span></span><br><span class="line">		 <span class="keyword">int</span> V()					<span class="comment">// # of vertices</span></span><br><span class="line">		 <span class="keyword">int</span> E()					<span class="comment">// # of edges</span></span><br><span class="line">	Digraph  reverse()				<span class="comment">// reverse of this digraph</span></span><br><span class="line">	String   toString()				<span class="comment">// string representation</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	In <span class="keyword">in</span> = <span class="keyword">new</span> In(args[<span class="number">0</span>]);</span><br><span class="line">	Diagraph G = <span class="keyword">new</span> Diagraph(<span class="keyword">in</span>);   <span class="comment">// read diagraph from input stream</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			StdOut.println(v + <span class="string">"-&gt;"</span> + w);	<span class="comment">// print out each edge(once)</span></span><br></pre></td></tr></table></figure></p>
 <p>Adjacency-lists graph representation: Java implementation</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> <span class="title">Digraph</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Bag&lt;Integer&gt;[] adj;		<span class="comment">// adjacency lists</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Digraph</span><span class="params">(<span class="keyword">int</span> V)</span></span>&#123;		<span class="comment">// create empty diagraph with v vertices</span></span><br><span class="line">		<span class="keyword">this</span>.V = V;</span><br><span class="line">		adj=(Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;V;v++)</span><br><span class="line">			adj[v]=<span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;   <span class="comment">// add edge v-&gt;w</span></span><br><span class="line">		adj[v].add[w]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Iterable&lt;Integer&gt; adj&lt;<span class="keyword">int</span> v&gt; &#123; <span class="comment">// iterator for vertices pointing from v</span></span><br><span class="line">		<span class="keyword">return</span> adj[v];		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Digraph_Search">Digraph Search</h2><h3 id="DFS_in_directed_graphs">DFS in directed graphs</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedDFS</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> [] marked;   <span class="comment">// true if from s </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> DirectedDFS)(Digraph G,<span class="keyword">int</span> s)&#123; <span class="comment">// constructor marks vertices reachable from s</span></span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">		dfs[(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G,<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// recursive DFS does the work</span></span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			<span class="keyword">if</span>(!marked[w]) dfs(G,w)			</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">visited</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// client can ask whether any vertex is reachable from s</span></span><br><span class="line">		<span class="keyword">return</span> marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Depth-first_search_in_digraphs_summary">Depth-first search in digraphs summary</h4><p>DFS enables direct solution of simple digraph problems.</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Graph</span> <span class="title">Digraph</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> V;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Bag&lt;Integer&gt;[] adj;		<span class="comment">// adjacency lists</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Digraph</span><span class="params">(<span class="keyword">int</span> V)</span></span>&#123;		<span class="comment">// create empty diagraph with v vertices</span></span><br><span class="line">		<span class="keyword">this</span>.V = V;</span><br><span class="line">		adj=(Bag&lt;Integer&gt;[]) <span class="keyword">new</span> Bag[V];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;V;v++)</span><br><span class="line">			adj[v]=<span class="keyword">new</span> Bag&lt;Integer&gt;();</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;   <span class="comment">// add edge v-&gt;w</span></span><br><span class="line">		adj[v].add[w]</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Iterable&lt;Integer&gt; adj&lt;<span class="keyword">int</span> v&gt; &#123; <span class="comment">// iterator for vertices pointing from v</span></span><br><span class="line">		<span class="keyword">return</span> adj[v];		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>Digraph Search</h2>
+<h3>DFS in directed graphs</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectedDFS</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> [] marked;   <span class="comment">// true if from s </span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> DirectedDFS)(Digraph G,<span class="keyword">int</span> s)&#123; <span class="comment">// constructor marks vertices reachable from s</span></span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()];</span><br><span class="line">		dfs[(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Digraph G,<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// recursive DFS does the work</span></span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))</span><br><span class="line">			<span class="keyword">if</span>(!marked[w]) dfs(G,w)			</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">visited</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123; <span class="comment">// client can ask whether any vertex is reachable from s</span></span><br><span class="line">		<span class="keyword">return</span> marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>Depth-first search in digraphs summary</h4>
+<p>DFS enables direct solution of simple digraph problems.</p>
 <ul>
 <li>Reachability.</li>
 <li>Path finding.</li>
 <li>Topological sort.</li>
-<li>Directed cycle detection.<br>Basis for solving difficult digraph problems</li>
+<li>Directed cycle detection.
+Basis for solving difficult digraph problems</li>
 <li>2-satisfiability.</li>
 <li>Directed Euler path.</li>
 <li>Strongly-connected components.</li>
 </ul>
-<h3 id="BFS_in_digraphs">BFS in digraphs</h3><p>Proposition. BFS computes shortest pahts(fewest # of edges) from <em>s</em> to all other vertices n a digraph in time proportional to <em>E+V</em> </p>
+<h3>BFS in digraphs</h3>
+<p>Proposition. BFS computes shortest pahts(fewest # of edges) from <em>s</em> to all other vertices n a digraph in time proportional to <em>E+V</em></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci8145hdl000caxs7fxxq3cl2" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci82d75ry000gzps75hyj7srp" data_title="Directed Graphs" data_summary="Directed Graphs
+Digraph. Se..." class="article-share-link">Share</a>
       
 
       
@@ -205,7 +227,7 @@ Political blogosphere graph. Vertex=political">
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directed_Graphs"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_API"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Digraph_Search"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS_in_directed_graphs"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Depth-first_search_in_digraphs_summary"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_in_digraphs"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Directed Graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Digraph API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Digraph Search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">DFS in directed graphs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Depth-first search in digraphs summary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">BFS in digraphs</span></a></li></ol></li></ol></li></ol>
     
   </div>
 
@@ -234,7 +256,7 @@ Political blogosphere graph. Vertex=political">
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -244,7 +266,7 @@ Political blogosphere graph. Vertex=political">
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 20px; color: #1db400">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/work-point-io/" style="font-size: 13px; color: #7dc3de">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/work-point-io/" style="font-size: 15.33px; color: #5dbe94">work@point.io</a>
     </div>
   </div>
 
@@ -254,7 +276,7 @@ Political blogosphere graph. Vertex=political">
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -309,6 +331,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Fri Apr 03 2015 01:01:01 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/set-up-emberjs-dev-env/' title='set-up-emberjs-dev-env'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -391,6 +419,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/03/set-up-emberjs-dev-env/">set-up-emberjs-dev-env</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
           </li>
         
@@ -404,10 +436,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/03/29/emberjs-notes/">emberjs-notes</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/28/03-28-2015/">03-28-2015</a>
           </li>
         
       </ul>
