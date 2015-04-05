@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-04-04T02:10:02.000Z</updated>
+  <updated>2015-04-05T03:24:57.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[“Emerbjs中的Acive Generation”]]></title>
+    <link href="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/"/>
+    <id>http://dyangspot.github.io/2015/04/04/active-generation-in-ember/</id>
+    <published>2015-04-05T03:13:26.000Z</published>
+    <updated>2015-04-05T03:24:57.000Z</updated>
+    <content type="html"><![CDATA[<p>所谓的Active Generation是指的在Emberjs中，如果<em>route</em> 找不到相对应的<em>handler</em>或<em>controller</em>下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> app = <span class="built_in">window</span>.app = Ember.Application.create(&#123;</span><br><span class="line">	<span class="attribute">LOG_TRANSITIONS</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attribute">LOG_ACTIVE_GENERATION</span>:<span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>此外，在Emerbjs中，我们往往不需要定义<em>application</em> 或 <em>index</em>的route，因为Emerbjs会默认生成相对应的route。 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>所谓的Active Generation是指的在Emberjs中，如果<em>route</em> 找不到相对应的<em>handler</em>或<em>controller</em>下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何]]>
+    </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MDN Javascript notes]]></title>
+    <link href="http://dyangspot.github.io/2015/04/04/MDN-js-notes/"/>
+    <id>http://dyangspot.github.io/2015/04/04/MDN-js-notes/</id>
+    <published>2015-04-04T05:33:41.000Z</published>
+    <updated>2015-04-04T05:37:42.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在看Mozilla Developer Network(MDN)的<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="external">Javascript tutorial</a>，再次做笔记，查缺补漏.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在看Mozilla Developer Network(MDN)的<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="external">Javas]]>
+    </summary>
+    
+      <category term="javascript" scheme="http://dyangspot.github.io/tags/javascript/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[04-03-2015]]></title>

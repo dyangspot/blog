@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2015/04/04/active-generation-in-ember/</loc>
+    <lastmod>2015-04-05T03:24:57.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/04/MDN-js-notes/</loc>
+    <lastmod>2015-04-04T05:37:42.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/</loc>
     <lastmod>2015-04-04T02:18:29.000Z</lastmod>
   </url>

@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>“03-23-2015&quot; | Dylan&#39;s Blog</title>
+  <title>“Emerbjs中的Acive Generation” | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 
-更新了Apiflow的非Ember的模板引擎">
+  <meta name="description" content="所谓的Active Generation是指的在Emberjs中，如果route 找不到相对应的handler或controller下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：
+1234var app = window.app = Ember.Application.create(&amp;#123;	LOG">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“03-23-2015"">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/index.html">
+<meta property="og:title" content="“Emerbjs中的Acive Generation”">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 
-更新了Apiflow的非Ember的模板引擎">
+<meta property="og:description" content="所谓的Active Generation是指的在Emberjs中，如果route 找不到相对应的handler或controller下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：
+1234var app = window.app = Ember.Application.create(&amp;#123;	LOG">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“03-23-2015"">
-<meta name="twitter:description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 
-更新了Apiflow的非Ember的模板引擎">
+<meta name="twitter:title" content="“Emerbjs中的Acive Generation”">
+<meta name="twitter:description" content="所谓的Active Generation是指的在Emberjs中，如果route 找不到相对应的handler或controller下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：
+1234var app = window.app = Ember.Application.create(&amp;#123;	LOG">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -67,11 +67,11 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-worksummary-03-23-2015" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-active-generation-in-ember" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/23/worksummary-03-23-2015/" class="article-date">
-  <time datetime="2015-03-23T23:37:39.000Z" itemprop="datePublished">2015-03-23</time>
+<a href="/2015/04/04/active-generation-in-ember/" class="article-date">
+  <time datetime="2015-04-05T03:13:26.000Z" itemprop="datePublished">2015-04-04</time>
 </a>
 
 
@@ -84,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      “03-23-2015&quot;
+      “Emerbjs中的Acive Generation”
     </h1>
   
 
@@ -100,28 +100,27 @@
 		
 		</div>
 		
-        <ol>
-<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 </li>
-<li>更新了Apiflow的非Ember的模板引擎</li>
-</ol>
+        <p>所谓的Active Generation是指的在Emberjs中，如果<em>route</em> 找不到相对应的<em>handler</em>或<em>controller</em>下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> app = <span class="built_in">window</span>.app = Ember.Application.create(&#123;</span><br><span class="line">	<span class="attribute">LOG_TRANSITIONS</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attribute">LOG_ACTIVE_GENERATION</span>:<span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>此外，在Emerbjs中，我们往往不需要定义<em>application</em> 或 <em>index</em>的route，因为Emerbjs会默认生成相对应的route。 </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="ci83vyxu50001fus71a0qww5h" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="ci83vyxvo000pfus7wsuvfz2q" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/23/worksummary-03-23-2015/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/04/active-generation-in-ember/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-27T04:54:40.000Z" itemprop="dateModified">2015-03-27</time>
+更新日期:<time datetime="2015-04-05T03:24:57.000Z" itemprop="dateModified">2015-04-04</time>
 </span>
 
 
@@ -131,19 +130,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/depth-first-search/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          depth-first-search
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/22/scala-test/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/04/MDN-js-notes/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">scala-test</div>
+      <div class="article-nav-title">MDN Javascript notes</div>
     </a>
   
 </nav>
@@ -156,7 +146,7 @@
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/23/worksummary-03-23-2015/" data-title="“03-23-2015&quot;" data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/04/04/active-generation-in-ember/" data-title="“Emerbjs中的Acive Generation”" data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>
