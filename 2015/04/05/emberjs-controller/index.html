@@ -3,17 +3,32 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dylan&#39;s Blog</title>
+  <title>“Emberjs中的Controller” | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dylan's Blog">
-<meta property="og:url" content="http://dyangspot.github.io/tags/Algorithm/index.html">
+  <meta name="description" content="在Emberjs中，controllers大概做以下几件事情
+
+
+Manipulate the data within the application’s models
+Store transient data, whether standalone or made up of data retrieved from models
+Listen to events dispatched by an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“Emberjs中的Controller”">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/05/emberjs-controller/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description">
+<meta property="og:description" content="在Emberjs中，controllers大概做以下几件事情
+
+
+Manipulate the data within the application’s models
+Store transient data, whether standalone or made up of data retrieved from models
+Listen to events dispatched by an">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dylan's Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="“Emberjs中的Controller”">
+<meta name="twitter:description" content="在Emberjs中，controllers大概做以下几件事情
+
+
+Manipulate the data within the application’s models
+Store transient data, whether standalone or made up of data retrieved from models
+Listen to events dispatched by an">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -64,115 +79,113 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
+        <section id="main"><article id="post-emberjs-controller" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/30/directed-graphs/" class="archive-article-date">
-  <time datetime="2015-03-31T02:04:02.000Z" itemprop="datePublished">Mar 30</time>
+<a href="/2015/04/05/emberjs-controller/" class="article-date">
+  <time datetime="2015-04-05T05:52:48.000Z" itemprop="datePublished">2015-04-05</time>
 </a>
 
 
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/30/directed-graphs/">Directed Graphs</a>
+    <h1 class="article-title" itemprop="name">
+      “Emberjs中的Controller”
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>在Emberjs中，controllers大概做以下几件事情</p>
+<blockquote>
+<ul>
+<li>Manipulate the data within the application’s models</li>
+<li>Store transient data, whether standalone or made up of data retrieved from models</li>
+<li>Listen to events dispatched by and dispatch events intended for other controllers,views, and templates</li>
+<li>Instigate the transition from one route to another</li>
+</ul>
+</blockquote>
+<p>也就是说，controller的作用能够处理models中的数据，暂时存储来自models中的数据，监听由其他controllers，views，templates发起的事件，对route进行跳转操作。</p>
+<p>页面关键字搜索实例：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ApplicationController =Em.ObjectController.extend(&#123;	searchTerms: <span class="string">''</span>,	applicationName: <span class="string">"Rock'n'Roll Call"</span>,	actions: &#123;	submit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;		<span class="keyword">this</span>.transitionToRoute(<span class="string">'search-results'</span>,<span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'searchTerms'</span>));		&#125;	&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上controller代码中，创建本地临时变量searchTerms，用来获取view中用户输入的关键字。</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"nav navbar-nav search-lockup"</span>&gt;</span>	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"search-group"</span>&gt;</span>		</span><span class="expression">&#123;&#123;<span class="variable">input</span> <span class="variable">type</span>=<span class="string">"text"</span> <span class="variable">class</span>=<span class="string">"search-input"</span> <span class="variable">placeholder</span>=<span class="string">"Search for artists or song names"</span> <span class="variable">valueBinding</span>=<span class="string">"controller.searchTerms"</span>&#125;&#125;</span><span class="xml">	<span class="tag">&lt;<span class="title">button</span> </span></span><span class="expression">&#123;&#123;<span class="variable"><span class="keyword">action</span></span> <span class="string">"submit"</span>&#125;&#125;</span><span class="xml"><span class="tag"> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>	<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>通过valueBinding属性来将之前定义的controller.searchTerms 绑定到input helper中。 当用户在input field中输入关键字的时候，关键字内容会绑定到controller中的searchTerms属性上。当用户点击submit后，会触发之前在template中定义的<em>submit</em> action。 在<em>submit</em> 中调用了transitionToRoute，之后emberjs会跳转到’search-results’ route并将searchTerms的值已参数的形式传递.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/05/emberjs-controller/" data-id="ci84278sd000gyus7dc6xgyw0" data_title="“Emberjs中的Controller”" data_summary="在Emberjs中，controllers大概做以下几..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/05/emberjs-controller/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/emberjs-controller/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-05T06:18:55.000Z" itemprop="dateModified">2015-04-05</time>
+</span>
+
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/04/05/ember-model/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">“Emberjs中的Model”</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/connected-components-dfs/" class="archive-article-date">
-  <time datetime="2015-03-25T02:09:50.000Z" itemprop="datePublished">Mar 24</time>
-</a>
 
 
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/connected-components-dfs/">connected-components-dfs</a>
-    </h1>
-  
+<!-- 多说评论框 start -->
 
-    </header>
+<section id="comments">
+  <div class="ds-thread"  data-thread-key="/2015/04/05/emberjs-controller/" data-title="“Emberjs中的Controller”" data-url="http://dyangspot.github.io/2015/04/05/emberjs-controller/" id="ds_thread">
+    <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
-</article>
+</section>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/breadth-first-search/" class="archive-article-date">
-  <time datetime="2015-03-25T02:09:35.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/breadth-first-search/">breadth-first-search</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/24/depth-first-search/" class="archive-article-date">
-  <time datetime="2015-03-24T04:29:30.000Z" itemprop="datePublished">Mar 24</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/24/depth-first-search/">depth-first-search</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
+<!-- 多说评论框 end -->
 </section>
         
           
+  <div id="toc" class="toc-aside">
+  <h2 class="toc-title">文章目录</h2>
+    
+        
+    
+  </div>
+
 <aside id="sidebar">
 
   
@@ -507,6 +520,11 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
 	<script src="/js/gotop.js"></script>
 	-->
 
+
+	<a class="icon-toc-toggle" href="javascript:void(0)" title="文章目录"></a>
+	<!--
+	<script src="/js/toc_aside_toggle.js"></script>
+	-->
 
 </div>
 <script src="/js/toc_aside_toggle.js" type="text/javascript"></script>

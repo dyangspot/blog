@@ -129,7 +129,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci8411cxe000pw1s7fqzn8f1u" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci84278sw000ryus7yis0lkj8" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
       
 
       
@@ -217,7 +217,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -237,7 +237,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -322,6 +322,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/03/30/emberjs-fundamentals-notes/' title='Emberj.js Fundamentals Notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 05 2015 01:52:48 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/emberjs-controller/' title='“Emberjs中的Controller”'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Apr 05 2015 01:22:38 GMT-0400"); 
@@ -410,6 +416,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
           </li>
         
@@ -423,10 +433,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/04/MDN-js-notes/">MDN Javascript notes</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/03/04-03-2015/">04-03-2015</a>
           </li>
         
       </ul>

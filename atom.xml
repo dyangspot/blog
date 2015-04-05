@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-04-05T05:42:20.000Z</updated>
+  <updated>2015-04-05T06:18:55.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[“Emberjs中的Controller”]]></title>
+    <link href="http://dyangspot.github.io/2015/04/05/emberjs-controller/"/>
+    <id>http://dyangspot.github.io/2015/04/05/emberjs-controller/</id>
+    <published>2015-04-05T05:52:48.000Z</published>
+    <updated>2015-04-05T06:18:55.000Z</updated>
+    <content type="html"><![CDATA[<p>在Emberjs中，controllers大概做以下几件事情</p>
+<blockquote>
+<ul>
+<li>Manipulate the data within the application’s models</li>
+<li>Store transient data, whether standalone or made up of data retrieved from models</li>
+<li>Listen to events dispatched by and dispatch events intended for other controllers,views, and templates</li>
+<li>Instigate the transition from one route to another</li>
+</ul>
+</blockquote>
+<p>也就是说，controller的作用能够处理models中的数据，暂时存储来自models中的数据，监听由其他controllers，views，templates发起的事件，对route进行跳转操作。</p>
+<p>页面关键字搜索实例：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ApplicationController =Em.ObjectController.extend(&#123;	searchTerms: <span class="string">''</span>,	applicationName: <span class="string">"Rock'n'Roll Call"</span>,	actions: &#123;	submit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;		<span class="keyword">this</span>.transitionToRoute(<span class="string">'search-results'</span>,<span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'searchTerms'</span>));		&#125;	&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p>以上controller代码中，创建本地临时变量searchTerms，用来获取view中用户输入的关键字。</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"nav navbar-nav search-lockup"</span>&gt;</span>	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"search-group"</span>&gt;</span>		</span><span class="expression">&#123;&#123;<span class="variable">input</span> <span class="variable">type</span>=<span class="string">"text"</span> <span class="variable">class</span>=<span class="string">"search-input"</span> <span class="variable">placeholder</span>=<span class="string">"Search for artists or song names"</span> <span class="variable">valueBinding</span>=<span class="string">"controller.searchTerms"</span>&#125;&#125;</span><span class="xml">	<span class="tag">&lt;<span class="title">button</span> </span></span><span class="expression">&#123;&#123;<span class="variable"><span class="keyword">action</span></span> <span class="string">"submit"</span>&#125;&#125;</span><span class="xml"><span class="tag"> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>	<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>通过valueBinding属性来将之前定义的controller.searchTerms 绑定到input helper中。 当用户在input field中输入关键字的时候，关键字内容会绑定到controller中的searchTerms属性上。当用户点击submit后，会触发之前在template中定义的<em>submit</em> action。 在<em>submit</em> 中调用了transitionToRoute，之后emberjs会跳转到’search-results’ route并将searchTerms的值已参数的形式传递.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Emberjs中，controllers大概做以下几件事情</p>
+<blockquote>
+<ul>
+<li>Manipulate the data within the application’s models</li>
+<li>Store transient dat]]>
+    </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[“Emberjs中的Model”]]></title>
