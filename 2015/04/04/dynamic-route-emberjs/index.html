@@ -3,23 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>03-26-2015 | Dylan&#39;s Blog</title>
+  <title>“Emberjs中的dynamic route” | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+  <meta name="description" content="Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，
+123456RocknrollcallYeoman.dummySearchResultsArtists = [	&amp;#123;		id: 1,		name: &apos;Tom Waits&apos;,		type: &apos;artist&apos;,		enid: &apos;ARERLPG1187FB3BB39&apos;,		hotttnesss: &apos;1&apos;	&amp;#125;,	&amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="03-26-2015">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/26/03-26-2015/index.html">
+<meta property="og:title" content="“Emberjs中的dynamic route”">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+<meta property="og:description" content="Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，
+123456RocknrollcallYeoman.dummySearchResultsArtists = [	&amp;#123;		id: 1,		name: &apos;Tom Waits&apos;,		type: &apos;artist&apos;,		enid: &apos;ARERLPG1187FB3BB39&apos;,		hotttnesss: &apos;1&apos;	&amp;#125;,	&amp;#">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="03-26-2015">
-<meta name="twitter:description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+<meta name="twitter:title" content="“Emberjs中的dynamic route”">
+<meta name="twitter:description" content="Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，
+123456RocknrollcallYeoman.dummySearchResultsArtists = [	&amp;#123;		id: 1,		name: &apos;Tom Waits&apos;,		type: &apos;artist&apos;,		enid: &apos;ARERLPG1187FB3BB39&apos;,		hotttnesss: &apos;1&apos;	&amp;#125;,	&amp;#">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -70,11 +67,11 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-03-26-2015" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-dynamic-route-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/26/03-26-2015/" class="article-date">
-  <time datetime="2015-03-27T02:10:04.000Z" itemprop="datePublished">2015-03-26</time>
+<a href="/2015/04/04/dynamic-route-emberjs/" class="article-date">
+  <time datetime="2015-04-05T03:37:51.000Z" itemprop="datePublished">2015-04-04</time>
 </a>
 
 
@@ -87,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      03-26-2015
+      “Emberjs中的dynamic route”
     </h1>
   
 
@@ -103,29 +100,29 @@
 		
 		</div>
 		
-        <p>今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下</p>
-<ul>
-<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz….</li>
-<li>临近下班拿到Jin大叔分配的新任务，帮助他实现一个APIflow上的Emberjs模板的对数据的CRUD。 突然记起Jon之前实现过类似的东西，随后跟Jon要了源码，过几天研究一番，到是也省了不少力气不用重新搭建了。</li>
-</ul>
+        <p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>根据以上数据模型，我们定义routes：</p>
+<p>RocknrollcallYeoman.Router.map(function(){<br>    this.route(‘artist’,{<br>        path: ‘artist/:enid’<br>    });<br>});</p>
+<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em><a href="http://localhost:9000/#/artist/ARERLPG1187FB3BB39" target="_blank" rel="external">http://localhost:9000/#/artist/ARERLPG1187FB3BB39</a></em>来获取。 </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci8411cy40014w1s7akebakhc" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="ci8411cx5000iw1s7roofktbe" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/26/03-26-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/26/03-26-2015/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/04/dynamic-route-emberjs/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-27T05:00:37.000Z" itemprop="dateModified">2015-03-27</time>
+更新日期:<time datetime="2015-04-05T03:46:21.000Z" itemprop="dateModified">2015-04-04</time>
 </span>
 
 
@@ -135,19 +132,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/28/03-28-2015/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/04/05/ember-model/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          03-28-2015
+          “Emberjs中的Model”
         
       </div>
     </a>
   
   
-    <a href="/2015/03/24/connected-components-dfs/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/04/active-generation-in-ember/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">connected-components-dfs</div>
+      <div class="article-nav-title">“Emerbjs中的Acive Generation”</div>
     </a>
   
 </nav>
@@ -160,7 +157,7 @@
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/26/03-26-2015/" data-title="03-26-2015" data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/04/04/dynamic-route-emberjs/" data-title="“Emberjs中的dynamic route”" data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>

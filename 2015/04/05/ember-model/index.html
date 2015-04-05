@@ -3,23 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>03-26-2015 | Dylan&#39;s Blog</title>
+  <title>“Emberjs中的Model” | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+  <meta name="description" content="总结下在Emberjs中利用Ember.Object来实现面向对象。首先定义对象:
+123456789RocknrollcallYeoman.Artist = Em.Object.extend(&amp;#123;	id:null,	name:null,	enid:null,	biography:null,	hotttnesss:null,	image:null,	videos:null&amp;#125;);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="03-26-2015">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/26/03-26-2015/index.html">
+<meta property="og:title" content="“Emberjs中的Model”">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/05/ember-model/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+<meta property="og:description" content="总结下在Emberjs中利用Ember.Object来实现面向对象。首先定义对象:
+123456789RocknrollcallYeoman.Artist = Em.Object.extend(&amp;#123;	id:null,	name:null,	enid:null,	biography:null,	hotttnesss:null,	image:null,	videos:null&amp;#125;);">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="03-26-2015">
-<meta name="twitter:description" content="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下
-
-初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做">
+<meta name="twitter:title" content="“Emberjs中的Model”">
+<meta name="twitter:description" content="总结下在Emberjs中利用Ember.Object来实现面向对象。首先定义对象:
+123456789RocknrollcallYeoman.Artist = Em.Object.extend(&amp;#123;	id:null,	name:null,	enid:null,	biography:null,	hotttnesss:null,	image:null,	videos:null&amp;#125;);">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -70,11 +67,11 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-03-26-2015" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ember-model" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/26/03-26-2015/" class="article-date">
-  <time datetime="2015-03-27T02:10:04.000Z" itemprop="datePublished">2015-03-26</time>
+<a href="/2015/04/05/ember-model/" class="article-date">
+  <time datetime="2015-04-05T05:22:38.000Z" itemprop="datePublished">2015-04-05</time>
 </a>
 
 
@@ -87,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      03-26-2015
+      “Emberjs中的Model”
     </h1>
   
 
@@ -103,29 +100,33 @@
 		
 		</div>
 		
-        <p>今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下</p>
-<ul>
-<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz….</li>
-<li>临近下班拿到Jin大叔分配的新任务，帮助他实现一个APIflow上的Emberjs模板的对数据的CRUD。 突然记起Jon之前实现过类似的东西，随后跟Jon要了源码，过几天研究一番，到是也省了不少力气不用重新搭建了。</li>
-</ul>
+        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>定义的Artist对象的初始化属性值都为null。<br>然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>利用Ajax的Promise实现创建对象</p>
+<p>Promise 大概写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure>
+<p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci8411cy40014w1s7akebakhc" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="ci8411cx2000gw1s7j2z8794y" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/26/03-26-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/26/03-26-2015/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/04/05/ember-model/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/ember-model/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-27T05:00:37.000Z" itemprop="dateModified">2015-03-27</time>
+更新日期:<time datetime="2015-04-05T05:42:20.000Z" itemprop="dateModified">2015-04-05</time>
 </span>
 
 
@@ -135,19 +136,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/28/03-28-2015/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          03-28-2015
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/24/connected-components-dfs/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/04/dynamic-route-emberjs/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">connected-components-dfs</div>
+      <div class="article-nav-title">“Emberjs中的dynamic route”</div>
     </a>
   
 </nav>
@@ -160,7 +152,7 @@
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/26/03-26-2015/" data-title="03-26-2015" data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/04/05/ember-model/" data-title="“Emberjs中的Model”" data-url="http://dyangspot.github.io/2015/04/05/ember-model/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>

@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-04-05T03:24:57.000Z</updated>
+  <updated>2015-04-05T05:42:20.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[“Emberjs中的Model”]]></title>
+    <link href="http://dyangspot.github.io/2015/04/05/ember-model/"/>
+    <id>http://dyangspot.github.io/2015/04/05/ember-model/</id>
+    <published>2015-04-05T05:22:38.000Z</published>
+    <updated>2015-04-05T05:42:20.000Z</updated>
+    <content type="html"><![CDATA[<p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>定义的Artist对象的初始化属性值都为null。<br>然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>利用Ajax的Promise实现创建对象</p>
+<p>Promise 大概写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure>
+<p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="li]]>
+    </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[“Emberjs中的dynamic route”]]></title>
+    <link href="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/"/>
+    <id>http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/</id>
+    <published>2015-04-05T03:37:51.000Z</published>
+    <updated>2015-04-05T03:46:21.000Z</updated>
+    <content type="html"><![CDATA[<p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>根据以上数据模型，我们定义routes：</p>
+<p>RocknrollcallYeoman.Router.map(function(){<br>    this.route(‘artist’,{<br>        path: ‘artist/:enid’<br>    });<br>});</p>
+<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em><a href="http://localhost:9000/#/artist/ARERLPG1187FB3BB39" target="_blank" rel="external">http://localhost:9000/#/artist/ARERLPG1187FB3BB39</a></em>来获取。 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><spa]]>
+    </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[“Emerbjs中的Acive Generation”]]></title>

@@ -66,6 +66,152 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ember-model" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/05/ember-model/" class="article-date">
+  <time datetime="2015-04-05T05:22:38.000Z" itemprop="datePublished">2015-04-05</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>定义的Artist对象的初始化属性值都为null。<br>然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>利用Ajax的Promise实现创建对象</p>
+<p>Promise 大概写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure>
+<p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="ci8411cx2000gw1s7j2z8794y" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/05/ember-model/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/ember-model/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-05T05:42:20.000Z" itemprop="dateModified">2015-04-05</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-dynamic-route-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/04/dynamic-route-emberjs/" class="article-date">
+  <time datetime="2015-04-05T03:37:51.000Z" itemprop="datePublished">2015-04-04</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/04/dynamic-route-emberjs/">“Emberjs中的dynamic route”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>根据以上数据模型，我们定义routes：</p>
+<p>RocknrollcallYeoman.Router.map(function(){<br>    this.route(‘artist’,{<br>        path: ‘artist/:enid’<br>    });<br>});</p>
+<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em><a href="http://localhost:9000/#/artist/ARERLPG1187FB3BB39" target="_blank" rel="external">http://localhost:9000/#/artist/ARERLPG1187FB3BB39</a></em>来获取。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="ci8411cx5000iw1s7roofktbe" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/04/dynamic-route-emberjs/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-05T03:46:21.000Z" itemprop="dateModified">2015-04-04</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-active-generation-in-ember" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -107,7 +253,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="ci83vyxvo000pfus7wsuvfz2q" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="ci8411cxk000tw1s7xlonzhdi" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
       
 
       
@@ -174,7 +320,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="ci83vyxvq000rfus7754xfjo0" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="ci8411cxr000vw1s7hfj5qkiz" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
       
 
       
@@ -242,7 +388,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="ci83vyxvw000wfus7uboxfnyf" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="ci8411cxy0010w1s7m98d11r7" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
       
 
       
@@ -353,7 +499,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/" data-id="ci83vyxuu0004fus7zcc9fjy4" data_title="set-up-emberjs-dev-env" data_summary="Setting up dev environment ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/" data-id="ci8411cwn0004w1s7k6xzkxde" data_title="set-up-emberjs-dev-env" data_summary="Setting up dev environment ..." class="article-share-link">Share</a>
       
 
       
@@ -443,7 +589,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="ci83vyxvt000ufus7gp9jd4be" data_title="Ember-in-action" data_summary="App.js
+	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="ci8411cxv000yw1s7yps040a0" data_title="Ember-in-action" data_summary="App.js
 12345678910App = Emb..." class="article-share-link">Share</a>
       
 
@@ -607,7 +753,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="ci83vyxv6000efus76l5cs8jw" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="ci8411cx0000ew1s7y224xp9o" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
       
 
       
@@ -702,7 +848,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci83vyxv8000gfus7syjpgvin" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="ci8411cx7000kw1s7brdoifds" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
       
 
       
@@ -771,7 +917,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci83vyxv4000cfus7i33ybi0l" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="ci8411cwy000cw1s7o8np2vnr" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
       
 
       
@@ -784,144 +930,6 @@
 	  
 <span>
 更新日期:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-03-29</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-03-28-2015" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/03/28/03-28-2015/" class="article-date">
-  <time datetime="2015-03-28T04:47:00.000Z" itemprop="datePublished">2015-03-28</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/28/03-28-2015/">03-28-2015</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，迷迷糊糊半路出家走上IT的道路，这一年的成长收货也是良多的，期间虽然经历过各种心酸挫折，到最后能够找到个不错的工作，也算是对自己努力的回报吧。<br>今儿的工作依旧是在SharePoint平台上面进行Meetings模块的搭建，其实就是做各种XML的configuration嘛，真是自欺欺人orz。下午送走了Jin大叔，Jin是我进公司以来我认识的唯一一个华人同事，能够跟Jin一起工作，也是倍感荣幸的。<br>发现自己自从做Sharepoint以来，好久没有写emberjs了，会不会手生了都忘光了呢？明儿又是周末了，whatever, 等下周再说吧…</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/03/28/03-28-2015/" data-id="ci83vyxvy000yfus7v9ggh2si" data_title="03-28-2015" data_summary="自去年2月份以来，直接或间接的从事各种coding的工..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/03/28/03-28-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/28/03-28-2015/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-03-28T05:12:49.000Z" itemprop="dateModified">2015-03-28</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-03-26-2015" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/03/26/03-26-2015/" class="article-date">
-  <time datetime="2015-03-27T02:10:04.000Z" itemprop="datePublished">2015-03-26</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/26/03-26-2015/">03-26-2015</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:(，anyway，好记性不如烂笔头. 写点工作日志，以后有据可考。今儿的工作总结如下</p>
-<ul>
-<li>初步完成SharePoint服务器Meetings模块的后台搭建工作，再次不得不吐槽，SharePoint is a very ugly platform。 倒不是SharePoint有多难。微软产品共性，产品做的不仅奇怪而且难用，主要是开发工具。 虽说是做服务器开发，但是自己做sharepoint的服务器开发跟用其他语言来进行开发大相径庭啊，自己几乎就是在复制粘贴修改各种XML表格。深切怀疑自己自从做SharePoint这个项目1个多月以来，自己的Coding技能退化的不成样子了 Orz….</li>
-<li>临近下班拿到Jin大叔分配的新任务，帮助他实现一个APIflow上的Emberjs模板的对数据的CRUD。 突然记起Jon之前实现过类似的东西，随后跟Jon要了源码，过几天研究一番，到是也省了不少力气不用重新搭建了。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/03/26/03-26-2015/" data-id="ci83vyxw10010fus7eu0bcarw" data_title="03-26-2015" data_summary="今儿继续来写点流水账，发现年龄大了真是记忆力会减退的:..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/03/26/03-26-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/26/03-26-2015/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-03-27T05:00:37.000Z" itemprop="dateModified">2015-03-27</time>
 </span>
 
 
@@ -970,7 +978,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -990,7 +998,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1077,6 +1085,18 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/30/emberjs-fundamentals-notes/' title='Emberj.js Fundamentals Notes'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 05 2015 01:22:38 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/ember-model/' title='“Emberjs中的Model”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Apr 04 2015 23:37:51 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/04/dynamic-route-emberjs/' title='“Emberjs中的dynamic route”'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Mon Mar 30 2015 22:04:02 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1151,6 +1171,14 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/04/dynamic-route-emberjs/">“Emberjs中的dynamic route”</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/04/active-generation-in-ember/">“Emerbjs中的Acive Generation”</a>
           </li>
         
@@ -1160,14 +1188,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/03/04-03-2015/">04-03-2015</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/03/set-up-emberjs-dev-env/">set-up-emberjs-dev-env</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
           </li>
         
       </ul>
