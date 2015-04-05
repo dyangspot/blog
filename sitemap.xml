@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/</loc>
+    <lastmod>2015-04-05T23:50:28.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2015/04/05/emberjs-controller/</loc>
     <lastmod>2015-04-05T06:18:55.000Z</lastmod>
   </url>

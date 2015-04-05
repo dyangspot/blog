@@ -178,7 +178,7 @@ Ember.js Code-Walkthrough (Video)- Anot">
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="ci84278s6000ayus7nhy3eenz" data_title="Emberjs资料索引" data_summary="Ember.js 资料索引此索引Github repo..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="ci853qy5i000abds7yp0dbkp2" data_title="Emberjs资料索引" data_summary="Ember.js 资料索引此索引Github repo..." class="article-share-link">Share</a>
       
 
       
@@ -281,7 +281,7 @@ Ember.js Code-Walkthrough (Video)- Anot">
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -404,6 +404,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/connected-components-dfs/' title='connected-components-dfs'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 05 2015 19:28:34 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/computed-properties-emberjs/' title='“Emberjs中的Computed Properties”'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Tue Mar 24 2015 22:09:35 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -460,6 +466,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/05/computed-properties-emberjs/">“Emberjs中的Computed Properties”</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
           </li>
         
@@ -473,10 +483,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/04/active-generation-in-ember/">“Emerbjs中的Acive Generation”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/04/MDN-js-notes/">MDN Javascript notes</a>
           </li>
         
       </ul>
