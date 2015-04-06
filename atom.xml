@@ -35,7 +35,7 @@
     <link href="http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/"/>
     <id>http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/</id>
     <published>2015-04-05T23:28:34.000Z</published>
-    <updated>2015-04-05T23:50:28.000Z</updated>
+    <updated>2015-04-06T00:29:21.000Z</updated>
     <content type="html"><![CDATA[<p>Emberjs中的Computed Properties指的是其中属性的值依赖于给定的另外一个属性的值。 而被依赖的属性可以来自于其他的controller，model等。 在已经指定属性间依赖关系的前提下，如果被依赖属性发生改变，依赖属性也会根据被依赖属性的值进行改变。 例如：</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">applicationName:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> st=<span class="keyword">this</span>.<span class="keyword">get</span>(‘searchTerms’);</span><br><span class="line">	<span class="keyword">if</span>(st)&#123;</span><br><span class="line">		<span class="keyword">return</span> st+”???”</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Rock’n Roll Call”</span><br><span class="line">	&#125;</span><br><span class="line">&#125;.property(‘searchTerms’)</span><br></pre></td></tr></table></figure>
 <p>其中，<em>applicationName</em> 作为computed property， 而searchTerms作为dependency.当然，单个computed propriety还可以依赖多个指定属性的值，例如：</p>
@@ -44,6 +44,8 @@
     <summary type="html">
     <![CDATA[<p>Emberjs中的Computed Properties指的是其中属性的值依赖于给定的另外一个属性的值。 而被依赖的属性可以来自于其他的controller，model等。 在已经指定属性间依赖关系的前提下，如果被依赖属性发生改变，依赖属性也会根据被依赖属性的值进行改变。 ]]>
     </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
     
   </entry>
   
