@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-04-05T23:50:28.000Z</updated>
+  <updated>2015-04-06T00:13:12.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -13,6 +13,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[“Emberjs中的set与get”]]></title>
+    <link href="http://dyangspot.github.io/2015/04/05/set-get-emberjs/"/>
+    <id>http://dyangspot.github.io/2015/04/05/set-get-emberjs/</id>
+    <published>2015-04-05T23:51:03.000Z</published>
+    <updated>2015-04-06T00:13:12.000Z</updated>
+    <content type="html"><![CDATA[<p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyVal]]>
+    </summary>
+    
+      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[“Emberjs中的Computed Properties”]]></title>
@@ -626,61 +642,6 @@
     <summary type="html">
     <![CDATA[<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span cla]]>
     </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Emberjs资料索引]]></title>
-    <link href="http://dyangspot.github.io/2015/03/22/emberjs-reference/"/>
-    <id>http://dyangspot.github.io/2015/03/22/emberjs-reference/</id>
-    <published>2015-03-22T15:11:05.000Z</published>
-    <updated>2015-03-23T03:41:54.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="Ember-js_资料索引">Ember.js 资料索引</h1><p>此索引<a href="https://github.com/astray1988/Emberjs_reference_cn" target="_blank" rel="external">Github repo</a></p>
-<h2 id="中文资料">中文资料</h2><ul>
-<li><p><a href="http://www.emberjs.cn/guides/" target="_blank" rel="external">Emberjs教程指南</a></p>
-</li>
-<li><p>《30天学习30种新技术》系列中的<a href="http://segmentfault.com/a/1190000000365519" target="_blank" rel="external">Day19: EmberJS 入门指南</a></p>
-</li>
-</ul>
-<h2 id="英文资料">英文资料</h2><ul>
-<li><p><a href="http://emberjs.com/guides/getting-started/" target="_blank" rel="external">Ember.js Guides</a><br>or 从<a href="https://leanpub.com/emberjsguides/read" target="_blank" rel="external">这里</a>获取</p>
-</li>
-<li><p><a href="http://twbrandt.github.io/2013/02/11/Ember-Quick_Start_Guide/" target="_blank" rel="external">Getting Started with Ember.js</a>  by Tom Brandt</p>
-</li>
-<li><p><a href="http://www.lukaszielinski.de/blog/posts/2013/02/23/ember-dot-js-code-walkthrough-video/" target="_blank" rel="external">Ember.js Code-Walkthrough (Video)</a>- Another Programming Blog</p>
-</li>
-<li><p><a href="http://www.embercasts.com/" target="_blank" rel="external">Ember.js Screencasts</a> - embercasts</p>
-</li>
-<li><p><a href="http://gilesbowkett.blogspot.com/2013/06/heretical-guide-to-ember-js.html" target="_blank" rel="external">Heretical Guide To Ember JS</a> by GILES BOWKETT</p>
-</li>
-</ul>
-<h2 id="书籍">书籍</h2><ul>
-<li><a href="http://www.amazon.com/Ember-js-Action-Joachim-Haagen-Skeie/dp/1617291455" target="_blank" rel="external">Ember.js in Action</a></li>
-</ul>
-<h2 id="视频课程">视频课程</h2><ul>
-<li><p>Code School提供的<a href="https://www.codeschool.com/courses/warming-up-with-ember-js" target="_blank" rel="external">Warming Up With Ember.js</a> </p>
-</li>
-<li><p>Pluralsight提供的<a href="http://www.pluralsight.com/courses/emberjs-fundamentals" target="_blank" rel="external">Ember.js<br>Fundamentals</a></p>
-</li>
-<li><p>Tuts 提供的<a href="http://code.tutsplus.com/courses/ember-for-beginners" target="_blank" rel="external">Ember for Beginners</a></p>
-</li>
-<li><p>lynda提供的<a href="http://www.lynda.com/Emberjs-tutorials/Up-Running-Emberjs/178116-2.html" target="_blank" rel="external">Up and Running with Ember.js</a></p>
-</li>
-<li><p>ember101提供的<a href="http://ember101.com/videos/001-intro-and-binding-data-to-templates" target="_blank" rel="external">Ember 101 Video Series</a></p>
-</li>
-</ul>
-<h2 id="其他资源_Github,Forum,Blogs">其他资源 Github,Forum,Blogs</h2><ul>
-<li><a href="http://emberwatch.com/" target="_blank" rel="external">EmberWatch</a></li>
-<li><a href="http://eviltrout.com/" target="_blank" rel="external">Robin Ward’s blog AKA Evil Trout</a></li>
-<li><a href="http://nerdyworm.com/" target="_blank" rel="external">nerdyworm</a> 与他的<a href="https://github.com/nerdyworm" target="_blank" rel="external">github</a></li>
-<li>airpair提供的<a href="https://www.airpair.com/posts/tag/ember.js" target="_blank" rel="external">ember.js posts</a></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="Ember-js_资料索引">Ember.js 资料索引</h1><p>此索引<a href="https://github.com/astray1988/Emberjs_reference_cn" target="_blank" rel="external">G]]>
-    </summary>
-    
-      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
     
   </entry>
   
