@@ -66,6 +66,233 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript-good-parts-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/09/javascript-good-parts-notes/" class="article-date">
+  <time datetime="2015-04-10T02:36:16.000Z" itemprop="datePublished">2015-04-09</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/09/javascript-good-parts-notes/">javascript-the-good-parts-notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">2.4 字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">3.1 对象自变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">3.6 反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">3.7 枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">4.5 返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">4.6 异常</span></a></li></ol>
+		
+		</div>
+		
+        <p>##语法</p>
+<h3>2.4 字符串</h3>
+<p>Javascript再被创建的时候，Unicode是一个16位的字符集，所以Javascript中的所有字符都是16位的。
+字符串是不可变的，一旦创建，就永远无法改变。
+字符串有一个length属性。
+If做条件判断时，为false的情况：</p>
+<ul>
+<li>false</li>
+<li>null</li>
+<li>undefined</li>
+<li>空字符串“ ”</li>
+<li>数字0</li>
+<li>数字NaN
+其他所有值都为true，包括true 跟字符串&quot;false&quot;，包括所有对象</li>
+</ul>
+<h3>3.1 对象自变量</h3>
+<p>对象属性的访问
+object[&quot;propertyName&quot;] or object.property</p>
+<h3>3.6 反射</h3>
+<p>确定对象属性类型: typeof</p>
+<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typeof flight<span class="class">.number</span>   <span class="comment">// 'number'</span></span><br><span class="line">typeof flight<span class="class">.number</span>	<span class="comment">// 'string'</span></span><br><span class="line">typeof flight<span class="class">.arrival</span>  <span class="comment">// 'object'</span></span><br><span class="line">typeof flight<span class="class">.manifest</span>	<span class="comment">// 'undefined'</span></span><br><span class="line">typeof flight<span class="class">.toString</span>	<span class="comment">// 'function'</span></span><br><span class="line">typeof flight<span class="class">.constructor</span> <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure></p>
+<p>hasOwnProperty方法，可以用来判断是否是对象独有属性，如果是，将返回true。注意：hasOwnProperty不会检查原型链. - 用来判断某个属性是否定义
+flight.hasOwnProperty('number')     // true
+flight.hasOwnPeoperty('constructor')  // false</p>
+<h3>3.7 枚举</h3>
+<p>利用for in来遍历一个对象中所有属性名- 枚举过程列出所有的属性，其中包括函数和原型中的属性.
+可以用hasOwnProperty或 typeof 来进行筛选.</p>
+<p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> name;</span><br><span class="line"><span class="keyword">for</span>(name <span class="keyword">in</span> another_stooge)&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> another_shooge[name] !== <span class="string">'function'</span>)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(name + <span class="string">';'</span> + another_stooge[name]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">`<span class="javascript"></span>``<span class="javascript"> </span><br><span class="line">尽量避免使用<span class="keyword">for</span> <span class="keyword">in</span>来遍历属性， 推荐用<span class="keyword">for</span>. 可以避免发掘出原型链中的属性.</span></span><br></pre></td></tr></table></figure></p>
+<p>var i;
+var properties = {
+'first-name',
+'last-name',
+'gender',
+'profession'
+};
+for(i = 0; i &lt; properties.length;i++){
+...
+}</p>
+<p><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.1 函数对象</span></span><br><span class="line">函数即对象<span class="built_in">Object</span>，也就是“name/value”的集合。 </span><br><span class="line">由<span class="built_in">Object</span>生成的objects对象继承于<span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="keyword">Function</span> objects对象继承于<span class="keyword">Function</span>.prototype</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.3 调用</span></span><br><span class="line">JavaScript的四种调用模式： 方法调用模式，函数调用模式，构造器调用模式，跟apply调用模式.</span><br><span class="line"></span><br><span class="line">- 方法调用模式</span><br><span class="line">当函数作为对象属性时，被称之为方法. </span><br><span class="line">当对象的一个方法被调用时候，this被绑定到该对象.</span><br><span class="line">如果一个调用表达式包含一个属性存取表达式（<span class="built_in">object</span>.<span class="keyword">property</span> 或<span class="built_in">object</span>[<span class="keyword">property</span>]）,这时表达式也会被当作一个方法来调用.</span><br><span class="line"></span><br><span class="line">另外， 方法可以使用this来访问对象.</span><br><span class="line">- 函数调用模式</span><br><span class="line">指的是函数不作为对象属性时，仅仅会被当作一个函数来调用:</span><br><span class="line">```var sum = add(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure></p>
+<p>在此调用模式下，this被绑定到全局对象.  js语言设计上的bug.
+为何错误： 假设设计正确，当内部函数被调用时，this应该仍然绑定到外部函数的this变量。这个设计错误的后果是方法不能利用内部函数来帮助它工作，因为内部函数的this被绑定了错误的值，所以不能共享该方法对对象的访问权.</p>
+<p>解决方案：将该方法定义一个变量并赋值为this，那么内部函数就可以通过这个变量访问到this.</p>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">myObject.double = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> that = <span class="keyword">this</span>;  <span class="comment">// 访问权绑定到that</span></span><br><span class="line">	<span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		that.value = add(that.value,that.value)</span><br><span class="line">	&#125;;</span><br><span class="line">	helper();  <span class="comment">//以函数形式调用helper</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以方法形式调用double</span></span><br><span class="line">myObject.double();</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>构造器调用
+用new关键字来创建一个新对象，其对象具有一个隐藏连接到该函数prototype的成员,这个成员也被绑定到新创建的对象上.</li>
+</ul>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Quo = <span class="function"><span class="keyword">function</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.status = string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给Quo所有实例提供一个get_status的公共方法</span></span><br><span class="line">Guo.prototype.get_status = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Quo实例</span></span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> Quo(<span class="string">"confused"</span>);</span><br><span class="line"><span class="built_in">document</span>.writeln(myQuo.get_status());</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Apply调用</li>
+</ul>
+<h3>4.5 返回</h3>
+<p>一个函数总是会有一个返回值，没有指定return的，则返回undefined.
+如果函数前面加上new 来调用，返回值不是一个对象，则返回this</p>
+<h3>4.6 异常</h3>
+<p>throw 与 try...catch</p>
+<p>throw 包含一个可识别异常类的name属性和解释原因的message熟悉。
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span><span class="params">(a,b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> a !== <span class="string">'number'</span> || <span class="keyword">typeof</span> b !== <span class="string">'number'</span>)&#123;</span><br><span class="line">		<span class="keyword">throw</span>&#123;</span><br><span class="line">			name:<span class="string">'TypeError'</span>,</span><br><span class="line">			message:<span class="string">'add needs numbers'</span></span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>try...catch， 一个try语句只包含一个catch代码块</p>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> try_it = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		add(<span class="string">"seven"</span>);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(e.name + <span class="string">": "</span> + e.message );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/" data-id="ci8dwdkxl000cm3s7gbys4efc" data_title="javascript-the-good-parts-notes" data_summary="##语法
+2.4 字符串
+Javascript再被创建..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/09/javascript-good-parts-notes/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-11T23:41:39.000Z" itemprop="dateModified">2015-04-11</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-ember-tricks" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/08/ember-tricks/" class="article-date">
+  <time datetime="2015-04-09T03:16:05.000Z" itemprop="datePublished">2015-04-08</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/08/ember-tricks/">Ember Tricks</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
+		
+		</div>
+		
+        <h3>router.js</h3>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>/user -&gt; ProductRoute -&gt; Product -&gt; ProductController -&gt; product.handlebars</p>
+<h3>Web Components</h3>
+<p>demo.hardlebars</p>
+<p><figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure></p>
+<h3>Tick #1 Computed Property Macros</h3>
+<p>object.js - object model</p>
+<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure></p>
+<p>staff.js</p>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure></p>
+<p>macros_extras.js</p>
+<p><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Composable:
+Filter:</p>
+<p>macros_array.js</p>
+<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure></p>
+<h3>Trick #2 The Run Loop</h3>
+<h4>Async Everything</h4>
+<p>not_updated.js</p>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure></p>
+<p>set_timeout.js
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>schedule.js
+Scheduling:
+- Is there an Run Loop SCHEDULED?
+-If YES, add event to it/
+- If No , &quot;setTimeout(fn,1)&quot;</p>
+<p>height.js</p>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Ember View
+Performance: More Vies = Slower Rendering
+Infinte Scrolling
+<img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="ci8dwdky4000nm3s7xw8pzcmx" data_title="Ember Tricks" data_summary="router.js
+1this.resource('p..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/08/ember-tricks/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/08/ember-tricks/">暂无评论</a>
+      
+	  
+      
+	  
+<span>
+更新日期:<time datetime="2015-04-09T04:05:18.000Z" itemprop="dateModified">2015-04-09</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-set-get-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -99,13 +326,14 @@
 		
 		</div>
 		
-        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
+        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
+显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="ci854lc690009dts7x2p032mf" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="ci8dwdkxg0009m3s7mdnjfcez" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
       
 
       
@@ -167,15 +395,15 @@
 		</div>
 		
         <p>Emberjs中的Computed Properties指的是其中属性的值依赖于给定的另外一个属性的值。 而被依赖的属性可以来自于其他的controller，model等。 在已经指定属性间依赖关系的前提下，如果被依赖属性发生改变，依赖属性也会根据被依赖属性的值进行改变。 例如：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">applicationName:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> st=<span class="keyword">this</span>.<span class="keyword">get</span>(‘searchTerms’);</span><br><span class="line">	<span class="keyword">if</span>(st)&#123;</span><br><span class="line">		<span class="keyword">return</span> st+”???”</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Rock’n Roll Call”</span><br><span class="line">	&#125;</span><br><span class="line">&#125;.property(‘searchTerms’)</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">applicationName:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> st=<span class="keyword">this</span>.<span class="keyword">get</span>(‘searchTerms’);</span><br><span class="line">	<span class="keyword">if</span>(st)&#123;</span><br><span class="line">		<span class="keyword">return</span> st+”???”</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Rock’n Roll Call”</span><br><span class="line">	&#125;</span><br><span class="line">&#125;.property(‘searchTerms’)</span><br></pre></td></tr></table></figure></p>
 <p>其中，<em>applicationName</em> 作为computed property， 而searchTerms作为dependency.当然，单个computed propriety还可以依赖多个指定属性的值，例如：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person = Ember.Object.extend(&#123;</span><br><span class="line">  <span class="comment">// these will be supplied by `create`</span></span><br><span class="line">  firstName: <span class="literal">null</span>,</span><br><span class="line">  lastName: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  fullName: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'firstName'</span>) + <span class="string">' '</span> + <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'lastName'</span>);</span><br><span class="line">  &#125;.property(<span class="string">'firstName'</span>, <span class="string">'lastName'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ironMan = Person.create(&#123;</span><br><span class="line">  firstName: <span class="string">"Tony"</span>,</span><br><span class="line">  lastName:  <span class="string">"Stark"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ironMan.<span class="keyword">get</span>(<span class="string">'fullName'</span>); <span class="comment">// "Tony Stark"</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person = Ember.Object.extend(&#123;</span><br><span class="line">  <span class="comment">// these will be supplied by `create`</span></span><br><span class="line">  firstName: <span class="literal">null</span>,</span><br><span class="line">  lastName: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  fullName: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'firstName'</span>) + <span class="string">' '</span> + <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'lastName'</span>);</span><br><span class="line">  &#125;.property(<span class="string">'firstName'</span>, <span class="string">'lastName'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ironMan = Person.create(&#123;</span><br><span class="line">  firstName: <span class="string">"Tony"</span>,</span><br><span class="line">  lastName:  <span class="string">"Stark"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ironMan.<span class="keyword">get</span>(<span class="string">'fullName'</span>); <span class="comment">// "Tony Stark"</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/" data-id="ci854lc7w000vdts7z64bvq98" data_title="“Emberjs中的Computed Properties”" data_summary="Emberjs中的Computed Propertie..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/" data-id="ci8dwdkyw000zm3s76awf3c20" data_title="“Emberjs中的Computed Properties”" data_summary="Emberjs中的Computed Propertie..." class="article-share-link">Share</a>
       
 
       
@@ -237,26 +465,25 @@
 		</div>
 		
         <p>在Emberjs中，controllers大概做以下几件事情</p>
-<blockquote>
+<blockquote></blockquote>
 <ul>
 <li>Manipulate the data within the application’s models</li>
 <li>Store transient data, whether standalone or made up of data retrieved from models</li>
 <li>Listen to events dispatched by and dispatch events intended for other controllers,views, and templates</li>
 <li>Instigate the transition from one route to another</li>
 </ul>
-</blockquote>
 <p>也就是说，controller的作用能够处理models中的数据，暂时存储来自models中的数据，监听由其他controllers，views，templates发起的事件，对route进行跳转操作。</p>
 <p>页面关键字搜索实例：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ApplicationController =Em.ObjectController.extend(&#123;	searchTerms: <span class="string">''</span>,	applicationName: <span class="string">"Rock'n'Roll Call"</span>,	actions: &#123;	submit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;		<span class="keyword">this</span>.transitionToRoute(<span class="string">'search-results'</span>,<span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'searchTerms'</span>));		&#125;	&#125;&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ApplicationController =Em.ObjectController.extend(&#123;	searchTerms: <span class="string">''</span>,	applicationName: <span class="string">"Rock'n'Roll Call"</span>,	actions: &#123;	submit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;		<span class="keyword">this</span>.transitionToRoute(<span class="string">'search-results'</span>,<span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'searchTerms'</span>));		&#125;	&#125;&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>以上controller代码中，创建本地临时变量searchTerms，用来获取view中用户输入的关键字。</p>
-<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"nav navbar-nav search-lockup"</span>&gt;</span>	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"search-group"</span>&gt;</span>		</span><span class="expression">&#123;&#123;<span class="variable">input</span> <span class="variable">type</span>=<span class="string">"text"</span> <span class="variable">class</span>=<span class="string">"search-input"</span> <span class="variable">placeholder</span>=<span class="string">"Search for artists or song names"</span> <span class="variable">valueBinding</span>=<span class="string">"controller.searchTerms"</span>&#125;&#125;</span><span class="xml">	<span class="tag">&lt;<span class="title">button</span> </span></span><span class="expression">&#123;&#123;<span class="variable"><span class="keyword">action</span></span> <span class="string">"submit"</span>&#125;&#125;</span><span class="xml"><span class="tag"> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>	<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"nav navbar-nav search-lockup"</span>&gt;</span>	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"search-group"</span>&gt;</span>		</span><span class="expression">&#123;&#123;<span class="variable">input</span> <span class="variable">type</span>=<span class="string">"text"</span> <span class="variable">class</span>=<span class="string">"search-input"</span> <span class="variable">placeholder</span>=<span class="string">"Search for artists or song names"</span> <span class="variable">valueBinding</span>=<span class="string">"controller.searchTerms"</span>&#125;&#125;</span><span class="xml">	<span class="tag">&lt;<span class="title">button</span> </span></span><span class="expression">&#123;&#123;<span class="variable"><span class="keyword">action</span></span> <span class="string">"submit"</span>&#125;&#125;</span><span class="xml"><span class="tag"> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>	<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p>通过valueBinding属性来将之前定义的controller.searchTerms 绑定到input helper中。 当用户在input field中输入关键字的时候，关键字内容会绑定到controller中的searchTerms属性上。当用户点击submit后，会触发之前在template中定义的<em>submit</em> action。 在<em>submit</em> 中调用了transitionToRoute，之后emberjs会跳转到’search-results’ route并将searchTerms的值已参数的形式传递.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/emberjs-controller/" data-id="ci854lc6p000idts7iro6nvls" data_title="“Emberjs中的Controller”" data_summary="在Emberjs中，controllers大概做以下几..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/emberjs-controller/" data-id="ci8dwdky1000lm3s7zs8pp5rs" data_title="“Emberjs中的Controller”" data_summary="在Emberjs中，controllers大概做以下几..." class="article-share-link">Share</a>
       
 
       
@@ -317,21 +544,23 @@
 		
 		</div>
 		
-        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>定义的Artist对象的初始化属性值都为null。<br>然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。
+首先定义对象:</p>
+<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>定义的Artist对象的初始化属性值都为null。
+然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
+<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>利用Ajax的Promise实现创建对象</p>
 <p>Promise 大概写法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="ci854lc6t000kdts7xzhyl2dh" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="ci8dwdky6000om3s7oxrhbhhi" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
       
 
       
@@ -393,16 +622,20 @@
 		</div>
 		
         <p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
 <p>根据以上数据模型，我们定义routes：</p>
-<p>RocknrollcallYeoman.Router.map(function(){<br>    this.route(‘artist’,{<br>        path: ‘artist/:enid’<br>    });<br>});</p>
-<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em><a href="http://localhost:9000/#/artist/ARERLPG1187FB3BB39" target="_blank" rel="external">http://localhost:9000/#/artist/ARERLPG1187FB3BB39</a></em>来获取。 </p>
+<p>RocknrollcallYeoman.Router.map(function(){
+this.route(‘artist’,{
+path: ‘artist/:enid’
+});
+});</p>
+<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em>http://localhost:9000/#/artist/ARERLPG1187FB3BB39</em>来获取。</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="ci854lc6w000mdts7a65bl9mk" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="ci8dwdky8000qm3s7zzk6qpt4" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
       
 
       
@@ -464,14 +697,14 @@
 		</div>
 		
         <p>所谓的Active Generation是指的在Emberjs中，如果<em>route</em> 找不到相对应的<em>handler</em>或<em>controller</em>下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> app = <span class="built_in">window</span>.app = Ember.Application.create(&#123;</span><br><span class="line">	<span class="attribute">LOG_TRANSITIONS</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attribute">LOG_ACTIVE_GENERATION</span>:<span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>此外，在Emerbjs中，我们往往不需要定义<em>application</em> 或 <em>index</em>的route，因为Emerbjs会默认生成相对应的route。 </p>
+<p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> app = <span class="built_in">window</span>.app = Ember.Application.create(&#123;</span><br><span class="line">	<span class="attribute">LOG_TRANSITIONS</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attribute">LOG_ACTIVE_GENERATION</span>:<span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>此外，在Emerbjs中，我们往往不需要定义<em>application</em> 或 <em>index</em>的route，因为Emerbjs会默认生成相对应的route。</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="ci854lc86000ydts74go2872b" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="ci8dwdkz10013m3s74d5ty3fy" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
       
 
       
@@ -538,7 +771,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="ci854lc890010dts7t5fvsi02" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="ci8dwdkz50015m3s7hcuf2ex2" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
       
 
       
@@ -606,7 +839,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="ci854lc8j0015dts71cq760hs" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="ci8dwdkzc0019m3s7kvoh6ztx" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
       
 
       
@@ -619,208 +852,6 @@
 	  
 <span>
 更新日期:<time datetime="2015-04-04T02:10:02.000Z" itemprop="dateModified">2015-04-03</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-set-up-emberjs-dev-env" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/03/set-up-emberjs-dev-env/" class="article-date">
-  <time datetime="2015-04-03T05:01:01.000Z" itemprop="datePublished">2015-04-03</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/03/set-up-emberjs-dev-env/">set-up-emberjs-dev-env</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Setting_up_dev_environment_for_Emberjs"><span class="toc-number">1.</span> <span class="toc-text">Setting up dev environment for Emberjs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing_Yeoman"><span class="toc-number">1.1.</span> <span class="toc-text">Installing Yeoman</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using_Yo’s_Ember_Application_Generator"><span class="toc-number">1.2.</span> <span class="toc-text">Using Yo’s Ember Application Generator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Installing_Dependencies"><span class="toc-number">1.2.1.</span> <span class="toc-text">Installing Dependencies</span></a></li></ol></li></ol></li></ol>
-		
-		</div>
-		
-        <h1 id="Setting_up_dev_environment_for_Emberjs">Setting up dev environment for Emberjs</h1><h2 id="Installing_Yeoman">Installing Yeoman</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -<span class="keyword">g</span> yo grunt-<span class="keyword">cli</span> bower</span><br></pre></td></tr></table></figure>
-<p>There you have it. Now check our install by simply typing the following:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>yo</span><br></pre></td></tr></table></figure></p>
-<h2 id="Using_Yo’s_Ember_Application_Generator">Using Yo’s Ember Application Generator</h2><h3 id="Installing_Dependencies">Installing Dependencies</h3><ul>
-<li>Ruby</li>
-</ul>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ which <span class="keyword">ruby</span>/usr/bin/<span class="keyword">ruby</span>$ <span class="keyword">ruby</span> -<span class="keyword">v</span><span class="keyword">ruby</span> <span class="number">2.0</span>.<span class="number">0</span>p247 (<span class="number">2013</span>-<span class="number">06</span>-<span class="number">27</span> revision <span class="number">41674</span>) [universal.x86_64-darwin13]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Compass<br>Compass is an open source authoring framework for the Sass CSS preprocessor. You will need Compass to run the Ember generators and compile Sass to CSS. To install:</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem <span class="keyword">install</span> compass</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Install the Generator </li>
-</ul>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">npm</span> search yeoman-generator</span><br></pre></td></tr></table></figure>
-<p>When finish, open a new terminal and summon Yo:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>yo</span><br></pre></td></tr></table></figure></p>
-<p>Select the <em>ember-plus</em> you want to install.<br>I just installed your generator by running:</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g generator-ember-plus</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Running the Generator</li>
-</ul>
-<p>For more info,goes here <a href="https://www.npmjs.com/package/generator-ember-plus" target="_blank" rel="external">Ember-Plus</a></p>
-<ul>
-<li><p>Using Bower<br>Bower is used to delcare all the dependencies within a particular project. You can do this by <em>bower.json</em> .</p>
-</li>
-<li><p>Grunt</p>
-</li>
-</ul>
-<p>Grunt.js is a task runner that allows you to automate all of the tasks that you normally have to worry about on your own or with separate toolsets. Grunt can do the following:</p>
-<ul>
-<li>Watch processes such as LiveReload</li>
-<li>Auto-compile CoffeeScript, Compass, and Sass</li>
-<li>Auto-lint</li>
-<li>Benchmark image optimization</li>
-<li>Generate an app cache manifest</li>
-<li>Minify and concatenate static resources</li>
-<li>Run a built-in preview server</li>
-</ul>
-<p>How Gruntfile works? Take a look at Gruntfile.js:<br>The initConfig method provides the configuration for each of the tasks we register later in grunt.registerTask(), for example ,the task jshint:</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grunt<span class="built_in">.</span>initConfig(&#123;	yeoman: yeomanConfig,	jshint: &#123;		options: &#123;			jshintrc: <span class="string">'.jshintrc'</span>,			reporter: <span class="keyword">require</span>(<span class="string">'jshint-stylish'</span>)		&#125;,		<span class="literal">all</span>: <span class="preprocessor">[</span>			<span class="string">'Gruntfile.js'</span>,			<span class="string">'&lt;%= yeoman.app %&gt;/scripts/&#123;,*/&#125;*.js'</span>,			<span class="string">'!&lt;%= yeoman.app %&gt;/scripts/vendor/*'</span>,			<span class="string">'test/spec/&#123;,*/&#125;*.js'</span></span><br><span class="line">		<span class="preprocessor">]</span><span class="markup"></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;):</span></span><br></pre></td></tr></table></figure>
-<p>grunt.loadNpmTasks<br>Before register tasks, we then need to load them as Node.js modules. This <em>require</em> declaration runs the load-grunt-tasks task that loads all the other tasks in the directory:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;since the dependencies are available, the Yeoman-generated Gruntfile includes the register calls for each task:</span><br></pre></td></tr></table></figure>
-<p>grunt.registerTask(‘default’,[<br>    ‘jshint’<br>]);<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">To build <span class="keyword">the</span> <span class="type">application</span>, just <span class="command">run</span>:</span><br></pre></td></tr></table></figure></p>
-<p>$ grunt<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">To <span class="keyword">view</span> the <span class="keyword">app</span>:</span><br></pre></td></tr></table></figure></p>
-<p>$ grunt serve<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">This should fire up the application <span class="keyword">on</span> http:<span class="comment">//localhost:9000</span></span><br><span class="line">To <span class="keyword">run</span> <span class="keyword">test</span>:</span><br></pre></td></tr></table></figure></p>
-<p>$ grunt test<br>```</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/" data-id="ci854lc640004dts74m58fjr4" data_title="set-up-emberjs-dev-env" data_summary="Setting up dev environment ..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/03/set-up-emberjs-dev-env/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-04T02:18:29.000Z" itemprop="dateModified">2015-04-03</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-Ember-in-action" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/03/Ember-in-action/" class="article-date">
-  <time datetime="2015-04-03T04:28:26.000Z" itemprop="datePublished">2015-04-03</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/03/Ember-in-action/">Ember-in-action</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>App.js</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">App = Ember.Application.create();</span><br><span class="line">App.Router.map(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// put your routes here</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">App.IndexRoute = Ember.Route.extend(&#123;</span><br><span class="line">	model:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> [<span class="string">'red'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>When you load <em><a href="http://localhost:8000" target="_blank" rel="external">http://localhost:8000</a></em> in browser:</p>
-<ol>
-<li>The HTML page loads, which loads and executes your app.js file.</li>
-<li>app.js instantiates an Ember Application</li>
-<li>When the Application starts up, it immediately looks to see if you’ve written your own <strong>ApplicationRoute</strong>,loading it if there is one, and loading its own either way.</li>
-<li>The Application does the same load-yours-too-if-you-wrote-one routine with <strong>ApplicationController</strong>.</li>
-<li>If you’ve defined your own ApplicationRoute- and defined any event hooks within that should be fired(such as an activate definition) - they will now be fired.</li>
-<li>Ember then looks for an <em>application template</em> in your HTML and sets it up with <strong>ApplicationController</strong> as its controller, which we’ll see later becomes the conduit through which data flows into your tempaltes, replacing placeholders with live data.</li>
-<li>Because we are at the <em>root URL</em> of your application(given that no route in particular is specified), Ember will now locate and instantiate the <strong>IndexRoute</strong> you specified in app.js.</li>
-<li>Ember will now identify that you didn’t specify an “”IndexController”” and will instantiate one for you,but Ember has some choices to make about what kind of default controller will be most useful. Because you defined a model in <strong>IndexRoute</strong> that is an array,Ember will instantiate an <em>ArrayController</em> as your <strong>IndexController</strong>.</li>
-<li>Ember will find the template named <em>index</em> in the HTML document and render it to the <em>outlet</em> helper in our application.</li>
-</ol>
-<p>When you load *<a href="http://localhost:8000/#/examples/1" target="_blank" rel="external">http://localhost:8000/#/examples/1</a> in browser, because we haven’t defined the route, let’s see what Ember will look for:</p>
-<ol>
-<li>Because of the <em>/examples</em>, Ember will look for a route named <strong>ExamplesRoute</strong>.</li>
-<li>Ember will look for or create an <strong>ExamplesController</strong>.</li>
-<li><p>Ember will cal the <em>model</em> function of <em>ExamplesRoute</em>, passing it the last portion of your URL, looking a bit like this, were you to define an <em>ExamplesRoute</em>:</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mode</span><span class="variable">l:</span> <span class="function"><span class="keyword">function</span><span class="params">(params)</span>&#123;</span></span><br><span class="line">	<span class="keyword">return</span> App.Example.<span class="keyword">find</span>(params.example_id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Ember can now retrieve your model data and populate a template named <em>examples</em> in your HTML, rendering it to the <strong>outlet</strong> helper in your application template.</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="ci854lc8d0013dts7y181y90h" data_title="Ember-in-action" data_summary="App.js
-12345678910App = Emb..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/03/Ember-in-action/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/03/Ember-in-action/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-03T05:00:01.000Z" itemprop="dateModified">2015-04-03</time>
 </span>
 
 
@@ -869,7 +900,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -879,7 +910,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 13px; color: #7dc3de">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
     </div>
   </div>
 
@@ -889,7 +920,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -964,6 +995,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/22/scala-test/' title='scala-test'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/09/javascript-good-parts-notes/' title='javascript-the-good-parts-notes'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -986,6 +1023,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/emberjs-controller/' title='“Emberjs中的Controller”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Wed Apr 08 2015 23:16:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/08/ember-tricks/' title='Ember Tricks'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Apr 05 2015 01:22:38 GMT-0400"); 
@@ -1080,6 +1123,14 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/09/javascript-good-parts-notes/">javascript-the-good-parts-notes</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/08/ember-tricks/">Ember Tricks</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/05/set-get-emberjs/">“Emberjs中的set与get”</a>
           </li>
         
@@ -1089,14 +1140,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/04/dynamic-route-emberjs/">“Emberjs中的dynamic route”</a>
           </li>
         
       </ul>

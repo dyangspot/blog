@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/</loc>
+    <lastmod>2015-04-11T23:41:39.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/08/ember-tricks/</loc>
+    <lastmod>2015-04-09T04:05:18.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/</loc>
     <lastmod>2015-04-06T00:29:21.000Z</lastmod>
   </url>
