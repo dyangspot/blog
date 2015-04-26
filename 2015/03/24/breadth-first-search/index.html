@@ -102,7 +102,7 @@ With depth-first search it is either an explicit stack (with a nonrecursive vers
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implementation"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_application:"><span class="toc-number">2.</span> <span class="toc-text">BFS application:</span></a></li></ol>
 		
 		</div>
 		
@@ -114,18 +114,15 @@ With depth-first search it is either an explicit stack (with a nonrecursive vers
 <p><strong>Shortest path</strong>. Find path from s to t that uses <strong>fewer number of edges</strong>.</p>
 <hr>
 <p>BFS(from source vertex s)</p>
-<p>Put s onto a FIFO queue, and mark s as visited.
-Repeat until the queue is empty:</p>
+<p>Put s onto a FIFO queue, and mark s as visited.<br>Repeat until the queue is empty:</p>
 <ul>
 <li>remove the least recently added vertex v.</li>
-<li>add each of v's unvisited neighbors to the queue, and mark them as visited.</li>
+<li>add each of v’s unvisited neighbors to the queue, and mark them as visited.</li>
 </ul>
 <hr>
 <p><strong>Proposition</strong>. BFS computs shortest paths(fewest number of edges) from <em>s</em> to all other vertices in a graph in time proportional to <em>E + V</em>(# of edges + # of vertices).</p>
-<h3>Code Implementation</h3>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>###BFS application:</p>
-<ul>
+<h3 id="Code_Implementation">Code Implementation</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BFS_application:">BFS application:</h3><ul>
 <li>routing-&gt; Fewest number of hops in a communication network.</li>
 <li>Kevin Bacon numbers;</li>
 </ul>
@@ -134,7 +131,7 @@ Repeat until the queue is empty:</p>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="ci8dwdkyz0011m3s7v6as2at1" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="ci8y0yulj001d2ns70134843w" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
       
 
       
@@ -193,7 +190,7 @@ Repeat until the queue is empty:</p>
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implementation"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_application:"><span class="toc-number">2.</span> <span class="toc-text">BFS application:</span></a></li></ol>
     
   </div>
 
@@ -222,7 +219,7 @@ Repeat until the queue is empty:</p>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -232,7 +229,7 @@ Repeat until the queue is empty:</p>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/reactive-programming/" style="font-size: 15.33px; color: #5dbe94">reactive programming</a><a href="/tags/scala/" style="font-size: 17.67px; color: #3db94a">scala</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
     </div>
   </div>
 
@@ -242,7 +239,7 @@ Repeat until the queue is empty:</p>
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -317,6 +314,24 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/22/scala-test/' title='scala-test'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 26 2015 00:32:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/scala-parameter-type/' title='Scala中的call by name与call by value区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:02:21 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-programming/' title='reactive-programming-intro'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:43:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-prog-recap/' title='reactive-prog-recap'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -389,6 +404,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/05/computed-properties-emberjs/' title='“Emberjs中的Computed Properties”'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 26 2015 00:54:46 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/call-by-name/' title='Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Tue Mar 24 2015 22:09:35 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -445,23 +466,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/26/scala-parameter-type/">Scala中的call by name与call by value区别</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/13/reactive-prog-recap/">reactive-prog-recap</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/13/reactive-programming/">reactive-programming-intro</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/09/javascript-good-parts-notes/">javascript-the-good-parts-notes</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/08/ember-tricks/">Ember Tricks</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/set-get-emberjs/">“Emberjs中的set与get”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/computed-properties-emberjs/">“Emberjs中的Computed Properties”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
           </li>
         
       </ul>

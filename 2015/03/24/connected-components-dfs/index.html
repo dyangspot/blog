@@ -99,30 +99,26 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Application:_particle_detection"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
 		
 		</div>
 		
         <p>Def. Vertices <em>v</em> and <em>w</em> are connected if there is a path between them.</p>
 <p>Goal. Proepocess graph to answer queries of the form is <em>v</em> connected to <em>w</em> in <strong>constant</strong> time?</p>
-<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> class CC</span><br><span class="line">	<span class="title">CC</span><span class="params">(Graph G)</span>	 	<span class="comment">// 	 find connected components in G</span></span><br><span class="line">	<span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span>        <span class="comment">//are v and w connected?</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> 					<span class="comment">//number of connected components</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> v)</span>			<span class="comment">// component identifier for v</span></span></span><br></pre></td></tr></table></figure></p>
-<p>The relation &quot;is connected to&quot; is an <em>equivalence relation</em>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> class CC</span><br><span class="line">	<span class="title">CC</span><span class="params">(Graph G)</span>	 	<span class="comment">// 	 find connected components in G</span></span><br><span class="line">	<span class="keyword">boolean</span> <span class="title">connected</span><span class="params">(<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span>        <span class="comment">//are v and w connected?</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> 					<span class="comment">//number of connected components</span></span><br><span class="line">	<span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> v)</span>			<span class="comment">// component identifier for v</span></span></span><br></pre></td></tr></table></figure>
+<p>The relation “is connected to” is an <em>equivalence relation</em>:</p>
 <ul>
-<li>
-<p>Relflexive: <em>v</em> is connected to <em>v</em>.</p>
+<li><p>Relflexive: <em>v</em> is connected to <em>v</em>.</p>
 </li>
-<li>
-<p>Symmetric: if <em>v</em> is connected to <em>w</em>,then <em>w</em> is connected to <em>v</em>.</p>
+<li><p>Symmetric: if <em>v</em> is connected to <em>w</em>,then <em>w</em> is connected to <em>v</em>.</p>
 </li>
-<li>
-<p>Transitive: if <em>v</em> connected to <em>w</em> and <em>w</em> connected to <em>x</em>, then <em>v</em> connected to <em>x</em>.</p>
+<li><p>Transitive: if <em>v</em> connected to <em>w</em> and <em>w</em> connected to <em>x</em>, then <em>v</em> connected to <em>x</em>.</p>
 </li>
 </ul>
-<p>Def. A ** connected component** is a maximal set of connected vertices.</p>
+<p>Def. A <strong> connected component</strong> is a maximal set of connected vertices.</p>
 <p>Goal. Partition vertices into connected components.</p>
-<p><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Initizlize all vertices *v* as unmarked.</span><br><span class="line">For each unmarked vertex *v*, run DFS to identify all vertices discovered as part of the same component.</span><br><span class="line">``` </span><br><span class="line"><span class="preprocessor">### Finding connected components with DFS</span></span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> boolan marked[];</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] id; <span class="comment">// id[v] = id of component containing v</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">count</span>; <span class="comment">// number of components</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> CC(Graph G)&#123;</span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()]; <span class="comment">// create marked array</span></span><br><span class="line">		id = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];		<span class="comment">// create id array</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)&#123;  <span class="comment">// go through every vertices in graph</span></span><br><span class="line">			<span class="keyword">if</span>(!marked[v])&#123; <span class="comment">// if v not marked </span></span><br><span class="line">				dfs(G,v);   <span class="comment">//</span></span><br><span class="line">				<span class="keyword">count</span>++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="keyword">count</span>()&#123;		<span class="comment">// # of components</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> id(<span class="keyword">int</span> v)&#123; <span class="comment">// id of component containing v</span></span><br><span class="line">		<span class="keyword">return</span> id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> dfs(Graph G,<span class="keyword">int</span> v)&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		id[v] = <span class="keyword">count</span>;			<span class="comment">// all vertices discovered in same call of dfs have same id</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Application: particle detection</h3>
-<p>Particle detection. Give grayscale image of particles, identify &quot;blobs.&quot;</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Initizlize all vertices *v* as unmarked.</span><br><span class="line">For each unmarked vertex *v*, run DFS to identify all vertices discovered as part of the same component.</span><br><span class="line">``` </span><br><span class="line"><span class="preprocessor">### Finding connected components with DFS</span></span><br><span class="line"></span><br><span class="line">``` java</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CC</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> boolan marked[];</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] id; <span class="comment">// id[v] = id of component containing v</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">count</span>; <span class="comment">// number of components</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> CC(Graph G)&#123;</span><br><span class="line">		marked = <span class="keyword">new</span> <span class="keyword">boolean</span>[G.V()]; <span class="comment">// create marked array</span></span><br><span class="line">		id = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];		<span class="comment">// create id array</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">0</span>;v&lt;G.V();v++)&#123;  <span class="comment">// go through every vertices in graph</span></span><br><span class="line">			<span class="keyword">if</span>(!marked[v])&#123; <span class="comment">// if v not marked </span></span><br><span class="line">				dfs(G,v);   <span class="comment">//</span></span><br><span class="line">				<span class="keyword">count</span>++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="keyword">count</span>()&#123;		<span class="comment">// # of components</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> id(<span class="keyword">int</span> v)&#123; <span class="comment">// id of component containing v</span></span><br><span class="line">		<span class="keyword">return</span> id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> dfs(Graph G,<span class="keyword">int</span> v)&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		id[v] = <span class="keyword">count</span>;			<span class="comment">// all vertices discovered in same call of dfs have same id</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Application:_particle_detection">Application: particle detection</h3><p>Particle detection. Give grayscale image of particles, identify “blobs.”</p>
 <ul>
 <li>Vertex:pixel</li>
 <li>Edge: between two adjacent pixels with grayscale value &gt;= 70</li>
@@ -133,7 +129,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci8dwdkys000xm3s7uzl54cdg" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/connected-components-dfs/" data-id="ci8y0yul900172ns76oue2lb7" data_title="connected-components-dfs" data_summary="Def. Vertices v and w are c..." class="article-share-link">Share</a>
       
 
       
@@ -192,7 +188,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Application:_particle_detection"><span class="toc-number">1.</span> <span class="toc-text">Application: particle detection</span></a></li></ol>
     
   </div>
 
@@ -221,7 +217,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -231,7 +227,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/reactive-programming/" style="font-size: 15.33px; color: #5dbe94">reactive programming</a><a href="/tags/scala/" style="font-size: 17.67px; color: #3db94a">scala</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
     </div>
   </div>
 
@@ -241,7 +237,7 @@ Goal. Proepocess graph to answer queries of the form is v connected to w in cons
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -316,6 +312,24 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/22/scala-test/' title='scala-test'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 26 2015 00:32:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/scala-parameter-type/' title='Scala中的call by name与call by value区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:02:21 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-programming/' title='reactive-programming-intro'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:43:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-prog-recap/' title='reactive-prog-recap'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -388,6 +402,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/05/computed-properties-emberjs/' title='“Emberjs中的Computed Properties”'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sun Apr 26 2015 00:54:46 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/call-by-name/' title='Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Tue Mar 24 2015 22:09:35 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -444,23 +464,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/26/scala-parameter-type/">Scala中的call by name与call by value区别</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/13/reactive-prog-recap/">reactive-prog-recap</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/13/reactive-programming/">reactive-programming-intro</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/09/javascript-good-parts-notes/">javascript-the-good-parts-notes</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/08/ember-tricks/">Ember Tricks</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/set-get-emberjs/">“Emberjs中的set与get”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/computed-properties-emberjs/">“Emberjs中的Computed Properties”</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
           </li>
         
       </ul>

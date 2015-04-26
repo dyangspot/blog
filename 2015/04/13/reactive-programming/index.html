@@ -3,33 +3,32 @@
 <head>
   <meta charset="utf-8">
   
-  <title>depth-first-search | Dylan&#39;s Blog</title>
+  <title>reactive-programming-intro | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
+  <meta name="description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
-Depth-first search
-Goal. Systematically search through a graph, find all v">
+
+
+
+10 ye">
 <meta property="og:type" content="article">
-<meta property="og:title" content="depth-first-search">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/24/depth-first-search/index.html">
+<meta property="og:title" content="reactive-programming-intro">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/13/reactive-programming/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
+<meta property="og:description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
-Depth-first search
-Goal. Systematically search through a graph, find all v">
-<meta property="og:image" content="http://imgs.xkcd.com/comics/dfs.png">
+
+
+
+10 ye">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="depth-first-search">
-<meta name="twitter:description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
+<meta name="twitter:title" content="reactive-programming-intro">
+<meta name="twitter:description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
-Depth-first search
-Goal. Systematically search through a graph, find all v">
+
+
+
+10 ye">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -80,11 +79,11 @@ Goal. Systematically search through a graph, find all v">
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-depth-first-search" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-reactive-programming" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/24/depth-first-search/" class="article-date">
-  <time datetime="2015-03-24T04:29:30.000Z" itemprop="datePublished">2015-03-24</time>
+<a href="/2015/04/13/reactive-programming/" class="article-date">
+  <time datetime="2015-04-14T02:02:21.000Z" itemprop="datePublished">2015-04-13</time>
 </a>
 
 
@@ -97,7 +96,7 @@ Goal. Systematically search through a graph, find all v">
         
   
     <h1 class="article-title" itemprop="name">
-      depth-first-search
+      reactive-programming-intro
     </h1>
   
 
@@ -109,56 +108,120 @@ Goal. Systematically search through a graph, find all v">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Changing_Requirements…"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Need_New_Architectures"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scalable"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resilient"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsive"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-backs"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
 		
 		</div>
 		
-        <h1 id="Graph">Graph</h1><h2 id="Tremaux_maze_exploration">Tremaux maze exploration</h2><ul>
-<li>make each visited intersection and each visited passage</li>
-<li>Retrace steps when no unvisted options</li>
+        <h3 id="Changing_Requirements…">Changing Requirements…</h3><p>Server nodes          10’s      1000’s<br>Response times      seconds   milliseconds<br>Maintenance downtimes  hours      none<br>Data volume           GBs        TBs -&gt; PBs    </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>10 years ago</th>
+<th>Now</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server nodes</td>
+<td>10’s</td>
+<td>1000’s</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Response times</td>
+<td>seconds</td>
+<td>milliseconds</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Maintenance downtimes</td>
+<td>hours</td>
+<td>none</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Data volume</td>
+<td>GBs</td>
+<td>TBs -&gt; PBs</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Need_New_Architectures">Need New Architectures</h3><p>Previously: Managed servers and containers</p>
+<p>Now: Reactive application</p>
+<ul>
+<li>event-driven -&gt; react to events</li>
+<li>scalable -&gt; react to load</li>
+<li>resilient -&gt; react to failures</li>
+<li>responsive -&gt; react to users</li>
 </ul>
-<h2 id="Depth-first_search">Depth-first search</h2><ul>
-<li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
-<li>Idea. Mimic maze exploration</li>
+<h3 id="Event-Driven">Event-Driven</h3><p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
+<ul>
+<li>String coupling, hard to compose</li>
 </ul>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure>
-<h3 id="Design_pattern">Design pattern</h3><ul>
-<li>Decouple graph data type from graph processing.</li>
-<li>Create a Graph object.</li>
-<li>Pass the Graph to graph-processing routine.</li>
-<li>Query the graph-processing routine for information.</li>
+<p>Now: Systems are composed from loosely coupled event handlers.</p>
+<ul>
+<li>Events can be handled asynchronously, without blocking.<br>none-blocking: resource can be utilized more efficiently.</li>
 </ul>
-<h3 id="Algorithm-">Algorithm.</h3><ul>
-<li>Use recursion(ball of string).</li>
-<li>Mark each visited vertex(and keep track of edge taken to visit to it).</li>
-<li>Return(retrace steps) when no unvisited options.</li>
+<h3 id="Scalable">Scalable</h3><p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
+<ul>
+<li>scale up: make use of parallelism in multi-core systems.</li>
+<li>scale out: make use of multiple server nodes in a data center or in the cloud.</li>
 </ul>
-<h3 id="Data_structures-">Data structures.</h3><ul>
-<li><strong>boolean[] marked</strong> to mark visited vertices</li>
-<li><strong>int[] edgeTo</strong> to keep tree of paths.<br>(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
+<p>Important for scalability: Minimize shared mutable state.<br>Important for scale out: Location transparency,resilience.</p>
+<p>Location transparency: it doesn’t matter where the location is ,could be at the same computer or across the internet.</p>
+<h3 id="Resilient">Resilient</h3><p>An application is <strong>resilient</strong> if it can recover quickly from failures.<br>Failures can be:</p>
+<ul>
+<li>software failures</li>
+<li>hardware failures, or</li>
+<li>connection failures.</li>
 </ul>
-<h3 id="Java_API">Java API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="Code_Implemention">Code Implemention</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Depth-first_search_code">Depth-first search code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
+<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.<br>Needed:</p>
+<ul>
+<li>loose coupling.</li>
+<li>strong encapsulation of state.</li>
+<li>pervasive supervisor hierachies.</li>
+</ul>
+<h3 id="Responsive">Responsive</h3><p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
+<p>Responsive applications can be built on an event-driven,scalable, and resilient architecture.</p>
+<h3 id="Call-backs">Call-backs</h3><p>Handling events is often done using call-backs. E.g. using Java observers:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Problems:</p>
+<ul>
+<li>needs shared mutable state.</li>
+<li>cannot be composed.</li>
+<li>leads quickly to “call-back hell”</li>
+</ul>
+<p>Soveld in this course:<br>to get <strong>composable</strong> event abstractions.</p>
+<ul>
+<li>Events are first class.</li>
+<li>Events are often represented as messages.</li>
+<li>Handlers of events are also first-class.</li>
+<li>Complex handlers can be composed from primitive ones.</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci8y0yul600152ns7kam27eha" data_title="depth-first-search" data_summary="GraphTremaux maze explorati..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="ci8y0yuk6000f2ns7a1jphrfx" data_title="reactive-programming-intro" data_summary="Changing Requirements…Serve..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/24/depth-first-search/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/24/depth-first-search/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/04/13/reactive-programming/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/13/reactive-programming/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactive-programming/">reactive programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-24T21:12:17.000Z" itemprop="dateModified">2015-03-24</time>
+更新日期:<time datetime="2015-04-14T02:44:12.000Z" itemprop="dateModified">2015-04-13</time>
 </span>
 
 
@@ -168,19 +231,19 @@ Goal. Systematically search through a graph, find all v">
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/breadth-first-search/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/04/13/reactive-prog-recap/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          breadth-first-search
+          reactive-prog-recap
         
       </div>
     </a>
   
   
-    <a href="/2015/03/23/worksummary-03-23-2015/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/09/javascript-good-parts-notes/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">“03-23-2015&quot;</div>
+      <div class="article-nav-title">javascript-the-good-parts-notes</div>
     </a>
   
 </nav>
@@ -193,7 +256,7 @@ Goal. Systematically search through a graph, find all v">
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/24/depth-first-search/" data-title="depth-first-search" data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/04/13/reactive-programming/" data-title="reactive-programming-intro" data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>
@@ -205,7 +268,7 @@ Goal. Systematically search through a graph, find all v">
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Changing_Requirements…"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Need_New_Architectures"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scalable"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resilient"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsive"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-backs"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
     
   </div>
 

@@ -3,33 +3,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>depth-first-search | Dylan&#39;s Blog</title>
+  <title>Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别 | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
-
-Depth-first search
-Goal. Systematically search through a graph, find all v">
+  <meta name="description" content="在此总结下Call-by-Name的传递函数的类型问题.
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+1def f(x:=&amp;gt;Int)= x*x
+调用函数 
+12var y=0f(y+=1;y)
+代码执行如下
+1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
 <meta property="og:type" content="article">
-<meta property="og:title" content="depth-first-search">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/24/depth-first-search/index.html">
+<meta property="og:title" content="Scala中的=>, ()=> 与 Unit=>区别">
+<meta property="og:url" content="http://dyangspot.github.io/2015/04/26/call-by-name/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
-
-Depth-first search
-Goal. Systematically search through a graph, find all v">
-<meta property="og:image" content="http://imgs.xkcd.com/comics/dfs.png">
+<meta property="og:description" content="在此总结下Call-by-Name的传递函数的类型问题.
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+1def f(x:=&amp;gt;Int)= x*x
+调用函数 
+12var y=0f(y+=1;y)
+代码执行如下
+1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="depth-first-search">
-<meta name="twitter:description" content="GraphTremaux maze exploration
-make each visited intersection and each visited passage
-Retrace steps when no unvisted options
-
-Depth-first search
-Goal. Systematically search through a graph, find all v">
+<meta name="twitter:title" content="Scala中的=>, ()=> 与 Unit=>区别">
+<meta name="twitter:description" content="在此总结下Call-by-Name的传递函数的类型问题.
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+1def f(x:=&amp;gt;Int)= x*x
+调用函数 
+12var y=0f(y+=1;y)
+代码执行如下
+1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -80,11 +82,11 @@ Goal. Systematically search through a graph, find all v">
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-depth-first-search" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-call-by-name" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/24/depth-first-search/" class="article-date">
-  <time datetime="2015-03-24T04:29:30.000Z" itemprop="datePublished">2015-03-24</time>
+<a href="/2015/04/26/call-by-name/" class="article-date">
+  <time datetime="2015-04-26T04:54:46.000Z" itemprop="datePublished">2015-04-26</time>
 </a>
 
 
@@ -97,7 +99,7 @@ Goal. Systematically search through a graph, find all v">
         
   
     <h1 class="article-title" itemprop="name">
-      depth-first-search
+      Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别
     </h1>
   
 
@@ -109,56 +111,42 @@ Goal. Systematically search through a graph, find all v">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
 		
 		</div>
 		
-        <h1 id="Graph">Graph</h1><h2 id="Tremaux_maze_exploration">Tremaux maze exploration</h2><ul>
-<li>make each visited intersection and each visited passage</li>
-<li>Retrace steps when no unvisted options</li>
-</ul>
-<h2 id="Depth-first_search">Depth-first search</h2><ul>
-<li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
-<li>Idea. Mimic maze exploration</li>
-</ul>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure>
-<h3 id="Design_pattern">Design pattern</h3><ul>
-<li>Decouple graph data type from graph processing.</li>
-<li>Create a Graph object.</li>
-<li>Pass the Graph to graph-processing routine.</li>
-<li>Query the graph-processing routine for information.</li>
-</ul>
-<h3 id="Algorithm-">Algorithm.</h3><ul>
-<li>Use recursion(ball of string).</li>
-<li>Mark each visited vertex(and keep track of edge taken to visit to it).</li>
-<li>Return(retrace steps) when no unvisited options.</li>
-</ul>
-<h3 id="Data_structures-">Data structures.</h3><ul>
-<li><strong>boolean[] marked</strong> to mark visited vertices</li>
-<li><strong>int[] edgeTo</strong> to keep tree of paths.<br>(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
-</ul>
-<h3 id="Java_API">Java API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="Code_Implemention">Code Implemention</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Depth-first_search_code">Depth-first search code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
+        <p>在此总结下Call-by-Name的传递函数的类型问题.</p>
+<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure>
+<p>调用函数 </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure>
+<p>代码执行如下</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="expr:()=&gt;Type">expr:()=&gt;Type</h3><p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.<br><strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
+<figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
+<h3 id="Unit_=&gt;_Type">Unit =&gt; Type</h3><p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。<br>其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：<br>···<br>def f(x:Unit) = …<br>···</p>
+<p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure>
+<p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="ci8y0yul600152ns7kam27eha" data_title="depth-first-search" data_summary="GraphTremaux maze explorati..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="ci8y0yulg001b2ns7tro1xo2p" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/24/depth-first-search/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/24/depth-first-search/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/04/26/call-by-name/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/26/call-by-name/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-24T21:12:17.000Z" itemprop="dateModified">2015-03-24</time>
+更新日期:<time datetime="2015-04-26T05:37:53.000Z" itemprop="dateModified">2015-04-26</time>
 </span>
 
 
@@ -168,19 +156,10 @@ Goal. Systematically search through a graph, find all v">
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/breadth-first-search/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          breadth-first-search
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/23/worksummary-03-23-2015/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/04/26/scala-parameter-type/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">“03-23-2015&quot;</div>
+      <div class="article-nav-title">Scala中的call by name与call by value区别</div>
     </a>
   
 </nav>
@@ -193,7 +172,7 @@ Goal. Systematically search through a graph, find all v">
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/24/depth-first-search/" data-title="depth-first-search" data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/04/26/call-by-name/" data-title="Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别" data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>
@@ -205,7 +184,7 @@ Goal. Systematically search through a graph, find all v">
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
     
   </div>
 
