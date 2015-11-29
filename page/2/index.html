@@ -66,6 +66,81 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ember-model" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/05/ember-model/" class="article-date">
+  <time datetime="2015-04-05T05:22:38.000Z" itemprop="datePublished">2015-04-05</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。<br>首先定义对象:</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>定义的Artist对象的初始化属性值都为null。<br>然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>利用Ajax的Promise实现创建对象</p>
+<p>Promise 大概写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure>
+<p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="cihk1m531000yses79sxu7zah" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/05/ember-model/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/ember-model/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-05T05:42:20.000Z" itemprop="dateModified">2015-04-05</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-dynamic-route-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -109,7 +184,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="cihk14ddn0010pps78vwxmxgf" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="cihk1m5330010ses7uovaystd" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
       
 
       
@@ -178,7 +253,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="cihk14dec001fpps7wh5h5kh2" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="cihk1m53r001fses786wnpqj6" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
       
 
       
@@ -245,7 +320,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="cihk14dee001hpps762rqf4pu" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/MDN-js-notes/" data-id="cihk1m53u001hses7vlv23777" data_title="MDN Javascript notes" data_summary="最近在看Mozilla Developer Netwo..." class="article-share-link">Share</a>
       
 
       
@@ -313,7 +388,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="cihk14deh001lpps7a8ujglxm" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/03/04-03-2015/" data-id="cihk1m53z001lses7krlz08x2" data_title="04-03-2015" data_summary="终于又到周末了，可以好好休息了。这周继续是在Share..." class="article-share-link">Share</a>
       
 
       
@@ -424,7 +499,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/" data-id="cihk14dc50004pps7fv03xibx" data_title="set-up-emberjs-dev-env" data_summary="Setting up dev environment ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/" data-id="cihk1m51q0004ses7wdziclcn" data_title="set-up-emberjs-dev-env" data_summary="Setting up dev environment ..." class="article-share-link">Share</a>
       
 
       
@@ -514,7 +589,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="cihk14def001jpps7g1kk9y4z" data_title="Ember-in-action" data_summary="App.js
+	  <a data-url="http://dyangspot.github.io/2015/04/03/Ember-in-action/" data-id="cihk1m53w001jses7f7skx0f4" data_title="Ember-in-action" data_summary="App.js
 12345678910App = Emb..." class="article-share-link">Share</a>
       
 
@@ -678,7 +753,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="cihk14dd9000tpps74ghyvubf" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/" data-id="cihk1m52s000tses7llnjtoho" data_title="Emberj.js Fundamentals Notes" data_summary="This is Ember.js Fundamenta..." class="article-share-link">Share</a>
       
 
       
@@ -773,7 +848,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="cihk14ddr0012pps73o757371" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/30/directed-graphs/" data-id="cihk1m5360012ses7d1pun2c2" data_title="Directed Graphs" data_summary="Directed GraphsDigraph. Set..." class="article-share-link">Share</a>
       
 
       
@@ -842,7 +917,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="cihk14dd6000rpps75hidt1vd" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/29/emberjs-notes/" data-id="cihk1m52q000rses7zatbpdek" data_title="emberjs-notes" data_summary="今儿被一个奇怪的问题困扰了一整天，大概是用emberj..." class="article-share-link">Share</a>
       
 
       
@@ -855,73 +930,6 @@
 	  
 <span>
 更新日期:<time datetime="2015-03-30T03:25:02.000Z" itemprop="dateModified">2015-03-29</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-03-28-2015" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/03/28/03-28-2015/" class="article-date">
-  <time datetime="2015-03-28T04:47:00.000Z" itemprop="datePublished">2015-03-28</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/28/03-28-2015/">03-28-2015</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>自去年2月份以来，直接或间接的从事各种coding的工作已经整整一年了，期间先后以学生身份part-time做intern，中途做open source contributer，再到去年9月份正式加入公司，算是尘埃落定，自个暂时有了个着落。回想起来，并非CS科班出身的自己，迷迷糊糊半路出家走上IT的道路，这一年的成长收货也是良多的，期间虽然经历过各种心酸挫折，到最后能够找到个不错的工作，也算是对自己努力的回报吧。<br>今儿的工作依旧是在SharePoint平台上面进行Meetings模块的搭建，其实就是做各种XML的configuration嘛，真是自欺欺人orz。下午送走了Jin大叔，Jin是我进公司以来我认识的唯一一个华人同事，能够跟Jin一起工作，也是倍感荣幸的。<br>发现自己自从做Sharepoint以来，好久没有写emberjs了，会不会手生了都忘光了呢？明儿又是周末了，whatever, 等下周再说吧…</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/03/28/03-28-2015/" data-id="cihk14dej001npps7yn0ifqx3" data_title="03-28-2015" data_summary="自去年2月份以来，直接或间接的从事各种coding的工..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/03/28/03-28-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/28/03-28-2015/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-03-28T05:12:49.000Z" itemprop="dateModified">2015-03-28</time>
 </span>
 
 
@@ -970,7 +978,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -980,7 +988,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.67px; color: #3db94a">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 15.33px; color: #5dbe94">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/reactive-programming/" style="font-size: 15.33px; color: #5dbe94">reactive programming</a><a href="/tags/scala/" style="font-size: 17.67px; color: #3db94a">scala</a><a href="/tags/work-point-io/" style="font-size: 17.67px; color: #3db94a">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/play/" style="font-size: 13px; color: #7dc3de">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 18.25px; color: #35b838">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -990,7 +998,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1203,6 +1211,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结.md'>" + day + "</a>";
+            } 
+    
         //howiefh
     }
 });
@@ -1215,6 +1229,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/11/28/summary_of_social_engagement_app/">关于搭建Social Engagement Apps的总结.md</a>
+          </li>
         
           <li>
             <a href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
@@ -1230,10 +1248,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/13/reactive-programming/">reactive-programming-intro</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/09/javascript-good-parts-notes/">javascript-the-good-parts-notes</a>
           </li>
         
       </ul>
