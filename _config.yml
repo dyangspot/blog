@@ -59,6 +59,12 @@ sitemap:
 tag_generator:
   per_page: 10
 
+#RSS  
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
 # Index
 index_generator:
   per_page: 10
@@ -68,6 +74,16 @@ archive_generator:
   per_page: 10
   yearly: true
   monthly: true
+
+#marker
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true  
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
