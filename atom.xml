@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2015-11-29T04:46:34.000Z</updated>
+  <updated>2015-11-29T05:07:23.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -15,12 +15,43 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[关于搭建Social Engagement Apps的总结.md]]></title>
+    <title><![CDATA[最近在读的书单]]></title>
+    <link href="http://dyangspot.github.io/2015/11/28/reading-list/"/>
+    <id>http://dyangspot.github.io/2015/11/28/reading-list/</id>
+    <published>2015-11-29T04:48:21.000Z</published>
+    <updated>2015-11-29T05:07:23.000Z</updated>
+    <content type="html"><![CDATA[<p>将最近的几个月的书单贴一下，做个备注.</p>
+<h4 id="正在读">正在读</h4><ul>
+<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_blank" rel="external">Functional Programming in Scala</a></li>
+<li><a href="https://www.manning.com/books/akka-in-action" target="_blank" rel="external">Akka in Action</a></li>
+<li><a href="http://www.amazon.com/Play-Framework-Cookbook-Alexander-Reelsen/dp/1784393134" target="_blank" rel="external">Play Framework Cookbook Second Edition</a></li>
+<li><a href="http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850" target="_blank" rel="external">Cracking the Code Interview Edition, 6th Edition</a></li>
+<li><a href="http://book.douban.com/subject/3924175/" target="_blank" rel="external">构建高性能Web站点</a></li>
+</ul>
+<h4 id="已读">已读</h4><ul>
+<li>Oreilly Learning Scala</li>
+</ul>
+<h4 id="打算读">打算读</h4><ul>
+<li>Pragmatic Functional Programming patterns in Scala and Clojure</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>将最近的几个月的书单贴一下，做个备注.</p>
+<h4 id="正在读">正在读</h4><ul>
+<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_bl]]>
+    </summary>
+    
+      <category term="others" scheme="http://dyangspot.github.io/tags/others/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于搭建Social Engagement Apps的总结]]></title>
     <link href="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/"/>
     <id>http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/</id>
     <published>2015-11-29T04:12:19.000Z</published>
-    <updated>2015-11-29T04:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="external">talk</a>，介绍了下如何用Play框架在基于SalesForce平台上对Twitter用户进行整合. 讲座中涉及到了很多scala技术类的细节，许多代码值得学习，借此贴出来.</p>
+    <updated>2015-11-29T04:47:58.000Z</updated>
+    <content type="html"><![CDATA[<p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="external">talk</a>，介绍了下如何用Play框架在基于SalesForce平台上对Twitter用户进行整合. 讲座中涉及到了很多scala技术类的细节，许多代码值得学习，借此贴出来. 在此先占位</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="extern]]>
@@ -735,24 +766,6 @@
     </summary>
     
       <category term="Algorithm" scheme="http://dyangspot.github.io/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[emberjs-notes]]></title>
-    <link href="http://dyangspot.github.io/2015/03/29/emberjs-notes/"/>
-    <id>http://dyangspot.github.io/2015/03/29/emberjs-notes/</id>
-    <published>2015-03-30T03:01:42.000Z</published>
-    <updated>2015-03-30T03:25:02.000Z</updated>
-    <content type="html"><![CDATA[<p>今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。<br>错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRouter中。Detail page会跳转， 无法实现List-Deail在同一页面的效果。具体原因目前不详</p>
-<p>正确做法： 把List放在ApplicationRouter中，Detail放在对应的DetailRouter中，List放在Application template下，Detail页面布局的  放在Application template下。 </p>
-<p><a href="http://jsbin.com/ijejap/1/edit?html,js" target="_blank" rel="external">例子</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>今儿被一个奇怪的问题困扰了一整天，大概是用emberjs要实现一个List-Detail的结构，屏幕左侧是个选项栏，选择选项栏中的项目，会在屏幕右侧展现你所选中的具体内容。<br>错误做法：如果实现的List放在在IndexRouter中，Detail放在 DetailRo]]>
-    </summary>
-    
-      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
     
   </entry>
   
