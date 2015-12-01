@@ -66,6 +66,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-scala-identity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/11/30/scala-identity/" class="article-date">
+  <time datetime="2015-12-01T03:31:20.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/scala-identity/">Scala中的identity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cihmup4x4000j1ps73vkbqwun" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/11/30/scala-identity/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/30/scala-identity/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-12-01T03:54:14.000Z" itemprop="dateModified">2015-11-30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-nestedFuture-md" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -95,7 +163,7 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#flatMap"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for_loop"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#flatMap"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for_loop"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-sequence_=>_Future[Seq[Future[MyObject]]]"><span class="toc-number">3.</span> <span class="toc-text">Future.sequence => Future[Seq[Future[MyObject]]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-traverse"><span class="toc-number">4.</span> <span class="toc-text">Future.traverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatten"><span class="toc-number">5.</span> <span class="toc-text">Flatten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
 		
 		</div>
 		
@@ -107,12 +175,17 @@
 <h3 id="for_loop">for loop</h3><p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure>
 <p>上述代码可以重写为<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
+<h3 id="Future-sequence_=&gt;_Future[Seq[Future[MyObject]]]">Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3><p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure>
+<h3 id="Future-traverse">Future.traverse</h3><h3 id="Flatten">Flatten</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>借鉴上述flatten方法</p>
+<h3 id="Reference">Reference</h3><p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a><br><a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a><br><a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte’s Guide to Scala Part 8: Welcome to the Future</a><br><a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cihmlh79e000tods7oxqk7o0y" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cihmup4xn000v1ps7t0vlgwzr" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
       
 
       
@@ -124,7 +197,7 @@
 
 	  
 <span>
-更新日期:<time datetime="2015-11-30T23:35:31.000Z" itemprop="dateModified">2015-11-30</time>
+更新日期:<time datetime="2015-12-01T03:29:40.000Z" itemprop="dateModified">2015-11-30</time>
 </span>
 
 
@@ -192,7 +265,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cihmlh792000jods7o7uvjki9" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
+	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cihmup4x8000l1ps7aj6c98c6" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
 正在读
 Fun..." class="article-share-link">Share</a>
       
@@ -261,7 +334,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cihmlh78o0004ods7k4r1sa4e" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cihmup4wl00041ps7u9ihazwc" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
       
 
       
@@ -341,7 +414,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cihmlh7al001lods7atethkjh" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cihmup4yw001n1ps75o7a3nn8" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
       
 
       
@@ -411,7 +484,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cihmlh78z000hods7w3mv9z3m" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cihmup4x1000h1ps7hig1r3dc" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
       
 
       
@@ -500,7 +573,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cihmlh79a000qods7vzmgjj9w" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cihmup4xk000s1ps7zts2crs3" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
       
 
       
@@ -658,7 +731,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cihmlh795000mods7j0ljyu9l" data_title="reactive-programming-intro" data_summary="Changing Requirements…Serve..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cihmup4xg000o1ps7vv65ntte" data_title="reactive-programming-intro" data_summary="Changing Requirements…Serve..." class="article-share-link">Share</a>
       
 
       
@@ -756,7 +829,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/" data-id="cihmlh79h000wods78aepfiqj" data_title="javascript-the-good-parts-notes" data_summary="语法2.4 字符串Javascript再被创建的时候，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/" data-id="cihmup4xq000y1ps7w24kbc7t" data_title="javascript-the-good-parts-notes" data_summary="语法2.4 字符串Javascript再被创建的时候，..." class="article-share-link">Share</a>
       
 
       
@@ -845,7 +918,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cihmlh7a00017ods7o98qm3d7" data_title="Ember Tricks" data_summary="router.js1this.resource('pr..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cihmup4y600191ps7ibkv3a9q" data_title="Ember Tricks" data_summary="router.js1this.resource('pr..." class="article-share-link">Share</a>
       
 
       
@@ -871,76 +944,9 @@ Fun..." class="article-share-link">Share</a>
 <!-- 多说评论框 end -->
 
   
-    <article id="post-set-get-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/05/set-get-emberjs/" class="article-date">
-  <time datetime="2015-04-05T23:51:03.000Z" itemprop="datePublished">2015-04-05</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/05/set-get-emberjs/">“Emberjs中的set与get”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="cihmlh78w000eods7f99xfshf" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/05/set-get-emberjs/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/set-get-emberjs/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-06T00:13:12.000Z" itemprop="dateModified">2015-04-05</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -971,7 +977,7 @@ Fun..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -991,7 +997,7 @@ Fun..." class="article-share-link">Share</a>
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1076,6 +1082,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/26/scala-parameter-type/' title='Scala中的call by name与call by value区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Nov 30 2015 22:31:20 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/30/scala-identity/' title='Scala中的identity'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sat Nov 28 2015 23:48:21 GMT-0500"); 
@@ -1236,6 +1248,10 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+          </li>
+        
+          <li>
             <a href="/2015/11/30/nestedFuture-md/">处理Nested Future结构总结</a>
           </li>
         
@@ -1249,10 +1265,6 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
         
           <li>
             <a href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/26/scala-parameter-type/">Scala中的call by name与call by value区别</a>
           </li>
         
       </ul>

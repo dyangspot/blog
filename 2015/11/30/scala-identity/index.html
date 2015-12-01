@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dylan&#39;s Blog</title>
+  <title>Scala中的identity | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dylan's Blog">
-<meta property="og:url" content="http://dyangspot.github.io/tags/work-point-io/index.html">
+  <meta name="description" content="针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&amp;gt; x)
+12345scala&amp;gt; val result = Future&amp;#123;Future&amp;#123;Seq(1,2,34,4)&amp;#125;&amp;#125;r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala中的identity">
+<meta property="og:url" content="http://dyangspot.github.io/2015/11/30/scala-identity/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description">
+<meta property="og:description" content="针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&amp;gt; x)
+12345scala&amp;gt; val result = Future&amp;#123;Future&amp;#123;Seq(1,2,34,4)&amp;#125;&amp;#125;r">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dylan's Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Scala中的identity">
+<meta name="twitter:description" content="针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&amp;gt; x)
+12345scala&amp;gt; val result = Future&amp;#123;Future&amp;#123;Seq(1,2,34,4)&amp;#125;&amp;#125;r">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -64,115 +67,100 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
+        <section id="main"><article id="post-scala-identity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/04/03/04-03-2015/" class="archive-article-date">
-  <time datetime="2015-04-04T01:55:09.000Z" itemprop="datePublished">Apr 3</time>
+<a href="/2015/11/30/scala-identity/" class="article-date">
+  <time datetime="2015-12-01T03:31:20.000Z" itemprop="datePublished">2015-11-30</time>
 </a>
 
 
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/04/03/04-03-2015/">04-03-2015</a>
+    <h1 class="article-title" itemprop="name">
+      Scala中的identity
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cihmup4x4000j1ps73vkbqwun" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/11/30/scala-identity/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/30/scala-identity/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-12-01T03:54:14.000Z" itemprop="dateModified">2015-11-30</time>
+</span>
+
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/30/nestedFuture-md/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">处理Nested Future结构总结</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/28/03-28-2015/" class="archive-article-date">
-  <time datetime="2015-03-28T04:47:00.000Z" itemprop="datePublished">Mar 28</time>
-</a>
 
 
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/28/03-28-2015/">03-28-2015</a>
-    </h1>
-  
+<!-- 多说评论框 start -->
 
-    </header>
+<section id="comments">
+  <div class="ds-thread"  data-thread-key="/2015/11/30/scala-identity/" data-title="Scala中的identity" data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" id="ds_thread">
+    <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
-</article>
+</section>
 
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/26/03-26-2015/" class="archive-article-date">
-  <time datetime="2015-03-27T02:10:04.000Z" itemprop="datePublished">Mar 26</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/26/03-26-2015/">03-26-2015</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      
-<a href="/2015/03/23/worksummary-03-23-2015/" class="archive-article-date">
-  <time datetime="2015-03-23T23:37:39.000Z" itemprop="datePublished">Mar 23</time>
-</a>
-
-
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/23/worksummary-03-23-2015/">“03-23-2015&quot;</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-
-  
-  
-    </div></section>
-  
+<!-- 多说评论框 end -->
 </section>
         
           
+  <div id="toc" class="toc-aside">
+  <h2 class="toc-title">文章目录</h2>
+    
+        
+    
+  </div>
+
 <aside id="sidebar">
 
   
@@ -579,6 +567,11 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
 	<script src="/js/gotop.js"></script>
 	-->
 
+
+	<a class="icon-toc-toggle" href="javascript:void(0)" title="文章目录"></a>
+	<!--
+	<script src="/js/toc_aside_toggle.js"></script>
+	-->
 
 </div>
 <script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
