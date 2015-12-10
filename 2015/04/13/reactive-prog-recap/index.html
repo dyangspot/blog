@@ -5,15 +5,18 @@
   
   <title>reactive-prog-recap | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Representation of JSON in Scala1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONca">
+  <meta name="description" content="Representation of JSON in Scala
+1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="reactive-prog-recap">
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Representation of JSON in Scala1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONca">
+<meta property="og:description" content="Representation of JSON in Scala
+1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONc">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="reactive-prog-recap">
-<meta name="twitter:description" content="Representation of JSON in Scala1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONca">
+<meta name="twitter:description" content="Representation of JSON in Scala
+1234567abstract class JSONcase class JSeq(elems:List[JSON]) extends JSONcase class JObj(bindings:Map[String,JSON]) extends JSONcase class JNum(num:Double) extends JSONc">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -93,39 +96,56 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Representation_of_JSON_in_Scala"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions_Are_Objects"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The_Function1_Trait"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subclassing_Functions"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Matches"><span class="toc-number">4.</span> <span class="toc-text">Partial Matches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Functions"><span class="toc-number">5.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Function_Objects"><span class="toc-number">6.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
 		
 		</div>
 		
-        <h3 id="Representation_of_JSON_in_Scala">Representation of JSON in Scala</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">JSON</span></span><br><span class="line"></span><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JSeq</span>(</span>elems:<span class="type">List</span>[<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JObj</span>(</span>bindings:<span class="type">Map</span>[<span class="type">String</span>,<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JNum</span>(</span>num:<span class="type">Double</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JStr</span>(</span>str:<span class="type">String</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JBool</span>(</span>b: <span class="type">Boolean</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">JNull</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">JSON</span></span></span><br></pre></td></tr></table></figure>
-<p>Example </p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; ” firstName ” : ” John ” ,</span><br><span class="line">  ” lastName ” : ” Smith ” ,</span><br><span class="line">   ” address ”: <span class="collection">&#123;</span><br><span class="line">  ” streetAddress ”: ”<span class="number">21</span> <span class="number">2</span> nd Street ” ,</span><br><span class="line">	” state ”: ” NY ” ,</span><br><span class="line">	” postalCode ”: <span class="number">10021</span></span><br><span class="line"> &#125;</span>,</span><br><span class="line">” phoneNumbers ”: <span class="collection">[</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” home ” , ” number ”: ”<span class="number">212</span> <span class="number">555</span> <span class="number">-1234</span>” &#125;</span> ,</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” fax ” , ” number ”: ”<span class="number">646</span> <span class="number">555</span> <span class="number">-4567</span>” &#125;</span></span><br><span class="line"> ]</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+        <h3>Representation of JSON in Scala</h3>
+<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">JSON</span></span><br><span class="line"></span><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JSeq</span>(</span>elems:<span class="type">List</span>[<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JObj</span>(</span>bindings:<span class="type">Map</span>[<span class="type">String</span>,<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JNum</span>(</span>num:<span class="type">Double</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JStr</span>(</span>str:<span class="type">String</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JBool</span>(</span>b: <span class="type">Boolean</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">JNull</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">JSON</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Example</p>
+<p><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; ” firstName ” : ” John ” ,</span><br><span class="line">  ” lastName ” : ” Smith ” ,</span><br><span class="line">   ” address ”: <span class="collection">&#123;</span><br><span class="line">  ” streetAddress ”: ”<span class="number">21</span> <span class="number">2</span> nd Street ” ,</span><br><span class="line">	” state ”: ” NY ” ,</span><br><span class="line">	” postalCode ”: <span class="number">10021</span></span><br><span class="line"> &#125;</span>,</span><br><span class="line">” phoneNumbers ”: <span class="collection">[</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” home ” , ” number ”: ”<span class="number">212</span> <span class="number">555</span> <span class="number">-1234</span>” &#125;</span> ,</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” fax ” , ” number ”: ”<span class="number">646</span> <span class="number">555</span> <span class="number">-4567</span>” &#125;</span></span><br><span class="line"> ]</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p>Scala Rep</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val data = JObj(Map(</span><br><span class="line">”firstName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”John”)</span></span>,</span><br><span class="line">”lastName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”Smith”)</span></span>,</span><br><span class="line">”address” -&gt; JObj(Map(</span><br><span class="line">”streetAddress” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">21</span> <span class="number">2</span>nd Street”)</span></span>,</span><br><span class="line">”state” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”NY”)</span></span>,</span><br><span class="line">”postalCode” -&gt; <span class="function"><span class="title">JNum</span><span class="params">(<span class="number">10021</span>)</span></span></span><br><span class="line">)),</span><br><span class="line">”phoneNumbers” -&gt; JSeq(List(</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”home”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">212</span> <span class="number">555</span>-<span class="number">1234</span>”)</span></span></span><br><span class="line">)),</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”fax”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">646</span> <span class="number">555</span>-<span class="number">4567</span>”)</span></span></span><br><span class="line">)) )) ))</span><br></pre></td></tr></table></figure>
-<h3 id="Functions_Are_Objects">Functions Are Objects</h3><p>In Scala, every concrete type is the type of some class or trait.<br>The function type is no exception. A type like</p>
+<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val data = JObj(Map(</span><br><span class="line">”firstName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”John”)</span></span>,</span><br><span class="line">”lastName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”Smith”)</span></span>,</span><br><span class="line">”address” -&gt; JObj(Map(</span><br><span class="line">”streetAddress” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">21</span> <span class="number">2</span>nd Street”)</span></span>,</span><br><span class="line">”state” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”NY”)</span></span>,</span><br><span class="line">”postalCode” -&gt; <span class="function"><span class="title">JNum</span><span class="params">(<span class="number">10021</span>)</span></span></span><br><span class="line">)),</span><br><span class="line">”phoneNumbers” -&gt; JSeq(List(</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”home”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">212</span> <span class="number">555</span>-<span class="number">1234</span>”)</span></span></span><br><span class="line">)),</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”fax”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">646</span> <span class="number">555</span>-<span class="number">4567</span>”)</span></span></span><br><span class="line">)) )) ))</span><br></pre></td></tr></table></figure></p>
+<h3>Functions Are Objects</h3>
+<p>In Scala, every concrete type is the type of some class or trait.
+The function type is no exception. A type like</p>
 <p>JBinding =&gt; String</p>
-<p>is just a shorthand for: scala.Function1[JBinding,String]<br>where scala.Function1 is a trait and JBinding and String are its type arguments.</p>
-<h4 id="The_Function1_Trait">The Function1 Trait</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Function1[-A, +R]&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">apply</span><span class="params">(x:A)</span>:</span> R</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>is just a shorthand for: scala.Function1[JBinding,String]
+where scala.Function1 is a trait and JBinding and String are its type arguments.</p>
+<h4>The Function1 Trait</h4>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Function1[-A, +R]&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">apply</span><span class="params">(x:A)</span>:</span> R</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>The pattern matching block</p>
-<figure class="highlight"><figcaption><span>(key,value) => key + ": " + value&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight"><figcaption><span>(key,value) => key + ": " + value&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure></p>
 <p>expands to the Function1 instance:</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Function1[JBinding,<span class="keyword">String</span>]&#123;</span><br><span class="line">	def apply(x:JBinding) = x <span class="built_in">match</span>&#123;</span><br><span class="line">		<span class="keyword">case</span>(<span class="variable">key</span>,value) =&gt; <span class="variable">key</span> + <span class="string">": "</span> + show(value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Subclassing_Functions">Subclassing Functions</h3><p>One nice aspect of functions being traits is that we can subclass the function type.<br>e.g. mpas care functions from keys to values:</p>
-<p>trait Map[Key,Value] extends (Key=&gt;Value)…</p>
+<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Function1[JBinding,<span class="keyword">String</span>]&#123;</span><br><span class="line">	def apply(x:JBinding) = x <span class="built_in">match</span>&#123;</span><br><span class="line">		<span class="keyword">case</span>(<span class="variable">key</span>,value) =&gt; <span class="variable">key</span> + <span class="string">": "</span> + show(value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3>Subclassing Functions</h3>
+<p>One nice aspect of functions being traits is that we can subclass the function type.
+e.g. mpas care functions from keys to values:</p>
+<p>trait Map[Key,Value] extends (Key=&gt;Value)...</p>
 <p>Sequences are functions from Int indices to values:</p>
-<p>trait Seq[Elem] extends (Int=&gt;Elem)<br>for sequence(and array) indexing</p>
-<h3 id="Partial_Matches">Partial Matches</h3><p>{case “ping” =&gt;”pong”}<br>can be given type String=&gt;String</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:<span class="built_in">String</span>=&gt; <span class="built_in">String</span> =&#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">                           <span class="comment">//&gt; f  : String =&gt; String = &lt;function1&gt;</span></span><br><span class="line">f(<span class="string">"ping"</span>)                        <span class="comment">//&gt; res1: String = pong</span></span><br></pre></td></tr></table></figure>
-<h3 id="Partial_Functions">Partial Functions</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>] = &#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">f.isDefinedAt(<span class="string">"ping"</span>)  <span class="comment">// true</span></span><br><span class="line">f.isDefinedAt(<span class="string">"pong"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>The partial function trait is defined as follows:<br>trait PartialFunction[-A,+R] extends Function1[-A,+R]{<br>    def apply(x:A):R<br>    def isDefinedAt(x:A):Boolean<br>}</p>
-<h3 id="Partial_Function_Objects">Partial Function Objects</h3><p>if the expected type is a PartialFunction, the Scala compiler will expand {case “ping” =&gt; “pong”}<br>as follows:</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>]&#123;</span><br><span class="line">	def apply(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"poing"</span></span><br><span class="line">	&#125;</span><br><span class="line">	def isDefinedAt(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="keyword">true</span></span><br><span class="line">		<span class="keyword">case</span> _ =&gt; <span class="keyword">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>trait Seq[Elem] extends (Int=&gt;Elem)
+for sequence(and array) indexing</p>
+<p>###Partial Matches</p>
+<p>{case &quot;ping&quot; =&gt;&quot;pong&quot;}
+can be given type String=&gt;String</p>
+<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:<span class="built_in">String</span>=&gt; <span class="built_in">String</span> =&#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">                           <span class="comment">//&gt; f  : String =&gt; String = &lt;function1&gt;</span></span><br><span class="line">f(<span class="string">"ping"</span>)                        <span class="comment">//&gt; res1: String = pong</span></span><br></pre></td></tr></table></figure></p>
+<h3>Partial Functions</h3>
+<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>] = &#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">f.isDefinedAt(<span class="string">"ping"</span>)  <span class="comment">// true</span></span><br><span class="line">f.isDefinedAt(<span class="string">"pong"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>The partial function trait is defined as follows:
+trait PartialFunction[-A,+R] extends Function1[-A,+R]{
+def apply(x:A):R
+def isDefinedAt(x:A):Boolean
+}</p>
+<h3>Partial Function Objects</h3>
+<p>if the expected type is a PartialFunction, the Scala compiler will expand {case &quot;ping&quot; =&gt; &quot;pong&quot;}
+as follows:</p>
+<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>]&#123;</span><br><span class="line">	def apply(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"poing"</span></span><br><span class="line">	&#125;</span><br><span class="line">	def isDefinedAt(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="keyword">true</span></span><br><span class="line">		<span class="keyword">case</span> _ =&gt; <span class="keyword">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cihmup4xk000s1ps7zts2crs3" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cii0lsgjn000x3os7ud4ypb4v" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
       
 
       
@@ -184,7 +204,7 @@
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Representation_of_JSON_in_Scala"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions_Are_Objects"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The_Function1_Trait"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subclassing_Functions"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Matches"><span class="toc-number">4.</span> <span class="toc-text">Partial Matches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Functions"><span class="toc-number">5.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Function_Objects"><span class="toc-number">6.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
     
   </div>
 
@@ -213,7 +233,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -223,7 +243,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 14.75px; color: #65bfa7">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 18.25px; color: #35b838">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
     </div>
   </div>
 
@@ -233,7 +253,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -296,6 +316,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/10/stream-extractor-scala/' title='Stream extractor in Scala'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 01:01:01 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -318,6 +344,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/26/scala-parameter-type/' title='Scala中的call by name与call by value区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Dec 03 2015 21:36:27 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/03/scala-implicits/' title='Scala中的Implicits'>" + day + "</a>";
             } 
     
             var postdate = new Date("Mon Nov 30 2015 22:31:20 GMT-0500"); 
@@ -344,6 +376,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-prog-recap/' title='reactive-prog-recap'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 07 2015 20:31:43 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/07/play-recipes/' title='Play recipes for real world'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Mon Nov 30 2015 18:10:23 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -354,6 +392,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/09/javascript-good-parts-notes/' title='javascript-the-good-parts-notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='extractor_at_scala'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
@@ -484,23 +528,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
+            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/10/extractor-at-scala/">extractor_at_scala</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+          </li>
+        
+          <li>
             <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
-          </li>
-        
-          <li>
-            <a href="/2015/11/30/nestedFuture-md/">处理Nested Future结构总结</a>
-          </li>
-        
-          <li>
-            <a href="/2015/11/28/reading-list/">最近在读的书单</a>
-          </li>
-        
-          <li>
-            <a href="/2015/11/28/summary_of_social_engagement_app/">关于搭建Social Engagement Apps的总结</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
           </li>
         
       </ul>

@@ -3,20 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>“03-23-2015&quot; | Dylan&#39;s Blog</title>
+  <title>Stream extractor in Scala | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了
-更新了Apiflow的非Ember的模板引擎">
+  <meta name="description" content="The way to destructure lists and streams is to use cons operator:
+:: and #::, respectively:
+12345val xs = 58 #:: 43 #:: 93 #:: Stream.emptyxs match &amp;#123;  case first #:: second #:: _ =&amp;gt; first - se">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“03-23-2015"">
-<meta property="og:url" content="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/index.html">
+<meta property="og:title" content="Stream extractor in Scala">
+<meta property="og:url" content="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了
-更新了Apiflow的非Ember的模板引擎">
+<meta property="og:description" content="The way to destructure lists and streams is to use cons operator:
+:: and #::, respectively:
+12345val xs = 58 #:: 43 #:: 93 #:: Stream.emptyxs match &amp;#123;  case first #:: second #:: _ =&amp;gt; first - se">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“03-23-2015"">
-<meta name="twitter:description" content="SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了
-更新了Apiflow的非Ember的模板引擎">
+<meta name="twitter:title" content="Stream extractor in Scala">
+<meta name="twitter:description" content="The way to destructure lists and streams is to use cons operator:
+:: and #::, respectively:
+12345val xs = 58 #:: 43 #:: 93 #:: Stream.emptyxs match &amp;#123;  case first #:: second #:: _ =&amp;gt; first - se">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -67,11 +70,11 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-worksummary-03-23-2015" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-stream-extractor-scala" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/2015/03/23/worksummary-03-23-2015/" class="article-date">
-  <time datetime="2015-03-23T23:37:39.000Z" itemprop="datePublished">2015-03-23</time>
+<a href="/2015/12/10/stream-extractor-scala/" class="article-date">
+  <time datetime="2015-12-10T15:04:06.000Z" itemprop="datePublished">2015-12-10</time>
 </a>
 
 
@@ -84,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      “03-23-2015&quot;
+      Stream extractor in Scala
     </h1>
   
 
@@ -100,28 +103,27 @@
 		
 		</div>
 		
-        <ol>
-<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了</li>
-<li>更新了Apiflow的非Ember的模板引擎</li>
-</ol>
+        <p>The way to destructure lists and streams is to use cons operator:
+<em>::</em> and <em>#::</em>, respectively:</p>
+<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="cii0lsgi100013os71cvfwdp7" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cii0lsgiv00093os7r09j4e0i" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
       
 
       
-        <a href="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/03/23/worksummary-03-23-2015/">暂无评论</a>
+        <a href="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/10/stream-extractor-scala/">暂无评论</a>
       
 	  
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work-point-io/">work@point.io</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
 
 	  
 <span>
-更新日期:<time datetime="2015-03-27T04:54:40.000Z" itemprop="dateModified">2015-03-27</time>
+更新日期:<time datetime="2015-12-10T15:22:01.000Z" itemprop="dateModified">2015-12-10</time>
 </span>
 
 
@@ -131,19 +133,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/03/24/depth-first-search/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          depth-first-search
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/03/22/scala-test/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/12/10/extractor-at-scala/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">scala-test</div>
+      <div class="article-nav-title">extractor_at_scala</div>
     </a>
   
 </nav>
@@ -156,7 +149,7 @@
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/03/23/worksummary-03-23-2015/" data-title="“03-23-2015&quot;" data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/12/10/stream-extractor-scala/" data-title="Stream extractor in Scala" data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>
