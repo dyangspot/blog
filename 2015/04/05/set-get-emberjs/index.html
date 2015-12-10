@@ -5,18 +5,15 @@
   
   <title>“Emberjs中的set与get” | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
-显而易见,.set(“propertyName”,”propertyValue”) 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbj">
+  <meta name="description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？显而易见,.set(“propertyName”,”propertyValue”) 与.get(”propertyName”)方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API">
 <meta property="og:type" content="article">
 <meta property="og:title" content="“Emberjs中的set与get”">
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/05/set-get-emberjs/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
-显而易见,.set(“propertyName”,”propertyValue”) 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbj">
+<meta property="og:description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？显而易见,.set(“propertyName”,”propertyValue”) 与.get(”propertyName”)方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="“Emberjs中的set与get”">
-<meta name="twitter:description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
-显而易见,.set(“propertyName”,”propertyValue”) 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbj">
+<meta name="twitter:description" content="以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？显而易见,.set(“propertyName”,”propertyValue”) 与.get(”propertyName”)方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -100,14 +97,13 @@
 		
 		</div>
 		
-        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
-显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
+        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="cii0lsgiz000g3os7nued2avn" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="cii0nempz000g89s7bla05g92" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
       
 
       
@@ -359,7 +355,7 @@ var cale = new Calendar("idCalendar", {
             var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
-                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='extractor_at_scala'>" + day + "</a>";
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='Extractor @ use in scala'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
@@ -494,7 +490,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">extractor_at_scala</a>
+            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
           </li>
         
           <li>

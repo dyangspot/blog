@@ -6,23 +6,20 @@
   <title>Scala中的Implicits | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.
-Type conversions
-1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
-Compil">
+Type conversions1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
+Compile">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala中的Implicits">
 <meta property="og:url" content="http://dyangspot.github.io/2015/12/03/scala-implicits/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
 <meta property="og:description" content="Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.
-Type conversions
-1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
-Compil">
+Type conversions1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
+Compile">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala中的Implicits">
 <meta name="twitter:description" content="Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.
-Type conversions
-1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
-Compil">
+Type conversions1234implicit def b2a(a: B): A = new Aclass Aclass Bval a: A = new B
+Compile">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -102,44 +99,39 @@ Compil">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type_conversions"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resolve_scope"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extended_scope"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
 		
 		</div>
 		
         <p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
-<h3>Type conversions</h3>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure></p>
-<p>Compiler将会搜索implicits的B =&gt; A类型
-其中Compiler的搜索范围包括</p>
-<h4>Resolve scope</h4>
-<ul>
+<h3 id="Type_conversions">Type conversions</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure>
+<p>Compiler将会搜索implicits的B =&gt; A类型<br>其中Compiler的搜索范围包括</p>
+<h4 id="Resolve_scope">Resolve scope</h4><ul>
 <li>Declared implicits</li>
 <li>Imported implicits</li>
 <li>Implicitly imported implicits</li>
 </ul>
-<h4>Extended scope</h4>
-<pre><code>class Type
+<h4 id="Extended_scope">Extended scope</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Type</span>
+</span>
+<span class="class"><span class="keyword">class</span> <span class="title">T</span>[</span><span class="type">Y</span>]
 
-class T[Y]
-
-class D extends Container
-class Container
-object Container {
-    implicit def conv(c: Child): Type = new Type
+<span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">class</span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">object</span> <span class="title">Container</span> {</span>
+    <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">conv</span>(</span>c: <span class="type">Child</span>): <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Type</span>
 }
 
-class Child extends T[D]
+<span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">T</span>[</span><span class="type">D</span>]
 
 
-val x: Type = new Child
-</code></pre>
-<p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
+<span class="function"><span class="keyword">val</span> <span class="title">x</span>:</span> <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Child</span>
+</code></pre><p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cii0lsgj6000l3os71aygartk" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cii0nemqb000l89s7uzd70qpu" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
       
 
       
@@ -198,7 +190,7 @@ val x: Type = new Child
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type_conversions"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resolve_scope"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extended_scope"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
     
   </div>
 
@@ -391,7 +383,7 @@ var cale = new Calendar("idCalendar", {
             var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
-                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='extractor_at_scala'>" + day + "</a>";
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='Extractor @ use in scala'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
@@ -526,7 +518,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">extractor_at_scala</a>
+            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
           </li>
         
           <li>

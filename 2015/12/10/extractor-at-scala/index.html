@@ -3,22 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>extractor_at_scala | Dylan&#39;s Blog</title>
+  <title>Extractor @ use in scala | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+  <meta name="description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
 <meta property="og:type" content="article">
-<meta property="og:title" content="extractor_at_scala">
+<meta property="og:title" content="Extractor @ use in scala">
 <meta property="og:url" content="http://dyangspot.github.io/2015/12/10/extractor-at-scala/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+<meta property="og:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="extractor_at_scala">
-<meta name="twitter:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+<meta name="twitter:title" content="Extractor @ use in scala">
+<meta name="twitter:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
@@ -87,7 +84,7 @@ Define the User model:
         
   
     <h1 class="article-title" itemprop="name">
-      extractor_at_scala
+      Extractor @ use in scala
     </h1>
   
 
@@ -103,21 +100,19 @@ Define the User model:
 		
 		</div>
 		
-        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:</p>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Define a boolean extractor:
-Note: 'premiumCandidate' the first letter use the lower case here</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match:</p>
-<p><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job.</p>
+        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii0lsgjw00193os7adlsjn81" data_title="extractor_at_scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii0nemrb001989s71nc0fast" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
       
 
       
@@ -129,7 +124,7 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
 
 	  
 <span>
-更新日期:<time datetime="2015-12-10T15:18:43.000Z" itemprop="dateModified">2015-12-10</time>
+更新日期:<time datetime="2015-12-10T19:19:31.000Z" itemprop="dateModified">2015-12-10</time>
 </span>
 
 
@@ -164,7 +159,7 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
 <!-- 多说评论框 start -->
 
 <section id="comments">
-  <div class="ds-thread"  data-thread-key="/2015/12/10/extractor-at-scala/" data-title="extractor_at_scala" data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" id="ds_thread">
+  <div class="ds-thread"  data-thread-key="/2015/12/10/extractor-at-scala/" data-title="Extractor @ use in scala" data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" id="ds_thread">
     <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
   </div>
 </section>
@@ -369,7 +364,7 @@ var cale = new Calendar("idCalendar", {
             var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
-                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='extractor_at_scala'>" + day + "</a>";
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='Extractor @ use in scala'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
@@ -504,7 +499,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">extractor_at_scala</a>
+            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
           </li>
         
           <li>

@@ -5,42 +5,30 @@
   
   <title>reactive-programming-intro | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Changing Requirements...
-Server nodes          10&apos;s      1000&apos;s
-Response times      seconds   milliseconds
-Maintenance downtimes  hours      none
-Data volume           GBs        TBs -&amp;gt; PBs
+  <meta name="description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
 
 
 
-10">
+10 ye">
 <meta property="og:type" content="article">
 <meta property="og:title" content="reactive-programming-intro">
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/13/reactive-programming/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Changing Requirements...
-Server nodes          10&apos;s      1000&apos;s
-Response times      seconds   milliseconds
-Maintenance downtimes  hours      none
-Data volume           GBs        TBs -&amp;gt; PBs
+<meta property="og:description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
 
 
 
-10">
+10 ye">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="reactive-programming-intro">
-<meta name="twitter:description" content="Changing Requirements...
-Server nodes          10&apos;s      1000&apos;s
-Response times      seconds   milliseconds
-Maintenance downtimes  hours      none
-Data volume           GBs        TBs -&amp;gt; PBs
+<meta name="twitter:description" content="Changing Requirements…Server nodes          10’s      1000’sResponse times      seconds   millisecondsMaintenance downtimes  hours      noneData volume           GBs        TBs -&amp;gt; PBs    
 
 
 
 
-10">
+10 ye">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -120,15 +108,11 @@ Data volume           GBs        TBs -&amp;gt; PBs
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements...</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Changing_Requirements…"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Need_New_Architectures"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scalable"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resilient"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsive"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-backs"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
 		
 		</div>
 		
-        <h3>Changing Requirements...</h3>
-<p>Server nodes          10's      1000's
-Response times      seconds   milliseconds
-Maintenance downtimes  hours      none
-Data volume           GBs        TBs -&gt; PBs</p>
+        <h3 id="Changing_Requirements…">Changing Requirements…</h3><p>Server nodes          10’s      1000’s<br>Response times      seconds   milliseconds<br>Maintenance downtimes  hours      none<br>Data volume           GBs        TBs -&gt; PBs    </p>
 <table>
 <thead>
 <tr>
@@ -142,8 +126,8 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <tbody>
 <tr>
 <td>Server nodes</td>
-<td>10's</td>
-<td>1000's</td>
+<td>10’s</td>
+<td>1000’s</td>
 <td></td>
 <td></td>
 </tr>
@@ -166,12 +150,10 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <td>GBs</td>
 <td>TBs -&gt; PBs</td>
 <td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
-<h3>Need New Architectures</h3>
-<p>Previously: Managed servers and containers</p>
+<h3 id="Need_New_Architectures">Need New Architectures</h3><p>Previously: Managed servers and containers</p>
 <p>Now: Reactive application</p>
 <ul>
 <li>event-driven -&gt; react to events</li>
@@ -179,54 +161,43 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <li>resilient -&gt; react to failures</li>
 <li>responsive -&gt; react to users</li>
 </ul>
-<h3>Event-Driven</h3>
-<p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
+<h3 id="Event-Driven">Event-Driven</h3><p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
 <ul>
 <li>String coupling, hard to compose</li>
 </ul>
 <p>Now: Systems are composed from loosely coupled event handlers.</p>
 <ul>
-<li>Events can be handled asynchronously, without blocking.
-none-blocking: resource can be utilized more efficiently.</li>
+<li>Events can be handled asynchronously, without blocking.<br>none-blocking: resource can be utilized more efficiently.</li>
 </ul>
-<h3>Scalable</h3>
-<p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
+<h3 id="Scalable">Scalable</h3><p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
 <ul>
 <li>scale up: make use of parallelism in multi-core systems.</li>
 <li>scale out: make use of multiple server nodes in a data center or in the cloud.</li>
 </ul>
-<p>Important for scalability: Minimize shared mutable state.
-Important for scale out: Location transparency,resilience.</p>
-<p>Location transparency: it doesn't matter where the location is ,could be at the same computer or across the internet.</p>
-<h3>Resilient</h3>
-<p>An application is <strong>resilient</strong> if it can recover quickly from failures.
-Failures can be:</p>
+<p>Important for scalability: Minimize shared mutable state.<br>Important for scale out: Location transparency,resilience.</p>
+<p>Location transparency: it doesn’t matter where the location is ,could be at the same computer or across the internet.</p>
+<h3 id="Resilient">Resilient</h3><p>An application is <strong>resilient</strong> if it can recover quickly from failures.<br>Failures can be:</p>
 <ul>
 <li>software failures</li>
 <li>hardware failures, or</li>
 <li>connection failures.</li>
 </ul>
-<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.
-Needed:</p>
+<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.<br>Needed:</p>
 <ul>
 <li>loose coupling.</li>
 <li>strong encapsulation of state.</li>
 <li>pervasive supervisor hierachies.</li>
 </ul>
-<h3>Responsive</h3>
-<p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
+<h3 id="Responsive">Responsive</h3><p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
 <p>Responsive applications can be built on an event-driven,scalable, and resilient architecture.</p>
-<h3>Call-backs</h3>
-<p>Handling events is often done using call-backs. E.g. using Java observers:
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Call-backs">Call-backs</h3><p>Handling events is often done using call-backs. E.g. using Java observers:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Problems:</p>
 <ul>
 <li>needs shared mutable state.</li>
 <li>cannot be composed.</li>
-<li>leads quickly to &quot;call-back hell&quot;</li>
+<li>leads quickly to “call-back hell”</li>
 </ul>
-<p>Soveld in this course:
-to get <strong>composable</strong> event abstractions.</p>
+<p>Soveld in this course:<br>to get <strong>composable</strong> event abstractions.</p>
 <ul>
 <li>Events are first class.</li>
 <li>Events are often represented as messages.</li>
@@ -238,8 +209,7 @@ to get <strong>composable</strong> event abstractions.</p>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cii0lsgji000t3os7cviecfp9" data_title="reactive-programming-intro" data_summary="Changing Requirements...
-Se..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cii0nemqt000t89s7siqer37p" data_title="reactive-programming-intro" data_summary="Changing Requirements…Serve..." class="article-share-link">Share</a>
       
 
       
@@ -298,7 +268,7 @@ Se..." class="article-share-link">Share</a>
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements...</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Changing_Requirements…"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Need_New_Architectures"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scalable"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resilient"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsive"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-backs"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
     
   </div>
 
@@ -491,7 +461,7 @@ var cale = new Calendar("idCalendar", {
             var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
-                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='extractor_at_scala'>" + day + "</a>";
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='Extractor @ use in scala'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
@@ -626,7 +596,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">extractor_at_scala</a>
+            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
           </li>
         
           <li>
