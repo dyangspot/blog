@@ -5,21 +5,24 @@
   
   <title>Scala中的call by name与call by value区别 | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
+  <meta name="description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.
+以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
 首先给与两个函数分别为：
-12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: String">
+12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: Strin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala中的call by name与call by value区别">
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/26/scala-parameter-type/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
+<meta property="og:description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.
+以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
 首先给与两个函数分别为：
-12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: String">
+12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: Strin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala中的call by name与call by value区别">
-<meta name="twitter:description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
+<meta name="twitter:description" content="在Scala中对于参数类型T 或=&amp;gt;T，前者被称为call by value,后者叫call by name.
+以上两种传递参数有什么区别呢？以下进行详细的说明，参照stackoverflow上的解答.
 首先给与两个函数分别为：
-12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: String">
+12345def stringGen:String = util.Random.nextInt().toStringdef callByValue(s: Strin">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -103,16 +106,17 @@
 		
 		</div>
 		
-        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.<br>以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
+        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.
+以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
 <p>首先给与两个函数分别为：</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
-<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是<strong>=&gt; String</strong>的函数s， 函数s的返回结果为String类型.</p>
+<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是**=&gt; String**的函数s， 函数s的返回结果为String类型.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cii0nemq7000j89s7abhsat53" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cii5fst85000j1ss7k5a40wq1" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
       
 
       

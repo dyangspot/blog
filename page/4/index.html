@@ -95,7 +95,7 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implementation"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS_application:"><span class="toc-number">2.</span> <span class="toc-text">BFS application:</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Code Implementation</span></a></li></ol>
 		
 		</div>
 		
@@ -107,15 +107,18 @@
 <p><strong>Shortest path</strong>. Find path from s to t that uses <strong>fewer number of edges</strong>.</p>
 <hr>
 <p>BFS(from source vertex s)</p>
-<p>Put s onto a FIFO queue, and mark s as visited.<br>Repeat until the queue is empty:</p>
+<p>Put s onto a FIFO queue, and mark s as visited.
+Repeat until the queue is empty:</p>
 <ul>
 <li>remove the least recently added vertex v.</li>
-<li>add each of v’s unvisited neighbors to the queue, and mark them as visited.</li>
+<li>add each of v's unvisited neighbors to the queue, and mark them as visited.</li>
 </ul>
 <hr>
 <p><strong>Proposition</strong>. BFS computs shortest paths(fewest number of edges) from <em>s</em> to all other vertices in a graph in time proportional to <em>E + V</em>(# of edges + # of vertices).</p>
-<h3 id="Code_Implementation">Code Implementation</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="BFS_application:">BFS application:</h3><ul>
+<h3>Code Implementation</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BreadthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">bfs</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		Queue&lt;Integer&gt; q = <span class="keyword">new</span> Queue&lt;Integer&gt;();</span><br><span class="line">		q.enqueue(s);</span><br><span class="line">		marked[s] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> v = q.dequeue();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> w :G.adj(v))&#123;</span><br><span class="line">				<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">					q.enqueue[w] = <span class="keyword">true</span>;</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###BFS application:</p>
+<ul>
 <li>routing-&gt; Fewest number of hops in a communication network.</li>
 <li>Kevin Bacon numbers;</li>
 </ul>
@@ -124,7 +127,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="cii0nemsx001z89s77punhdz7" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/breadth-first-search/" data-id="cii5fsta5001z1ss74l3fqo3w" data_title="breadth-first-search" data_summary="Depth-first search. Put unv..." class="article-share-link">Share</a>
       
 
       
@@ -181,44 +184,55 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Graph"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tremaux_maze_exploration"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Depth-first_search"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Design_pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_structures-"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java_API"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code_Implemention"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Depth-first_search_code"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Tremaux maze exploration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Depth-first search</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">Design pattern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">Algorithm.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">Data structures.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.4.</span> <span class="toc-text">Java API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.5.</span> <span class="toc-text">Code Implemention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.6.</span> <span class="toc-text">Depth-first search code</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-        <h1 id="Graph">Graph</h1><h2 id="Tremaux_maze_exploration">Tremaux maze exploration</h2><ul>
+        <h1>Graph</h1>
+<h2>Tremaux maze exploration</h2>
+<ul>
 <li>make each visited intersection and each visited passage</li>
 <li>Retrace steps when no unvisted options</li>
 </ul>
-<h2 id="Depth-first_search">Depth-first search</h2><ul>
+<h2>Depth-first search</h2>
+<ul>
 <li>Goal. Systematically search through a graph, find all vertices connected to s.</li>
 <li>Idea. Mimic maze exploration</li>
 </ul>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure>
-<h3 id="Design_pattern">Design pattern</h3><ul>
+<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DFS(<span class="built_in">to</span> visit <span class="operator">a</span> vertex v)</span><br><span class="line">Mark v <span class="keyword">as</span> visited.</span><br><span class="line">Recursively visit all unmarked vertices w adjacent <span class="built_in">to</span> v.</span><br></pre></td></tr></table></figure></p>
+<h3>Design pattern</h3>
+<ul>
 <li>Decouple graph data type from graph processing.</li>
 <li>Create a Graph object.</li>
 <li>Pass the Graph to graph-processing routine.</li>
 <li>Query the graph-processing routine for information.</li>
 </ul>
-<h3 id="Algorithm-">Algorithm.</h3><ul>
+<h3>Algorithm.</h3>
+<ul>
 <li>Use recursion(ball of string).</li>
 <li>Mark each visited vertex(and keep track of edge taken to visit to it).</li>
 <li>Return(retrace steps) when no unvisited options.</li>
 </ul>
-<h3 id="Data_structures-">Data structures.</h3><ul>
+<h3>Data structures.</h3>
+<ul>
 <li><strong>boolean[] marked</strong> to mark visited vertices</li>
-<li><strong>int[] edgeTo</strong> to keep tree of paths.<br>(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
+<li><strong>int[] edgeTo</strong> to keep tree of paths.
+(edgeTo[w] == v) means that edge v-w taken to visit w for the first time.</li>
 </ul>
-<h3 id="Java_API">Java API</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="Code_Implemention">Code Implemention</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Depth-first_search_code">Depth-first search code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3>Java API</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class Paths</span><br><span class="line"></span><br><span class="line"><span class="title">Paths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span> <span class="comment">//find paths in G from source s </span></span><br><span class="line"><span class="keyword">boolean</span> <span class="title">hasPathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//is there a path from s to v?</span></span><br><span class="line">Iterable&lt;Integer&gt; <span class="title">pathTo</span><span class="params">(<span class="keyword">int</span> v)</span> <span class="comment">//path from s to v;null if no such path</span></span></span><br></pre></td></tr></table></figure></p>
+<h3>Code Implemention</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Paths paths = <span class="keyword">new</span> Paths(G,s);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; G.V(); v++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(paths.hasPathTo(v))</span><br><span class="line">		StdOut.println(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3>Depth-first search code</h3>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthFirstPaths</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span>[] marked;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span>[] edgeTo;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DepthFirstPaths</span><span class="params">(Graph G,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">		…</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(Graph G,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		marked[v] = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> w:G.adj(v))&#123;</span><br><span class="line">			<span class="keyword">if</span>(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://imgs.xkcd.com/comics/dfs.png" alt="DFS used for dating"></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="cii0nemsd001r89s7kc8aqevk" data_title="depth-first-search" data_summary="GraphTremaux maze explorati..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/24/depth-first-search/" data-id="cii5fst9u001r1ss7stsvz756" data_title="depth-first-search" data_summary="Graph
+Tremaux maze explorat..." class="article-share-link">Share</a>
       
 
       
@@ -280,7 +294,7 @@
 		</div>
 		
         <ol>
-<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了 </li>
+<li>SharePoint的Meetings模块开发不顺利，主要问题在于创建的Meetings instance模块无法继承Meeting合Agenda类型。其中根本问题还是对SharePoint的开发不熟悉，缺乏经验。忍不住吐槽Microsoft的产品简直太难用了</li>
 <li>更新了Apiflow的非Ember的模板引擎</li>
 </ol>
 
@@ -288,7 +302,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="cii0nemol000189s7d06jbpih" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/" data-id="cii5fst6z00011ss79r1kolry" data_title="“03-23-2015"" data_summary="SharePoint的Meetings模块开发不顺利，..." class="article-share-link">Share</a>
       
 
       
@@ -349,13 +363,13 @@
 		
 		</div>
 		
-        <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">"Hello,Scala!"</span>)</span><br></pre></td></tr></table></figure>
+        <p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println(<span class="string">"Hello,Scala!"</span>)</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/22/scala-test/" data-id="cii0nemq3000i89s72cy2war8" data_title="scala-test" data_summary="1println("Hello,Scala!")..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/22/scala-test/" data-id="cii5fst84000i1ss7cc6bj99c" data_title="scala-test" data_summary="1println("Hello,Scala!")..." class="article-share-link">Share</a>
       
 
       
@@ -410,45 +424,65 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ember-js_资料索引"><span class="toc-number">1.</span> <span class="toc-text">Ember.js 资料索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#中文资料"><span class="toc-number">1.1.</span> <span class="toc-text">中文资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#英文资料"><span class="toc-number">1.2.</span> <span class="toc-text">英文资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#书籍"><span class="toc-number">1.3.</span> <span class="toc-text">书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视频课程"><span class="toc-number">1.4.</span> <span class="toc-text">视频课程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他资源_Github,Forum,Blogs"><span class="toc-number">1.5.</span> <span class="toc-text">其他资源 Github,Forum,Blogs</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Ember.js 资料索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">中文资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">英文资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">视频课程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.5.</span> <span class="toc-text">其他资源 Github,Forum,Blogs</span></a></li></ol></li></ol>
 		
 		</div>
 		
-        <h1 id="Ember-js_资料索引">Ember.js 资料索引</h1><p>此索引<a href="https://github.com/astray1988/Emberjs_reference_cn" target="_blank" rel="external">Github repo</a></p>
-<h2 id="中文资料">中文资料</h2><ul>
-<li><p><a href="http://www.emberjs.cn/guides/" target="_blank" rel="external">Emberjs教程指南</a></p>
+        <h1>Ember.js 资料索引</h1>
+<p>此索引<a href="https://github.com/astray1988/Emberjs_reference_cn" target="_blank" rel="external">Github repo</a></p>
+<h2>中文资料</h2>
+<ul>
+<li>
+<p><a href="http://www.emberjs.cn/guides/" target="_blank" rel="external">Emberjs教程指南</a></p>
 </li>
-<li><p>《30天学习30种新技术》系列中的<a href="http://segmentfault.com/a/1190000000365519" target="_blank" rel="external">Day19: EmberJS 入门指南</a></p>
-</li>
-</ul>
-<h2 id="英文资料">英文资料</h2><ul>
-<li><p><a href="http://emberjs.com/guides/getting-started/" target="_blank" rel="external">Ember.js Guides</a><br>or 从<a href="https://leanpub.com/emberjsguides/read" target="_blank" rel="external">这里</a>获取</p>
-</li>
-<li><p><a href="http://twbrandt.github.io/2013/02/11/Ember-Quick_Start_Guide/" target="_blank" rel="external">Getting Started with Ember.js</a>  by Tom Brandt</p>
-</li>
-<li><p><a href="http://www.lukaszielinski.de/blog/posts/2013/02/23/ember-dot-js-code-walkthrough-video/" target="_blank" rel="external">Ember.js Code-Walkthrough (Video)</a>- Another Programming Blog</p>
-</li>
-<li><p><a href="http://www.embercasts.com/" target="_blank" rel="external">Ember.js Screencasts</a> - embercasts</p>
-</li>
-<li><p><a href="http://gilesbowkett.blogspot.com/2013/06/heretical-guide-to-ember-js.html" target="_blank" rel="external">Heretical Guide To Ember JS</a> by GILES BOWKETT</p>
+<li>
+<p>《30天学习30种新技术》系列中的<a href="http://segmentfault.com/a/1190000000365519" target="_blank" rel="external">Day19: EmberJS 入门指南</a></p>
 </li>
 </ul>
-<h2 id="书籍">书籍</h2><ul>
+<h2>英文资料</h2>
+<ul>
+<li>
+<p><a href="http://emberjs.com/guides/getting-started/" target="_blank" rel="external">Ember.js Guides</a>
+or 从<a href="https://leanpub.com/emberjsguides/read" target="_blank" rel="external">这里</a>获取</p>
+</li>
+<li>
+<p><a href="http://twbrandt.github.io/2013/02/11/Ember-Quick_Start_Guide/" target="_blank" rel="external">Getting Started with Ember.js</a>  by Tom Brandt</p>
+</li>
+<li>
+<p><a href="http://www.lukaszielinski.de/blog/posts/2013/02/23/ember-dot-js-code-walkthrough-video/" target="_blank" rel="external">Ember.js Code-Walkthrough (Video)</a>- Another Programming Blog</p>
+</li>
+<li>
+<p><a href="http://www.embercasts.com/" target="_blank" rel="external">Ember.js Screencasts</a> - embercasts</p>
+</li>
+<li>
+<p><a href="http://gilesbowkett.blogspot.com/2013/06/heretical-guide-to-ember-js.html" target="_blank" rel="external">Heretical Guide To Ember JS</a> by GILES BOWKETT</p>
+</li>
+</ul>
+<h2>书籍</h2>
+<ul>
 <li><a href="http://www.amazon.com/Ember-js-Action-Joachim-Haagen-Skeie/dp/1617291455" target="_blank" rel="external">Ember.js in Action</a></li>
 </ul>
-<h2 id="视频课程">视频课程</h2><ul>
-<li><p>Code School提供的<a href="https://www.codeschool.com/courses/warming-up-with-ember-js" target="_blank" rel="external">Warming Up With Ember.js</a> </p>
+<h2>视频课程</h2>
+<ul>
+<li>
+<p>Code School提供的<a href="https://www.codeschool.com/courses/warming-up-with-ember-js" target="_blank" rel="external">Warming Up With Ember.js</a></p>
 </li>
-<li><p>Pluralsight提供的<a href="http://www.pluralsight.com/courses/emberjs-fundamentals" target="_blank" rel="external">Ember.js<br>Fundamentals</a></p>
+<li>
+<p>Pluralsight提供的<a href="http://www.pluralsight.com/courses/emberjs-fundamentals" target="_blank" rel="external">Ember.js
+Fundamentals</a></p>
 </li>
-<li><p>Tuts 提供的<a href="http://code.tutsplus.com/courses/ember-for-beginners" target="_blank" rel="external">Ember for Beginners</a></p>
+<li>
+<p>Tuts 提供的<a href="http://code.tutsplus.com/courses/ember-for-beginners" target="_blank" rel="external">Ember for Beginners</a></p>
 </li>
-<li><p>lynda提供的<a href="http://www.lynda.com/Emberjs-tutorials/Up-Running-Emberjs/178116-2.html" target="_blank" rel="external">Up and Running with Ember.js</a></p>
+<li>
+<p>lynda提供的<a href="http://www.lynda.com/Emberjs-tutorials/Up-Running-Emberjs/178116-2.html" target="_blank" rel="external">Up and Running with Ember.js</a></p>
 </li>
-<li><p>ember101提供的<a href="http://ember101.com/videos/001-intro-and-binding-data-to-templates" target="_blank" rel="external">Ember 101 Video Series</a></p>
+<li>
+<p>ember101提供的<a href="http://ember101.com/videos/001-intro-and-binding-data-to-templates" target="_blank" rel="external">Ember 101 Video Series</a></p>
 </li>
 </ul>
-<h2 id="其他资源_Github,Forum,Blogs">其他资源 Github,Forum,Blogs</h2><ul>
+<h2>其他资源 Github,Forum,Blogs</h2>
+<ul>
 <li><a href="http://emberwatch.com/" target="_blank" rel="external">EmberWatch</a></li>
 <li><a href="http://eviltrout.com/" target="_blank" rel="external">Robin Ward’s blog AKA Evil Trout</a></li>
 <li><a href="http://nerdyworm.com/" target="_blank" rel="external">nerdyworm</a> 与他的<a href="https://github.com/nerdyworm" target="_blank" rel="external">github</a></li>
@@ -459,7 +493,8 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="cii0nemrd001b89s7fx9wf8ph" data_title="Emberjs资料索引" data_summary="Ember.js 资料索引此索引Github repo..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/03/22/emberjs-reference/" data-id="cii5fst95001b1ss74nowtjp9" data_title="Emberjs资料索引" data_summary="Ember.js 资料索引
+此索引Github rep..." class="article-share-link">Share</a>
       
 
       

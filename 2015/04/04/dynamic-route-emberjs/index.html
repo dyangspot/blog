@@ -101,16 +101,20 @@
 		</div>
 		
         <p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
 <p>根据以上数据模型，我们定义routes：</p>
-<p>RocknrollcallYeoman.Router.map(function(){<br>    this.route(‘artist’,{<br>        path: ‘artist/:enid’<br>    });<br>});</p>
-<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em><a href="http://localhost:9000/#/artist/ARERLPG1187FB3BB39" target="_blank" rel="external">http://localhost:9000/#/artist/ARERLPG1187FB3BB39</a></em>来获取。 </p>
+<p>RocknrollcallYeoman.Router.map(function(){
+this.route(‘artist’,{
+path: ‘artist/:enid’
+});
+});</p>
+<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em>http://localhost:9000/#/artist/ARERLPG1187FB3BB39</em>来获取。</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="cii0nems7001m89s7wbynafpw" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="cii5fst9q001m1ss7mtp8j26v" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
       
 
       

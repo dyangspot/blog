@@ -99,18 +99,27 @@
 		
 		</div>
 		
-        <p>The way to destructure lists and streams is to use cons operator:<br> <em>::</em> and <em>#::</em>, respectively:</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Why <em>#::</em> operator works in Scala?<br>Scala allows extractors to be used in a infix notation.  So, the <figure class="highlight"><figcaption><span>p2) ```, e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as ``` p1 e p2 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Therefore, the infix operation pattern ```head #:: tail ``` can also be written as ```#::(head, tail) ``` . &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure></p>
-<p>object PremiumUser {<br>  def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))<br>}<br><figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
-<p>name premiumUser score<br>```</p>
-<p>Let’s go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return <em>Some((xs.head, xs.tail))</em>, the <em>xs.head</em> wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a <em>Tuple2</em> was wrapped in a <em>Some</em>, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. </p>
+        <p>The way to destructure lists and streams is to use cons operator:
+<em>::</em> and <em>#::</em>, respectively:</p>
+<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Why <em>#::</em> operator works in Scala?
+Scala allows extractors to be used in a infix notation.  So, the  <figure class="highlight"><figcaption><span>p2) ``` , e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as ``` p1 e p2 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Therefore, the infix operation pattern ```head #:: tail ``` can also be written as ```#::(head, tail) ``` . &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure></p>
+<p>object PremiumUser {
+def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))
+}
+<figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
+<p>name premiumUser score</p>
+<pre><code>
+Let's go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return *Some((xs.head, xs.tail))*, the *xs.head* wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a *Tuple2* was wrapped in a *Some*, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. 
+ 
+ 
+</code></pre>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cii0nempp000989s7npw4fnc4" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cii5fst7t00091ss75wv3lzif" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
       
 
       
@@ -122,7 +131,7 @@
 
 	  
 <span>
-更新日期:<time datetime="2015-12-10T19:39:03.000Z" itemprop="dateModified">2015-12-10</time>
+更新日期:<time datetime="2015-12-14T04:04:57.000Z" itemprop="dateModified">2015-12-13</time>
 </span>
 
 
@@ -171,19 +180,21 @@
 		
 		</div>
 		
-        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
+        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
+Define the User model:</p>
+<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Define a boolean extractor:
+Note: 'premiumCandidate' the first letter use the lower case here</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match:</p>
+<p><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii0nemrb001989s71nc0fast" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii5fst9300191ss7gqfw58jd" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
       
 
       
@@ -240,23 +251,27 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Play_beauty:_Stateless"><span class="toc-number">1.</span> <span class="toc-text">Play beauty: Stateless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenges:"><span class="toc-number">2.</span> <span class="toc-text">Challenges:</span></a></li></ol>
+			
 		
 		</div>
 		
-        <h3 id="Play_beauty:_Stateless">Play beauty: Stateless</h3><p>Where to put the state??? </p>
-<h3 id="Challenges:">Challenges:</h3><ul>
-<li>Accumulated state<br>build the state of user ?</li>
+        <p>###Play beauty: Stateless
+Where to put the state???</p>
+<p>###Challenges:</p>
+<ul>
+<li>Accumulated state
+build the state of user ?</li>
 <li>Location</li>
 <li>Node crashes</li>
 </ul>
-<p>Akka Sharding. </p>
+<p>Akka Sharding.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/07/play-recipes/" data-id="cii0nemr2001089s7ryigmwqt" data_title="Play recipes for real world" data_summary="Play beauty: StatelessWhere..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/07/play-recipes/" data-id="cii5fst8t00101ss7lfnmjpxs" data_title="Play recipes for real world" data_summary="###Play beauty: Stateless
+W..." class="article-share-link">Share</a>
       
 
       
@@ -313,39 +328,44 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type_conversions"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resolve_scope"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extended_scope"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
 		
 		</div>
 		
         <p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
-<h3 id="Type_conversions">Type conversions</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure>
-<p>Compiler将会搜索implicits的B =&gt; A类型<br>其中Compiler的搜索范围包括</p>
-<h4 id="Resolve_scope">Resolve scope</h4><ul>
+<h3>Type conversions</h3>
+<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure></p>
+<p>Compiler将会搜索implicits的B =&gt; A类型
+其中Compiler的搜索范围包括</p>
+<h4>Resolve scope</h4>
+<ul>
 <li>Declared implicits</li>
 <li>Imported implicits</li>
 <li>Implicitly imported implicits</li>
 </ul>
-<h4 id="Extended_scope">Extended scope</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Type</span>
-</span>
-<span class="class"><span class="keyword">class</span> <span class="title">T</span>[</span><span class="type">Y</span>]
+<h4>Extended scope</h4>
+<pre><code>class Type
 
-<span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Container</span>
-</span><span class="class"><span class="keyword">class</span> <span class="title">Container</span>
-</span><span class="class"><span class="keyword">object</span> <span class="title">Container</span> {</span>
-    <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">conv</span>(</span>c: <span class="type">Child</span>): <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Type</span>
+class T[Y]
+
+class D extends Container
+class Container
+object Container {
+    implicit def conv(c: Child): Type = new Type
 }
 
-<span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">T</span>[</span><span class="type">D</span>]
+class Child extends T[D]
 
 
-<span class="function"><span class="keyword">val</span> <span class="title">x</span>:</span> <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Child</span>
-</code></pre><p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
+val x: Type = new Child
+</code></pre>
+<p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cii0nemqb000l89s7uzd70qpu" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cii5fst88000l1ss7qm58ujst" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
       
 
       
@@ -407,13 +427,13 @@
 		</div>
 		
         <p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cii0nemqk000o89s7v1xmpkfv" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cii5fst8g000o1ss795rbsdza" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
       
 
       
@@ -470,29 +490,39 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#flatMap"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for_loop"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-sequence_=>_Future[Seq[Future[MyObject]]]"><span class="toc-number">3.</span> <span class="toc-text">Future.sequence => Future[Seq[Future[MyObject]]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-traverse"><span class="toc-number">4.</span> <span class="toc-text">Future.traverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatten"><span class="toc-number">5.</span> <span class="toc-text">Flatten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Future.sequence => Future[Seq[Future[MyObject]]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Future.traverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Flatten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
 		
 		</div>
 		
         <p>Play中经常会遇到在结构体中循环嵌套Async调用， 导致最后出现Future[Future[myObject]]类似代码，我们期望最终返回结果为Future[myObject]类型，而非嵌套Future的结构。在异步调用中，为了实现None-blocking I/O，应当尽量避免用Await方法.</p>
-<h3 id="flatMap">flatMap</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; Future[A])</span>:</span> Future[A]</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; A)</span>:</span> Future[A]</span><br></pre></td></tr></table></figure>
+<h3>flatMap</h3>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; Future[A])</span>:</span> Future[A]</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; A)</span>:</span> Future[A]</span><br></pre></td></tr></table></figure></p>
 <p>根据上述定义，我们可以用flatMap方法将一个Future[A]类型映射成我们想要的类型</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplateStoreDao</span>.findAll(page, perPage) flatMap  &#123; templates =&gt; // <span class="type">Seq</span>[<span class="type">Tempalte</span>]</span><br><span class="line">      val appList = new scala.collection.mutable.<span class="type">ArrayBuffer</span>[<span class="type">JsObject</span>]()</span><br><span class="line">      val response = <span class="type">ObjectStoreDao</span>.query(query) map &#123; tryObj =&gt; // <span class="type">Try</span>[<span class="type">Object</span>]</span><br><span class="line">        tryObj map &#123;obj =&gt; </span><br><span class="line">          val favoriteApps = (obj(<span class="number">0</span>) \ <span class="string">"data"</span> \ <span class="string">"vars"</span> \<span class="string">"favoriteApps"</span>).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">          <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">template</span> &lt;- templates</span><br><span class="line">            appId &lt;- favoriteApps.value</span><br><span class="line">          &#125; <span class="keyword">yield</span> &#123;</span><br><span class="line">            val jsonObj = <span class="type">Json</span>.toJson(obj).<span class="keyword">as</span>[<span class="type">JsObject</span>]</span><br><span class="line">            val prefObj = <span class="keyword">if</span> (appId.<span class="keyword">as</span>[<span class="type">String</span>] == <span class="keyword">template</span>.id) &#123;</span><br><span class="line">              val favField = (<span class="string">"fav"</span> -&gt; <span class="type">JsBoolean</span>(<span class="literal">true</span>))</span><br><span class="line">              jsonObj + favField</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              jsonObj</span><br><span class="line">            &#125;</span><br><span class="line">            appList += prefObj	// add to list</span><br><span class="line">          &#125;</span><br><span class="line">          // convert favorite list to <span class="type">JsArray</span></span><br><span class="line">          val jsArray = appList.foldLeft(<span class="type">JsArray</span>())((acc, x) =&gt; acc ++ <span class="type">Json</span>.arr(x))</span><br><span class="line">          jsArray.<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125; getOrElse &#123;</span><br><span class="line">          <span class="type">Json</span>.toJson(templates).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">		// response <span class="keyword">is</span> <span class="type">Future</span>[<span class="type">JsArray</span>]</span><br><span class="line">      response flatMap &#123; res =&gt; // res <span class="keyword">is</span> <span class="type">JsArray</span></span><br><span class="line">        <span class="type">Future</span>.successful(res.value map(_.<span class="keyword">as</span>[<span class="type">TTemplate</span>])) // convert <span class="type">JsObject</span> to <span class="type">Scala</span> <span class="type">Object</span> , will <span class="keyword">return</span> <span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Object</span>]] </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplateStoreDao</span>.findAll(page, perPage) flatMap  &#123; templates =&gt; // <span class="type">Seq</span>[<span class="type">Tempalte</span>]</span><br><span class="line">      val appList = new scala.collection.mutable.<span class="type">ArrayBuffer</span>[<span class="type">JsObject</span>]()</span><br><span class="line">      val response = <span class="type">ObjectStoreDao</span>.query(query) map &#123; tryObj =&gt; // <span class="type">Try</span>[<span class="type">Object</span>]</span><br><span class="line">        tryObj map &#123;obj =&gt; </span><br><span class="line">          val favoriteApps = (obj(<span class="number">0</span>) \ <span class="string">"data"</span> \ <span class="string">"vars"</span> \<span class="string">"favoriteApps"</span>).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">          <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">template</span> &lt;- templates</span><br><span class="line">            appId &lt;- favoriteApps.value</span><br><span class="line">          &#125; <span class="keyword">yield</span> &#123;</span><br><span class="line">            val jsonObj = <span class="type">Json</span>.toJson(obj).<span class="keyword">as</span>[<span class="type">JsObject</span>]</span><br><span class="line">            val prefObj = <span class="keyword">if</span> (appId.<span class="keyword">as</span>[<span class="type">String</span>] == <span class="keyword">template</span>.id) &#123;</span><br><span class="line">              val favField = (<span class="string">"fav"</span> -&gt; <span class="type">JsBoolean</span>(<span class="literal">true</span>))</span><br><span class="line">              jsonObj + favField</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              jsonObj</span><br><span class="line">            &#125;</span><br><span class="line">            appList += prefObj	// add to list</span><br><span class="line">          &#125;</span><br><span class="line">          // convert favorite list to <span class="type">JsArray</span></span><br><span class="line">          val jsArray = appList.foldLeft(<span class="type">JsArray</span>())((acc, x) =&gt; acc ++ <span class="type">Json</span>.arr(x))</span><br><span class="line">          jsArray.<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125; getOrElse &#123;</span><br><span class="line">          <span class="type">Json</span>.toJson(templates).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">		// response <span class="keyword">is</span> <span class="type">Future</span>[<span class="type">JsArray</span>]</span><br><span class="line">      response flatMap &#123; res =&gt; // res <span class="keyword">is</span> <span class="type">JsArray</span></span><br><span class="line">        <span class="type">Future</span>.successful(res.value map(_.<span class="keyword">as</span>[<span class="type">TTemplate</span>])) // convert <span class="type">JsObject</span> to <span class="type">Scala</span> <span class="type">Object</span> , will <span class="keyword">return</span> <span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Object</span>]] </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>如上所示， 我们对于处理Future的时候先进行flatMap操作，将Future[A] 包裹的T类型暴漏出来，进行各种操作，最后再返回一个 Future[A] 类型</p>
-<h3 id="for_loop">for loop</h3><p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以重写为<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
-<h3 id="Future-sequence_=&gt;_Future[Seq[Future[MyObject]]]">Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3><p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure>
-<h3 id="Future-traverse">Future.traverse</h3><h3 id="Flatten">Flatten</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3>for loop</h3>
+<p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
+<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure></p>
+<p>上述代码可以重写为
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
+<h3>Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3>
+<p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
+<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure></p>
+<h3>Future.traverse</h3>
+<h3>Flatten</h3>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>借鉴上述flatten方法</p>
-<h3 id="Reference">Reference</h3><p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a><br><a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a><br><a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte’s Guide to Scala Part 8: Welcome to the Future</a><br><a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
+<h3>Reference</h3>
+<p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a>
+<a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a>
+<a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte's Guide to Scala Part 8: Welcome to the Future</a>
+<a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cii0nemr5001389s711gt2s42" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cii5fst8w00131ss7bsl6wjja" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
       
 
       
@@ -549,22 +579,25 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#正在读"><span class="toc-number">1.</span> <span class="toc-text">正在读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#已读"><span class="toc-number">2.</span> <span class="toc-text">已读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#打算读"><span class="toc-number">3.</span> <span class="toc-text">打算读</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">正在读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">已读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">打算读</span></a></li></ol>
 		
 		</div>
 		
         <p>将最近的几个月的书单贴一下，做个备注.</p>
-<h4 id="正在读">正在读</h4><ul>
+<h4>正在读</h4>
+<ul>
 <li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_blank" rel="external">Functional Programming in Scala</a></li>
 <li><a href="https://www.manning.com/books/akka-in-action" target="_blank" rel="external">Akka in Action</a></li>
 <li><a href="http://www.amazon.com/Play-Framework-Cookbook-Alexander-Reelsen/dp/1784393134" target="_blank" rel="external">Play Framework Cookbook Second Edition</a></li>
 <li><a href="http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850" target="_blank" rel="external">Cracking the Code Interview Edition, 6th Edition</a></li>
 <li><a href="http://book.douban.com/subject/3924175/" target="_blank" rel="external">构建高性能Web站点</a></li>
 </ul>
-<h4 id="已读">已读</h4><ul>
+<h4>已读</h4>
+<ul>
 <li>Oreilly Learning Scala</li>
 </ul>
-<h4 id="打算读">打算读</h4><ul>
+<h4>打算读</h4>
+<ul>
 <li>Pragmatic Functional Programming patterns in Scala and Clojure</li>
 </ul>
 
@@ -572,9 +605,10 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cii0nemqp000q89s7rq9m2h10" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
+	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cii5fst8j000q1ss7cvkuff4v" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
 正在读
-Fun..." class="article-share-link">Share</a>
+
+Fu..." class="article-share-link">Share</a>
       
 
       
@@ -641,7 +675,7 @@ Fun..." class="article-share-link">Share</a>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cii0nempj000489s7a3kbvjc6" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cii5fst7m00041ss75ykq0evi" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
       
 
       
@@ -698,30 +732,38 @@ Fun..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
 		
 		</div>
 		
         <p>在此总结下Call-by-Name的传递函数的类型问题.</p>
-<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure>
-<p>调用函数 </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure>
+<h3>expr:=&gt;Type</h3>
+<p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
+<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure></p>
+<p>调用函数</p>
+<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>代码执行如下</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="expr:()=&gt;Type">expr:()=&gt;Type</h3><p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.<br><strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
-<figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3>expr:()=&gt;Type</h3>
+<p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.
+<strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
+<p><figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure></p>
 <p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
-<h3 id="Unit_=&gt;_Type">Unit =&gt; Type</h3><p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。<br>其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：<br>···<br>def f(x:Unit) = …<br>···</p>
+<h3>Unit =&gt; Type</h3>
+<p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。
+其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：
+···
+def f(x:Unit) = ...
+···</p>
 <p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure></p>
 <p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cii0nemst001x89s7hez9pilx" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cii5fsta3001x1ss7nznjap4l" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
       
 
       
@@ -782,16 +824,17 @@ Fun..." class="article-share-link">Share</a>
 		
 		</div>
 		
-        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.<br>以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
+        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.
+以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
 <p>首先给与两个函数分别为：</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
-<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是<strong>=&gt; String</strong>的函数s， 函数s的返回结果为String类型.</p>
+<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是**=&gt; String**的函数s， 函数s的返回结果为String类型.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cii0nemq7000j89s7abhsat53" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cii5fst85000j1ss7k5a40wq1" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
       
 
       
