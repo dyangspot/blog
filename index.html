@@ -66,6 +66,403 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-scalability-for-dummies" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/25/scalability-for-dummies/" class="article-date">
+  <time datetime="2016-01-26T01:27:58.000Z" itemprop="datePublished">2016-01-25</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Clones"><span class="toc-number">1.</span> <span class="toc-text">Clones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database"><span class="toc-number">2.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache"><span class="toc-number">3.</span> <span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2_patterns_of_caching_data"><span class="toc-number">3.1.</span> <span class="toc-text">2 patterns of caching data</span></a></li></ol></li></ol>
+		
+		</div>
+		
+        <h3 id="Clones">Clones</h3><p>Clones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.<br>Session可以保持到centralized data store，<br>存在形式： external persistent cache or db，cache better performance。<br><em>external</em> means outside application server.<br>AWS: create an image based on other server.</p>
+<h3 id="Database">Database</h3><ul>
+<li>path1: mast-slave replication, +RAM, sharding, denormalization, sql tuning</li>
+<li>path2: NoSQL</li>
+</ul>
+<h3 id="Cache">Cache</h3><p>key-value store. buffer layer between application and data storage<br>refer to in-memory cache, e.g. Memcached or Redis <em>never do file-based caching</em></p>
+<h4 id="2_patterns_of_caching_data">2 patterns of caching data</h4><ul>
+<li>Cached Database Queries.<br>Hashed query as a key, result as value.<br>main issue: expiration. hard to delete a cached result when cached a complex query.</li>
+<li>Cached Objects.<br>stored the complete instance of the clas or the assembed dataset in the cache.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/" data-id="cijvijx5e000n8js7yphv18ty" data_title="scalability-for-dummies" data_summary="ClonesClones： 每个server都有相同的..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/25/scalability-for-dummies/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-26T01:45:31.000Z" itemprop="dateModified">2016-01-25</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-CS75-Lecture-9-Scalability-Harvard-Web-Development" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/" class="article-date">
+  <time datetime="2016-01-25T22:29:55.000Z" itemprop="datePublished">2016-01-25</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scale_Purpose:_Serve_more_users"><span class="toc-number">1.</span> <span class="toc-text">Scale Purpose: Serve more users</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vertical_Scaling:"><span class="toc-number">2.</span> <span class="toc-text">Vertical Scaling:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Horizational_scaling"><span class="toc-number">3.</span> <span class="toc-text">Horizational scaling</span></a></li></ol>
+		
+		</div>
+		
+        <h3 id="Scale_Purpose:_Serve_more_users">Scale Purpose: Serve more users</h3><h3 id="Vertical_Scaling:">Vertical Scaling:</h3><ul>
+<li>CPU</li>
+<li>RAM</li>
+<li><p>Disks<br><a href="http://mp.weixin.qq.com/s?__biz=MzA5NTcyMjg1Nw==&amp;mid=402215713&amp;idx=1&amp;sn=c32644feddd90cefa498f7f66da9a78a&amp;scene=5&amp;srcid=01236siTCwxNurd5S71Y1s0K#rd" target="_blank" rel="external">硬盘、内存与闪存</a></p>
+<p>Why not always work? real world constrains</p>
+</li>
+</ul>
+<h3 id="Horizational_scaling">Horizational scaling</h3><p>Multiple servers.<br>Distribute request<br>Load Balancer : Round Robin<br>DNS（Domain Name System）: domain -&gt; ip</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">nslookup google.com</span><br><span class="line"><span class="label">Server:</span>		<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line"><span class="label">Address:</span>	<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span><span class="preprocessor">#53</span></span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.41</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.33</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.37</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br></pre></td></tr></table></figure>
+<p>Caching<br>TTL:<br>Sessions per server cause issue. =&gt; Share State =&gt; Share session</p>
+<p>RAID: Save data<br>RAID0: parallel for performance<br>RAID1: mirror data<br>RAID5:<br>RAID6<br>RAID10</p>
+<p>Replication: </p>
+<p>Load Balancer:<br>Software: ELB, HAProxy, LVS<br>Hardware: Barracuda, F5, Cisco, Citrix</p>
+<p>Sticky Sessions: Perserve session. visiting a website multiple times, still end up with same session object =&gt; same backend server.</p>
+<p>Shared Storage: FC, iSCSI, MySQL, NFS,etc<br>Cookies: finite size(4k)<br>store id of server.<br>Downside? </p>
+<p>Caching:<br>Memcached<br>Cache getting big: expire and garbage collection. reuse space and memory. LRU</p>
+<p>Facebook: Both read/write heavy. </p>
+<p>Replication: automatically copy something<br>Master-Slave. master copy down to slaves.<br>    slaves: get copy every row of master db. master and slaves     identical<br>upside: one master die, back up there becomes master<br>downside: take time to promote slave to master.<br>Master-Master:</p>
+<p>Partition: </p>
+<p>High Availablity:  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/" data-id="cijvijxj7002h8js7u35p75n1" data_title="CS75_Lecture_9_Scalability_Harvard_Web_Development" data_summary="Scale Purpose: Serve more u..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">暂无评论</a>
+      
+	  
+      
+	  
+<span>
+更新日期:<time datetime="2016-01-26T01:28:13.000Z" itemprop="dateModified">2016-01-25</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-load-balancer-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/25/load-balancer-notes/" class="article-date">
+  <time datetime="2016-01-25T16:58:56.000Z" itemprop="datePublished">2016-01-25</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#q1:_Host_is_not_working?"><span class="toc-number">1.</span> <span class="toc-text">q1: Host is not working?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#q2:_How_does_the_LB_decide_which_server_to_send_a_connection_request_to_?"><span class="toc-number">2.</span> <span class="toc-text">q2: How does the LB decide which server to send a connection request to ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How_about_follow-on_traffic_from_a_known_connection?_To_load_balance_or_not_to_load_balance_?"><span class="toc-number">3.</span> <span class="toc-text">How about follow-on traffic from a known connection? To load balance or not to load balance ?</span></a></li></ol>
+		
+		</div>
+		
+        <p>发送数据包过程中IP和MAC谁变谁不变？<br>src ip, dest ip 不变；<br>发薪日 =&gt; 邮递员 =&gt; … =&gt; 收信人的身份(Mac)一直在变</p>
+<p>Load Balancer:  distribute workloads across multiple computing resources.</p>
+<p>Load Balancer： 主+备</p>
+<ol>
+<li>LB “对外”（external） 提供”virtual server”</li>
+<li>LB “对内”（internal） 提供”virtual client”</li>
+<li>Packets转发： 源地址 &lt;=&gt; 目的地址解析 即Bi-directional Network Address Translation(BNAT = SNAT + DNAT)</li>
+<li>based on service的 balancing(ip：port), instead of the Host(IP) =&gt; a server may have more than one service (HTTP: 80, HTTPS: 443, FTP: 21, DNS: 53)</li>
+</ol>
+<h3 id="q1:_Host_is_not_working?">q1: Host is not working?</h3><p>ping, time out.<br>Health monitoring: 1. deamon,  ping. 2. “service ping”</p>
+<h3 id="q2:_How_does_the_LB_decide_which_server_to_send_a_connection_request_to_?">q2: How does the LB decide which server to send a connection request to ?</h3><ol>
+<li>Configure each virtual server has a specific dedicated cluster of services with makes up all the available servers.</li>
+<li>By <em>health monitoring</em> modifies list to make a list of <em>currently available servers</em>.</li>
+<li>Load balancing algorithms to pick right the right server. e.g. round robin, random…<h3 id="How_about_follow-on_traffic_from_a_known_connection?_To_load_balance_or_not_to_load_balance_?">How about <em>follow-on traffic</em> from a known connection? To load balance or not to load balance ?</h3></li>
+<li><p>TCP 长连接: Connection maintenance.<br>Used for <em>long-lived</em> TCP connections</p>
+<ul>
+<li>Keep track of open connections and the server service it belongs to.</li>
+<li>Monitor the connection and update connection table when the connection closes.</li>
+</ul>
+</li>
+<li><p>TCP 短链接: Persistence (aka. Server Affinity)<br>Used for multiple short-lived TCP conenctions from the same server.<br>困难，怎么判断是同一个用户。</p>
+</li>
+</ol>
+<ul>
+<li>可以通过源地址(source-address affinity)， 可能不是不准确，可能是同一个路由器下同一个子网，用同一个IP，无法区分. 也有可能是同一个用户在家里，公司，学校进行访问。 </li>
+<li>用DPI（Deep Packet Inspection）技术来查看网络层以上的信息. 例如用户把信息存到cookie，通过查看cookie就能知道哪个用户在访问。</li>
+</ul>
+<ol>
+<li>All above information is stored in “Flow Table”.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/25/load-balancer-notes/" data-id="cijvijxdo001e8js77qtv0q5x" data_title="load_balancer_notes" data_summary="发送数据包过程中IP和MAC谁变谁不变？src ip,..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/25/load-balancer-notes/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/25/load-balancer-notes/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-25T17:34:18.000Z" itemprop="dateModified">2016-01-25</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-twitter-play" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/12/14/twitter-play/" class="article-date">
+  <time datetime="2015-12-15T04:46:49.000Z" itemprop="datePublished">2015-12-14</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> controllers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> play.api.<span class="type">Play</span></span><br><span class="line"><span class="keyword">import</span> play.api.libs.oauth.&#123;<span class="type">OAuthCalculator</span>, <span class="type">ConsumerKey</span>, <span class="type">RequestToken</span>&#125;</span><br><span class="line"><span class="keyword">import</span> play.api.libs.ws.<span class="type">WS</span></span><br><span class="line"><span class="keyword">import</span> play.api.mvc._</span><br><span class="line"><span class="keyword">import</span> play.api.<span class="type">Play</span>.current</span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global.</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Controller</span> &#123;</span></span><br><span class="line">  <span class="keyword">final</span> <span class="function"><span class="keyword">val</span> <span class="title">TwitterStatus</span> =</span> <span class="string">"https://stream.twitter.com/1.1/statuses/filter.json"</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">index</span> =</span> <span class="type">Action</span> &#123;</span><br><span class="line">    <span class="type">Ok</span>(views.html.index(<span class="string">"Your new application is ready."</span>))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tweets</span> =</span> <span class="type">Action</span>.async &#123;</span><br><span class="line">    credentials map &#123;</span><br><span class="line">      <span class="keyword">case</span> (consumerKey, requestToken) =&gt;</span><br><span class="line">        <span class="type">WS</span>.url(<span class="type">TwitterStatus</span>)</span><br><span class="line">          .sign(<span class="type">OAuthCalculator</span>(consumerKey, requestToken))</span><br><span class="line">        .withQueryString(<span class="string">"track"</span> -&gt; <span class="string">"reactive"</span>)</span><br><span class="line">        .get</span><br><span class="line">        .map &#123; response =&gt;</span><br><span class="line">          <span class="type">Ok</span>(response.body)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; getOrElse &#123;</span><br><span class="line">      <span class="type">Future</span> &#123;</span><br><span class="line">        <span class="type">InternalServerError</span>(<span class="string">"Twitter credentials not match"</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">credentials</span>:</span> <span class="type">Option</span>[(<span class="type">ConsumerKey</span>,<span class="type">RequestToken</span>)] =</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">        consumerKey &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.consumerKey"</span>)</span><br><span class="line">        consumerSecret &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.consumerSecret"</span>)</span><br><span class="line">        token &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.token"</span>)</span><br><span class="line">        tokenSecret &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.tokenSecret"</span>)</span><br><span class="line">      &#125; <span class="keyword">yield</span></span><br><span class="line">        (<span class="type">ConsumerKey</span>(consumerKey, consumerSecret),</span><br><span class="line">        <span class="type">RequestToken</span>(token, tokenSecret))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/12/14/twitter-play/" data-id="cijvijx3600048js7ps3jmnq7" data_title="Twitter Streaming example using Play" data_summary="123456789101112131415161718..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/12/14/twitter-play/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/14/twitter-play/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-12-15T04:47:40.000Z" itemprop="dateModified">2015-12-14</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-summary-at-scala" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/12/13/summary-at-scala/" class="article-date">
+  <time datetime="2015-12-14T04:06:28.000Z" itemprop="datePublished">2015-12-13</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>最近在看<a href="http://danielwestheide.com/scala/neophytes.html" target="_blank" rel="external">The Neophyte’s Guide to Scala </a>的时候，在part1-extractors跟part3-patterns中都提到了<em>@</em>，对此进行总结下，上述文章中出现的代码例子如下：</p>
+<p>extractors：</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user: <span class="type">User</span> = <span class="keyword">new</span> <span class="type">FreeUser</span>(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0.8</span>d)</span><br><span class="line">user <span class="keyword">match</span> &#123;</span><br><span class="line">  case freeUser @ premiumCandidate<span class="literal">()</span> =&gt; initiateSpamProgram(freeUser)</span><br><span class="line">  case _ =&gt; sendRegularNewsletter(user)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>patterns everywhere：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val lists <span class="subst">=</span> <span class="built_in">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="tag">:: List.empty</span> <span class="tag">:: List</span>(<span class="number">5</span>, <span class="number">3</span>) <span class="tag">:: Nil</span></span><br><span class="line"></span><br><span class="line">for &#123;</span><br><span class="line">  <span class="built_in">list</span> @ head <span class="tag">:: _</span> <span class="subst">&lt;-</span> lists</span><br><span class="line">&#125; <span class="keyword">yield</span> <span class="built_in">list</span><span class="built_in">.</span>size</span><br></pre></td></tr></table></figure>
+<p><em>@</em>在scala中被称之为Pattern Binder， 给出的<a href="http://www.scala-lang.org/files/archive/spec/2.11/08-pattern-matching.html#pattern-binders" target="_blank" rel="external">定义</a>如下，</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern2        ::=  varid <span class="smartquote">`@'</span> Pattern3</span><br></pre></td></tr></table></figure>
+<p>A pattern binder x@p consists of a pattern variable x and a pattern p. The type of the variable x is the static type T of the pattern p. This pattern matches any value v matched by the pattern p, provided the run-time type of v is also an instance of T, and it binds the variable name to that value.</p>
+<p>定义如上，根据定义可以我们每次的实例x都要被绑定到模式p上面， 可以理解为x是模式p的类型T的实例。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/12/13/summary-at-scala/" data-id="cijvijx3p000c8js7h09zwuoy" data_title="@在Scala中的用法总结" data_summary="最近在看The Neophyte’s Guide to..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/12/13/summary-at-scala/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/13/summary-at-scala/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-12-14T04:27:36.000Z" itemprop="dateModified">2015-12-13</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-stream-extractor-scala" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -99,27 +496,21 @@
 		
 		</div>
 		
-        <p>The way to destructure lists and streams is to use cons operator:
-<em>::</em> and <em>#::</em>, respectively:</p>
-<p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Why <em>#::</em> operator works in Scala?
-Scala allows extractors to be used in a infix notation.  So, the  <figure class="highlight"><figcaption><span>p2) ``` , e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as ``` p1 e p2 ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Therefore, the infix operation pattern ```head #:: tail ``` can also be written as ```#::(head, tail) ``` . &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure></p>
-<p>object PremiumUser {
-def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))
-}
-<figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
-<p>name premiumUser score</p>
-<pre><code>
-Let's go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return *Some((xs.head, xs.tail))*, the *xs.head* wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a *Tuple2* was wrapped in a *Some*, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. 
- 
- 
-</code></pre>
+        <p>The way to destructure lists and streams is to use cons operator:<br> <em>::</em> and <em>#::</em>, respectively:</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Why <em>#::</em> operator works in Scala?<br>Scala allows extractors to be used in a infix notation.  So, the</p>
+ <figure class="highlight"><figcaption><span>p2) ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;, e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as&#10;&#10; ``` p1 e p2</span><br></pre></td></tr></table></figure>
+<p>Therefore, the infix operation pattern</p>
+ <figure class="highlight"><figcaption><span>#:: tail ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#10;  can also be written as &#10;  &#10;  ```#::(head, tail) ``` &#10;  &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure>
+<p>object PremiumUser {<br>  def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))<br>}<br><figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
+<p>name premiumUser score<br>```</p>
+<p>Let’s go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return <em>Some((xs.head, xs.tail))</em>, the <em>xs.head</em> wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a <em>Tuple2</em> was wrapped in a <em>Some</em>, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cii5fst7t00091ss75wv3lzif" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cijvijx3v000e8js79jwfb7xv" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
       
 
       
@@ -131,7 +522,7 @@ Let's go back to the stream extractor. The extractor is called for the initial s
 
 	  
 <span>
-更新日期:<time datetime="2015-12-14T04:04:57.000Z" itemprop="dateModified">2015-12-13</time>
+更新日期:<time datetime="2015-12-14T04:06:08.000Z" itemprop="dateModified">2015-12-13</time>
 </span>
 
 
@@ -180,21 +571,19 @@ Let's go back to the stream extractor. The extractor is called for the initial s
 		
 		</div>
 		
-        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:</p>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Define a boolean extractor:
-Note: 'premiumCandidate' the first letter use the lower case here</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match:</p>
-<p><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job.</p>
+        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii5fst9300191ss7gqfw58jd" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cijvijxeu001j8js70udnnulf" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
       
 
       
@@ -251,27 +640,23 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Play_beauty:_Stateless"><span class="toc-number">1.</span> <span class="toc-text">Play beauty: Stateless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenges:"><span class="toc-number">2.</span> <span class="toc-text">Challenges:</span></a></li></ol>
 		
 		</div>
 		
-        <p>###Play beauty: Stateless
-Where to put the state???</p>
-<p>###Challenges:</p>
-<ul>
-<li>Accumulated state
-build the state of user ?</li>
+        <h3 id="Play_beauty:_Stateless">Play beauty: Stateless</h3><p>Where to put the state??? </p>
+<h3 id="Challenges:">Challenges:</h3><ul>
+<li>Accumulated state<br>build the state of user ?</li>
 <li>Location</li>
 <li>Node crashes</li>
 </ul>
-<p>Akka Sharding.</p>
+<p>Akka Sharding. </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/07/play-recipes/" data-id="cii5fst8t00101ss7lfnmjpxs" data_title="Play recipes for real world" data_summary="###Play beauty: Stateless
-W..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/07/play-recipes/" data-id="cijvijxbz00188js7x68xekg0" data_title="Play recipes for real world" data_summary="Play beauty: StatelessWhere..." class="article-share-link">Share</a>
       
 
       
@@ -328,44 +713,39 @@ W..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type_conversions"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resolve_scope"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extended_scope"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
 		
 		</div>
 		
         <p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
-<h3>Type conversions</h3>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure></p>
-<p>Compiler将会搜索implicits的B =&gt; A类型
-其中Compiler的搜索范围包括</p>
-<h4>Resolve scope</h4>
-<ul>
+<h3 id="Type_conversions">Type conversions</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure>
+<p>Compiler将会搜索implicits的B =&gt; A类型<br>其中Compiler的搜索范围包括</p>
+<h4 id="Resolve_scope">Resolve scope</h4><ul>
 <li>Declared implicits</li>
 <li>Imported implicits</li>
 <li>Implicitly imported implicits</li>
 </ul>
-<h4>Extended scope</h4>
-<pre><code>class Type
+<h4 id="Extended_scope">Extended scope</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Type</span>
+</span>
+<span class="class"><span class="keyword">class</span> <span class="title">T</span>[</span><span class="type">Y</span>]
 
-class T[Y]
-
-class D extends Container
-class Container
-object Container {
-    implicit def conv(c: Child): Type = new Type
+<span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">class</span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">object</span> <span class="title">Container</span> {</span>
+    <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">conv</span>(</span>c: <span class="type">Child</span>): <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Type</span>
 }
 
-class Child extends T[D]
+<span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">T</span>[</span><span class="type">D</span>]
 
 
-val x: Type = new Child
-</code></pre>
-<p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
+<span class="function"><span class="keyword">val</span> <span class="title">x</span>:</span> <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Child</span>
+</code></pre><p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cii5fst88000l1ss7qm58ujst" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cijvijx8e000t8js78il89ph5" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
       
 
       
@@ -427,13 +807,13 @@ val x: Type = new Child
 		</div>
 		
         <p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
-<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cii5fst8g000o1ss795rbsdza" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cijvijx9h000w8js7vb5w6n96" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
       
 
       
@@ -446,407 +826,6 @@ val x: Type = new Child
 	  
 <span>
 更新日期:<time datetime="2015-12-01T03:54:14.000Z" itemprop="dateModified">2015-11-30</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-nestedFuture-md" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/11/30/nestedFuture-md/" class="article-date">
-  <time datetime="2015-11-30T23:10:23.000Z" itemprop="datePublished">2015-11-30</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/30/nestedFuture-md/">处理Nested Future结构总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Future.sequence => Future[Seq[Future[MyObject]]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Future.traverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Flatten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
-		
-		</div>
-		
-        <p>Play中经常会遇到在结构体中循环嵌套Async调用， 导致最后出现Future[Future[myObject]]类似代码，我们期望最终返回结果为Future[myObject]类型，而非嵌套Future的结构。在异步调用中，为了实现None-blocking I/O，应当尽量避免用Await方法.</p>
-<h3>flatMap</h3>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; Future[A])</span>:</span> Future[A]</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; A)</span>:</span> Future[A]</span><br></pre></td></tr></table></figure></p>
-<p>根据上述定义，我们可以用flatMap方法将一个Future[A]类型映射成我们想要的类型</p>
-<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplateStoreDao</span>.findAll(page, perPage) flatMap  &#123; templates =&gt; // <span class="type">Seq</span>[<span class="type">Tempalte</span>]</span><br><span class="line">      val appList = new scala.collection.mutable.<span class="type">ArrayBuffer</span>[<span class="type">JsObject</span>]()</span><br><span class="line">      val response = <span class="type">ObjectStoreDao</span>.query(query) map &#123; tryObj =&gt; // <span class="type">Try</span>[<span class="type">Object</span>]</span><br><span class="line">        tryObj map &#123;obj =&gt; </span><br><span class="line">          val favoriteApps = (obj(<span class="number">0</span>) \ <span class="string">"data"</span> \ <span class="string">"vars"</span> \<span class="string">"favoriteApps"</span>).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">          <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">template</span> &lt;- templates</span><br><span class="line">            appId &lt;- favoriteApps.value</span><br><span class="line">          &#125; <span class="keyword">yield</span> &#123;</span><br><span class="line">            val jsonObj = <span class="type">Json</span>.toJson(obj).<span class="keyword">as</span>[<span class="type">JsObject</span>]</span><br><span class="line">            val prefObj = <span class="keyword">if</span> (appId.<span class="keyword">as</span>[<span class="type">String</span>] == <span class="keyword">template</span>.id) &#123;</span><br><span class="line">              val favField = (<span class="string">"fav"</span> -&gt; <span class="type">JsBoolean</span>(<span class="literal">true</span>))</span><br><span class="line">              jsonObj + favField</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              jsonObj</span><br><span class="line">            &#125;</span><br><span class="line">            appList += prefObj	// add to list</span><br><span class="line">          &#125;</span><br><span class="line">          // convert favorite list to <span class="type">JsArray</span></span><br><span class="line">          val jsArray = appList.foldLeft(<span class="type">JsArray</span>())((acc, x) =&gt; acc ++ <span class="type">Json</span>.arr(x))</span><br><span class="line">          jsArray.<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125; getOrElse &#123;</span><br><span class="line">          <span class="type">Json</span>.toJson(templates).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">		// response <span class="keyword">is</span> <span class="type">Future</span>[<span class="type">JsArray</span>]</span><br><span class="line">      response flatMap &#123; res =&gt; // res <span class="keyword">is</span> <span class="type">JsArray</span></span><br><span class="line">        <span class="type">Future</span>.successful(res.value map(_.<span class="keyword">as</span>[<span class="type">TTemplate</span>])) // convert <span class="type">JsObject</span> to <span class="type">Scala</span> <span class="type">Object</span> , will <span class="keyword">return</span> <span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Object</span>]] </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>如上所示， 我们对于处理Future的时候先进行flatMap操作，将Future[A] 包裹的T类型暴漏出来，进行各种操作，最后再返回一个 Future[A] 类型</p>
-<h3>for loop</h3>
-<p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure></p>
-<p>上述代码可以重写为
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
-<h3>Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3>
-<p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
-<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure></p>
-<h3>Future.traverse</h3>
-<h3>Flatten</h3>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>借鉴上述flatten方法</p>
-<h3>Reference</h3>
-<p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a>
-<a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a>
-<a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte's Guide to Scala Part 8: Welcome to the Future</a>
-<a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cii5fst8w00131ss7bsl6wjja" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/11/30/nestedFuture-md/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/30/nestedFuture-md/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-01T03:29:40.000Z" itemprop="dateModified">2015-11-30</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-reading-list" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/11/28/reading-list/" class="article-date">
-  <time datetime="2015-11-29T04:48:21.000Z" itemprop="datePublished">2015-11-28</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/28/reading-list/">最近在读的书单</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">正在读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">已读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">打算读</span></a></li></ol>
-		
-		</div>
-		
-        <p>将最近的几个月的书单贴一下，做个备注.</p>
-<h4>正在读</h4>
-<ul>
-<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_blank" rel="external">Functional Programming in Scala</a></li>
-<li><a href="https://www.manning.com/books/akka-in-action" target="_blank" rel="external">Akka in Action</a></li>
-<li><a href="http://www.amazon.com/Play-Framework-Cookbook-Alexander-Reelsen/dp/1784393134" target="_blank" rel="external">Play Framework Cookbook Second Edition</a></li>
-<li><a href="http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850" target="_blank" rel="external">Cracking the Code Interview Edition, 6th Edition</a></li>
-<li><a href="http://book.douban.com/subject/3924175/" target="_blank" rel="external">构建高性能Web站点</a></li>
-</ul>
-<h4>已读</h4>
-<ul>
-<li>Oreilly Learning Scala</li>
-</ul>
-<h4>打算读</h4>
-<ul>
-<li>Pragmatic Functional Programming patterns in Scala and Clojure</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cii5fst8j000q1ss7cvkuff4v" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
-正在读
-
-Fu..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/11/28/reading-list/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/28/reading-list/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-11-29T05:07:23.000Z" itemprop="dateModified">2015-11-29</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-summary_of_social_engagement_app" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/11/28/summary_of_social_engagement_app/" class="article-date">
-  <time datetime="2015-11-29T04:12:19.000Z" itemprop="datePublished">2015-11-28</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/28/summary_of_social_engagement_app/">关于搭建Social Engagement Apps的总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="external">talk</a>，介绍了下如何用Play框架在基于SalesForce平台上对Twitter用户进行整合. 讲座中涉及到了很多scala技术类的细节，许多代码值得学习，借此贴出来. 在此先占位</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cii5fst7m00041ss75ykq0evi" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/28/summary_of_social_engagement_app/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-11-29T04:47:58.000Z" itemprop="dateModified">2015-11-28</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-call-by-name" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/26/call-by-name/" class="article-date">
-  <time datetime="2015-04-26T04:54:46.000Z" itemprop="datePublished">2015-04-26</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
-		
-		</div>
-		
-        <p>在此总结下Call-by-Name的传递函数的类型问题.</p>
-<h3>expr:=&gt;Type</h3>
-<p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure></p>
-<p>调用函数</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>代码执行如下</p>
-<p><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure></p>
-<h3>expr:()=&gt;Type</h3>
-<p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.
-<strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
-<p><figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure></p>
-<p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
-<h3>Unit =&gt; Type</h3>
-<p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。
-其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：
-···
-def f(x:Unit) = ...
-···</p>
-<p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
-<p><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure></p>
-<p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cii5fsta3001x1ss7nznjap4l" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/26/call-by-name/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/26/call-by-name/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-26T05:37:53.000Z" itemprop="dateModified">2015-04-26</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-scala-parameter-type" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/26/scala-parameter-type/" class="article-date">
-  <time datetime="2015-04-26T04:32:05.000Z" itemprop="datePublished">2015-04-26</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/26/scala-parameter-type/">Scala中的call by name与call by value区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.
-以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
-<p>首先给与两个函数分别为：</p>
-<p><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是**=&gt; String**的函数s， 函数s的返回结果为String类型.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cii5fst85000j1ss7k5a40wq1" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/26/scala-parameter-type/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/26/scala-parameter-type/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-26T04:54:20.000Z" itemprop="dateModified">2015-04-26</time>
 </span>
 
 
@@ -895,7 +874,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -905,7 +884,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -915,7 +894,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -972,10 +951,22 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
@@ -994,6 +985,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -1048,6 +1045,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
@@ -1158,6 +1161,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1190,23 +1199,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
           </li>
         
           <li>
-            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
           </li>
         
           <li>
-            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
           </li>
         
           <li>
-            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
           </li>
         
       </ul>
@@ -1245,7 +1254,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Dylan<br>
+      &copy; 2016 Dylan<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
     </div>
   </div>

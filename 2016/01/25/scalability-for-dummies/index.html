@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>scalability-for-dummies | Dylan&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ClonesClones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.Session可以保持到centralized data store，存在形式： external persistent cache or db，cache better performance。external means outside application">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scalability-for-dummies">
+<meta property="og:url" content="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/index.html">
+<meta property="og:site_name" content="Dylan's Blog">
+<meta property="og:description" content="ClonesClones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.Session可以保持到centralized data store，存在形式： external persistent cache or db，cache better performance。external means outside application">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scalability-for-dummies">
+<meta name="twitter:description" content="ClonesClones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.Session可以保持到centralized data store，存在形式： external persistent cache or db，cache better performance。external means outside application">
+  
+    <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Dylan&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/astray1988" title="Github" target="_blank"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://dyangspot.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-scalability-for-dummies" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/25/scalability-for-dummies/" class="article-date">
+  <time datetime="2016-01-26T01:27:58.000Z" itemprop="datePublished">2016-01-25</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      scalability-for-dummies
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Clones"><span class="toc-number">1.</span> <span class="toc-text">Clones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database"><span class="toc-number">2.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache"><span class="toc-number">3.</span> <span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2_patterns_of_caching_data"><span class="toc-number">3.1.</span> <span class="toc-text">2 patterns of caching data</span></a></li></ol></li></ol>
+		
+		</div>
+		
+        <h3 id="Clones">Clones</h3><p>Clones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.<br>Session可以保持到centralized data store，<br>存在形式： external persistent cache or db，cache better performance。<br><em>external</em> means outside application server.<br>AWS: create an image based on other server.</p>
+<h3 id="Database">Database</h3><ul>
+<li>path1: mast-slave replication, +RAM, sharding, denormalization, sql tuning</li>
+<li>path2: NoSQL</li>
+</ul>
+<h3 id="Cache">Cache</h3><p>key-value store. buffer layer between application and data storage<br>refer to in-memory cache, e.g. Memcached or Redis <em>never do file-based caching</em></p>
+<h4 id="2_patterns_of_caching_data">2 patterns of caching data</h4><ul>
+<li>Cached Database Queries.<br>Hashed query as a key, result as value.<br>main issue: expiration. hard to delete a cached result when cached a complex query.</li>
+<li>Cached Objects.<br>stored the complete instance of the clas or the assembed dataset in the cache.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/" data-id="cijvijx5e000n8js7yphv18ty" data_title="scalability-for-dummies" data_summary="ClonesClones： 每个server都有相同的..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/25/scalability-for-dummies/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-26T01:45:31.000Z" itemprop="dateModified">2016-01-25</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CS75_Lecture_9_Scalability_Harvard_Web_Development</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<section id="comments">
+  <div class="ds-thread"  data-thread-key="/2016/01/25/scalability-for-dummies/" data-title="scalability-for-dummies" data-url="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/" id="ds_thread">
+    <noscript>Please enable JavaScript to view the <a href="//duoshuo.com/?ref_noscript">comments powered by duoshuo.</a></noscript>
+  </div>
+</section>
+
+<!-- 多说评论框 end -->
+</section>
+        
+          
+  <div id="toc" class="toc-aside">
+  <h2 class="toc-title">文章目录</h2>
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Clones"><span class="toc-number">1.</span> <span class="toc-text">Clones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database"><span class="toc-number">2.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache"><span class="toc-number">3.</span> <span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2_patterns_of_caching_data"><span class="toc-number">3.1.</span> <span class="toc-text">2 patterns of caching data</span></a></li></ol></li></ol>
+    
+  </div>
+
+<aside id="sidebar">
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">ABOUT ME</h3>
+  <ul class="widget about-me">
+    
+    <li><img class="author" title="About me" src="http://7xi7ot.com1.z0.glb.clouddn.com/avatar.png" /></li>
+    
+    
+    <li>Hacker, Geek, Occasional Traveller</li>
+    
+  </ul>
+</div>
+
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    <div class="widget tag">
+    <h3 class="title">Calendar</h3>
+    <div class="Calendar">
+      <div id="idCalendarPre"><<</div>
+      <div id="idCalendarNext">>></div>
+      <span id="idCalendarYear">2008</span>年<span id="idCalendarMonth">8</span>月
+      <table cellspacing="0">
+        <thead>
+          <tr>
+            <td>日</td>
+            <td>一</td>
+            <td>二</td>
+            <td>三</td>
+            <td>四</td>
+            <td>五</td>
+            <td>六</td>
+          </tr>
+        </thead>
+        <tbody id="idCalendar">
+        </tbody>
+      </table>
+    </div>
+</div>
+<script language="JavaScript">
+var cale = new Calendar("idCalendar", {
+    //howiefh
+    /* SelectDay: new Date().setDate(10), */
+    SelectDay: new Date().setDate(this.Date),
+    onSelectDay: function(o){ o.className = "onSelect"; },
+    //howiefh
+    onToday: function(o){ o.className = "onToday"; },
+    onFinish: function(){
+        //howiefh
+        // $("idCalendarYear").innerHTML = this.Year; $("idCalendarMonth").innerHTML = this.Month;
+        $("idCalendarYear").innerHTML = "<a href='/" + "archives/" + this.Year + "/'>" + this.Year + " "+ "</a>"; 
+        if (this.Month < 10) {
+            $("idCalendarMonth").innerHTML = "<a href='/" + "archives/" + this.Year + "/" + "0" + this.Month + "/'>" + " " + this.Month + " " + "</a>";
+        } else {
+            $("idCalendarMonth").innerHTML = "<a href='/" + "archives/" + this.Year + "/" + this.Month + "/'>" + " " + this.Month + " " + "</a>";
+        }
+        // var flag = [10,15,20]; 
+        // for(var i = 0, len = flag.length; i < len; i++){ 
+            // this.Days[flag[i]].innerHTML = "<a href='javascript:void(0);' onclick=\"alert('日期是:"+this.Year+"/"+this.Month+"/"+flag[i]+"');return false;\">" + flag[i] + "</a>"; 
+        // } 
+        
+            var postdate = new Date("Mon Mar 23 2015 19:37:39 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/10/stream-extractor-scala/' title='Stream extractor in Scala'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Fri Apr 03 2015 01:01:01 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/set-up-emberjs-dev-env/' title='set-up-emberjs-dev-env'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 05 2015 19:51:03 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/22/scala-test/' title='scala-test'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 26 2015 00:32:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/scala-parameter-type/' title='Scala中的call by name与call by value区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Dec 03 2015 21:36:27 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/03/scala-implicits/' title='Scala中的Implicits'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Nov 30 2015 22:31:20 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/30/scala-identity/' title='Scala中的identity'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Nov 28 2015 23:48:21 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/28/reading-list/' title='最近在读的书单'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:02:21 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-programming/' title='reactive-programming-intro'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Apr 13 2015 22:43:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/13/reactive-prog-recap/' title='reactive-prog-recap'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Dec 07 2015 20:31:43 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/07/play-recipes/' title='Play recipes for real world'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Nov 30 2015 18:10:23 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/09/javascript-good-parts-notes/' title='javascript-the-good-parts-notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/10/extractor-at-scala/' title='Extractor @ use in scala'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Mar 22 2015 11:11:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/22/emberjs-reference/' title='Emberjs资料索引'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Mar 29 2015 23:01:42 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/29/emberjs-notes/' title='emberjs-notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Mar 30 2015 22:10:42 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/30/emberjs-fundamentals-notes/' title='Emberj.js Fundamentals Notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 05 2015 01:52:48 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/emberjs-controller/' title='“Emberjs中的Controller”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Wed Apr 08 2015 23:16:05 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/08/ember-tricks/' title='Ember Tricks'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 05 2015 01:22:38 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/ember-model/' title='“Emberjs中的Model”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Apr 04 2015 23:37:51 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/04/dynamic-route-emberjs/' title='“Emberjs中的dynamic route”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Mar 30 2015 22:04:02 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/30/directed-graphs/' title='Directed Graphs'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 00:29:30 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/depth-first-search/' title='depth-first-search'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 22:09:50 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/connected-components-dfs/' title='connected-components-dfs'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 05 2015 19:28:34 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/05/computed-properties-emberjs/' title='“Emberjs中的Computed Properties”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Apr 26 2015 00:54:46 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/26/call-by-name/' title='Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Tue Mar 24 2015 22:09:35 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/24/breadth-first-search/' title='breadth-first-search'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Apr 04 2015 23:13:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/04/active-generation-in-ember/' title='“Emerbjs中的Acive Generation”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Apr 04 2015 01:33:41 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/04/MDN-js-notes/' title='MDN Javascript notes'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Fri Apr 03 2015 00:28:26 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/04/03/04-03-2015/' title='04-03-2015'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Mar 28 2015 00:47:00 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/28/03-28-2015/' title='03-28-2015'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Thu Mar 26 2015 22:10:04 GMT-0400"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/03/26/03-26-2015/' title='03-26-2015'>" + day + "</a>";
+            } 
+    
+        //howiefh
+    }
+});
+$("idCalendarPre").onclick = function(){ cale.PreMonth(); }
+$("idCalendarNext").onclick = function(){ cale.NextMonth(); }
+</SCRIPT>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">最新评论</h3>
+  <ul class="widget ds-recent-comments" data-num-items="5" data-show-avatars="0" data-show-title="1" data-show-time="1"></ul>
+</div>
+<!-- 需要多说的公用代码 -->
+
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">友情链接</h3>
+  <ul class="widget">
+    
+    <li><a href="http://astray1988.github.io/rclab" target="_BLANK">Dyang&#39;s RCLab</a></li>
+    
+  </ul>
+</div>
+
+
+  
+
+</aside>
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Dylan<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"dyang1988"};
+  (function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+<!-- 多说公共JS代码 end -->
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+-->
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<div class="bottom-btn">
+
+	<a class="icon-gotop" href="javascript:void(0)" title="返回顶部"></a>
+	<script src="/js/gotop.js" type="text/javascript"></script>
+	<!--
+	<script src="/js/gotop.js"></script>
+	-->
+
+
+	<a class="icon-toc-toggle" href="javascript:void(0)" title="文章目录"></a>
+	<!--
+	<script src="/js/toc_aside_toggle.js"></script>
+	-->
+
+</div>
+<script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

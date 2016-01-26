@@ -5,31 +5,25 @@
   
   <title>Ember Tricks | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="router.js
-1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
+  <meta name="description" content="router.js1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
 /user -&amp;gt; ProductRoute -&amp;gt; Product -&amp;gt; ProductController -&amp;gt; product.handlebars
-Web Components
-demo.hardlebars
-soText=&quot;evail&quot; such">
+Web Componentsdemo.hardlebars
+soText=&quot;evail&quot; suchTe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ember Tricks">
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/08/ember-tricks/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="router.js
-1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
+<meta property="og:description" content="router.js1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
 /user -&amp;gt; ProductRoute -&amp;gt; Product -&amp;gt; ProductController -&amp;gt; product.handlebars
-Web Components
-demo.hardlebars
-soText=&quot;evail&quot; such">
+Web Componentsdemo.hardlebars
+soText=&quot;evail&quot; suchTe">
 <meta property="og:image" content="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ember Tricks">
-<meta name="twitter:description" content="router.js
-1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
+<meta name="twitter:description" content="router.js1this.resource(&apos;product&apos;,&amp;#123;path,&apos;/user&apos;&amp;#125;);
 /user -&amp;gt; ProductRoute -&amp;gt; Product -&amp;gt; ProductController -&amp;gt; product.handlebars
-Web Components
-demo.hardlebars
-soText=&quot;evail&quot; such">
+Web Componentsdemo.hardlebars
+soText=&quot;evail&quot; suchTe">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
   
@@ -109,51 +103,39 @@ soText=&quot;evail&quot; such">
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#router-js"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web_Components"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tick_#1_Computed_Property_Macros"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trick_#2_The_Run_Loop"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Async_Everything"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
 		
 		</div>
 		
-        <h3>router.js</h3>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+        <h3 id="router-js">router.js</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure>
 <p>/user -&gt; ProductRoute -&gt; Product -&gt; ProductController -&gt; product.handlebars</p>
-<h3>Web Components</h3>
-<p>demo.hardlebars</p>
-<p><figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure></p>
-<h3>Tick #1 Computed Property Macros</h3>
-<p>object.js - object model</p>
-<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Web_Components">Web Components</h3><p>demo.hardlebars</p>
+<figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="Tick_#1_Computed_Property_Macros">Tick #1 Computed Property Macros</h3><p>object.js - object model</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure>
 <p>staff.js</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure>
 <p>macros_extras.js</p>
-<p><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Composable:
-Filter:</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Composable:<br>Filter:</p>
 <p>macros_array.js</p>
-<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure></p>
-<h3>Trick #2 The Run Loop</h3>
-<h4>Async Everything</h4>
-<p>not_updated.js</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure></p>
-<p>set_timeout.js
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p>schedule.js
-Scheduling:
-- Is there an Run Loop SCHEDULED?
--If YES, add event to it/
-- If No , &quot;setTimeout(fn,1)&quot;</p>
-<p>height.js</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Ember View
-Performance: More Vies = Slower Rendering
-Infinte Scrolling
-<img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="Trick_#2_The_Run_Loop">Trick #2 The Run Loop</h3><h4 id="Async_Everything">Async Everything</h4><p>not_updated.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure>
+<p>set_timeout.js<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>schedule.js<br>Scheduling:</p>
+<pre><code>- <span class="keyword">Is</span> there an Run <span class="keyword">Loop</span> SCHEDULED?
+  -<span class="keyword">If</span> YES, add <span class="keyword">event</span> <span class="keyword">to</span> it/
+ - <span class="keyword">If</span> No , <span class="string">"setTimeout(fn,1)"</span>
+</code></pre><p>height.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Ember View<br>Performance: More Vies = Slower Rendering<br>Infinte Scrolling<br><img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cii5fst9j001j1ss7re12kpjs" data_title="Ember Tricks" data_summary="router.js
-1this.resource('p..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cijvijxfy001t8js72iffwxld" data_title="Ember Tricks" data_summary="router.js1this.resource('pr..." class="article-share-link">Share</a>
       
 
       
@@ -210,7 +192,7 @@ Infinte Scrolling
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#router-js"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web_Components"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tick_#1_Computed_Property_Macros"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trick_#2_The_Run_Loop"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Async_Everything"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
     
   </div>
 
@@ -239,7 +221,7 @@ Infinte Scrolling
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -249,7 +231,7 @@ Infinte Scrolling
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -259,7 +241,7 @@ Infinte Scrolling
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -316,10 +298,22 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
@@ -338,6 +332,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -392,6 +392,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
@@ -502,6 +508,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -534,23 +546,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
           </li>
         
           <li>
-            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
           </li>
         
           <li>
-            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
           </li>
         
           <li>
-            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
           </li>
         
       </ul>
@@ -589,7 +601,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Dylan<br>
+      &copy; 2016 Dylan<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
     </div>
   </div>

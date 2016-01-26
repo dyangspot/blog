@@ -66,6 +66,384 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-nestedFuture-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/11/30/nestedFuture-md/" class="article-date">
+  <time datetime="2015-11-30T23:10:23.000Z" itemprop="datePublished">2015-11-30</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/30/nestedFuture-md/">处理Nested Future结构总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#flatMap"><span class="toc-number">1.</span> <span class="toc-text">flatMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for_loop"><span class="toc-number">2.</span> <span class="toc-text">for loop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-sequence_=>_Future[Seq[Future[MyObject]]]"><span class="toc-number">3.</span> <span class="toc-text">Future.sequence => Future[Seq[Future[MyObject]]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Future-traverse"><span class="toc-number">4.</span> <span class="toc-text">Future.traverse</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatten"><span class="toc-number">5.</span> <span class="toc-text">Flatten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+		
+		</div>
+		
+        <p>Play中经常会遇到在结构体中循环嵌套Async调用， 导致最后出现Future[Future[myObject]]类似代码，我们期望最终返回结果为Future[myObject]类型，而非嵌套Future的结构。在异步调用中，为了实现None-blocking I/O，应当尽量避免用Await方法.</p>
+<h3 id="flatMap">flatMap</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; Future[A])</span>:</span> Future[A]</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; A)</span>:</span> Future[A]</span><br></pre></td></tr></table></figure>
+<p>根据上述定义，我们可以用flatMap方法将一个Future[A]类型映射成我们想要的类型</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplateStoreDao</span>.findAll(page, perPage) flatMap  &#123; templates =&gt; // <span class="type">Seq</span>[<span class="type">Tempalte</span>]</span><br><span class="line">      val appList = new scala.collection.mutable.<span class="type">ArrayBuffer</span>[<span class="type">JsObject</span>]()</span><br><span class="line">      val response = <span class="type">ObjectStoreDao</span>.query(query) map &#123; tryObj =&gt; // <span class="type">Try</span>[<span class="type">Object</span>]</span><br><span class="line">        tryObj map &#123;obj =&gt; </span><br><span class="line">          val favoriteApps = (obj(<span class="number">0</span>) \ <span class="string">"data"</span> \ <span class="string">"vars"</span> \<span class="string">"favoriteApps"</span>).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">          <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">template</span> &lt;- templates</span><br><span class="line">            appId &lt;- favoriteApps.value</span><br><span class="line">          &#125; <span class="keyword">yield</span> &#123;</span><br><span class="line">            val jsonObj = <span class="type">Json</span>.toJson(obj).<span class="keyword">as</span>[<span class="type">JsObject</span>]</span><br><span class="line">            val prefObj = <span class="keyword">if</span> (appId.<span class="keyword">as</span>[<span class="type">String</span>] == <span class="keyword">template</span>.id) &#123;</span><br><span class="line">              val favField = (<span class="string">"fav"</span> -&gt; <span class="type">JsBoolean</span>(<span class="literal">true</span>))</span><br><span class="line">              jsonObj + favField</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              jsonObj</span><br><span class="line">            &#125;</span><br><span class="line">            appList += prefObj	// add to list</span><br><span class="line">          &#125;</span><br><span class="line">          // convert favorite list to <span class="type">JsArray</span></span><br><span class="line">          val jsArray = appList.foldLeft(<span class="type">JsArray</span>())((acc, x) =&gt; acc ++ <span class="type">Json</span>.arr(x))</span><br><span class="line">          jsArray.<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125; getOrElse &#123;</span><br><span class="line">          <span class="type">Json</span>.toJson(templates).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">		// response <span class="keyword">is</span> <span class="type">Future</span>[<span class="type">JsArray</span>]</span><br><span class="line">      response flatMap &#123; res =&gt; // res <span class="keyword">is</span> <span class="type">JsArray</span></span><br><span class="line">        <span class="type">Future</span>.successful(res.value map(_.<span class="keyword">as</span>[<span class="type">TTemplate</span>])) // convert <span class="type">JsObject</span> to <span class="type">Scala</span> <span class="type">Object</span> , will <span class="keyword">return</span> <span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Object</span>]] </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如上所示， 我们对于处理Future的时候先进行flatMap操作，将Future[A] 包裹的T类型暴漏出来，进行各种操作，最后再返回一个 Future[A] 类型</p>
+<h3 id="for_loop">for loop</h3><p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以重写为<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
+<h3 id="Future-sequence_=&gt;_Future[Seq[Future[MyObject]]]">Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3><p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure>
+<h3 id="Future-traverse">Future.traverse</h3><h3 id="Flatten">Flatten</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>借鉴上述flatten方法</p>
+<h3 id="Reference">Reference</h3><p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a><br><a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a><br><a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte’s Guide to Scala Part 8: Welcome to the Future</a><br><a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/11/30/nestedFuture-md/" data-id="cijvijxct001b8js7o1tb5auh" data_title="处理Nested Future结构总结" data_summary="Play中经常会遇到在结构体中循环嵌套Async调用，..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/11/30/nestedFuture-md/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/30/nestedFuture-md/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-12-01T03:29:40.000Z" itemprop="dateModified">2015-11-30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-reading-list" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/11/28/reading-list/" class="article-date">
+  <time datetime="2015-11-29T04:48:21.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/28/reading-list/">最近在读的书单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#正在读"><span class="toc-number">1.</span> <span class="toc-text">正在读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#已读"><span class="toc-number">2.</span> <span class="toc-text">已读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#打算读"><span class="toc-number">3.</span> <span class="toc-text">打算读</span></a></li></ol>
+		
+		</div>
+		
+        <p>将最近的几个月的书单贴一下，做个备注.</p>
+<h4 id="正在读">正在读</h4><ul>
+<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_blank" rel="external">Functional Programming in Scala</a></li>
+<li><a href="https://www.manning.com/books/akka-in-action" target="_blank" rel="external">Akka in Action</a></li>
+<li><a href="http://www.amazon.com/Play-Framework-Cookbook-Alexander-Reelsen/dp/1784393134" target="_blank" rel="external">Play Framework Cookbook Second Edition</a></li>
+<li><a href="http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850" target="_blank" rel="external">Cracking the Code Interview Edition, 6th Edition</a></li>
+<li><a href="http://book.douban.com/subject/3924175/" target="_blank" rel="external">构建高性能Web站点</a></li>
+</ul>
+<h4 id="已读">已读</h4><ul>
+<li>Oreilly Learning Scala</li>
+</ul>
+<h4 id="打算读">打算读</h4><ul>
+<li>Pragmatic Functional Programming patterns in Scala and Clojure</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/11/28/reading-list/" data-id="cijvijx9x000y8js7dk3qg3jt" data_title="最近在读的书单" data_summary="将最近的几个月的书单贴一下，做个备注.
+正在读
+Fun..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/11/28/reading-list/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/28/reading-list/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-11-29T05:07:23.000Z" itemprop="dateModified">2015-11-29</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-summary_of_social_engagement_app" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/11/28/summary_of_social_engagement_app/" class="article-date">
+  <time datetime="2015-11-29T04:12:19.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/28/summary_of_social_engagement_app/">关于搭建Social Engagement Apps的总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="external">talk</a>，介绍了下如何用Play框架在基于SalesForce平台上对Twitter用户进行整合. 讲座中涉及到了很多scala技术类的细节，许多代码值得学习，借此贴出来. 在此先占位</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/" data-id="cijvijx3i00098js7ttlgs99c" data_title="关于搭建Social Engagement Apps的总结" data_summary="最近看了下James Ward关于如何搭建Social..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/28/summary_of_social_engagement_app/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-11-29T04:47:58.000Z" itemprop="dateModified">2015-11-28</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-call-by-name" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/26/call-by-name/" class="article-date">
+  <time datetime="2015-04-26T04:54:46.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/26/call-by-name/">Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
+		
+		</div>
+		
+        <p>在此总结下Call-by-Name的传递函数的类型问题.</p>
+<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure>
+<p>调用函数 </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure>
+<p>代码执行如下</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="expr:()=&gt;Type">expr:()=&gt;Type</h3><p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.<br><strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
+<figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
+<h3 id="Unit_=&gt;_Type">Unit =&gt; Type</h3><p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。<br>其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：<br>···<br>def f(x:Unit) = …<br>···</p>
+<p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure>
+<p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cijvijxhn00278js7z5tq6tw9" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/26/call-by-name/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/26/call-by-name/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-26T05:37:53.000Z" itemprop="dateModified">2015-04-26</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-scala-parameter-type" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2015/04/26/scala-parameter-type/" class="article-date">
+  <time datetime="2015-04-26T04:32:05.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/26/scala-parameter-type/">Scala中的call by name与call by value区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.<br>以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
+<p>首先给与两个函数分别为：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是<strong>=&gt; String</strong>的函数s， 函数s的返回结果为String类型.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2015/04/26/scala-parameter-type/" data-id="cijvijx77000r8js7tj6kwc3p" data_title="Scala中的call by name与call by value区别" data_summary="在Scala中对于参数类型T 或=&gt;T，前者被称..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2015/04/26/scala-parameter-type/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/26/scala-parameter-type/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2015-04-26T04:54:20.000Z" itemprop="dateModified">2015-04-26</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-reactive-prog-recap" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -95,56 +473,39 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Representation_of_JSON_in_Scala"><span class="toc-number">1.</span> <span class="toc-text">Representation of JSON in Scala</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Functions_Are_Objects"><span class="toc-number">2.</span> <span class="toc-text">Functions Are Objects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The_Function1_Trait"><span class="toc-number">2.1.</span> <span class="toc-text">The Function1 Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subclassing_Functions"><span class="toc-number">3.</span> <span class="toc-text">Subclassing Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Matches"><span class="toc-number">4.</span> <span class="toc-text">Partial Matches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Functions"><span class="toc-number">5.</span> <span class="toc-text">Partial Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial_Function_Objects"><span class="toc-number">6.</span> <span class="toc-text">Partial Function Objects</span></a></li></ol>
 		
 		</div>
 		
-        <h3>Representation of JSON in Scala</h3>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">JSON</span></span><br><span class="line"></span><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JSeq</span>(</span>elems:<span class="type">List</span>[<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JObj</span>(</span>bindings:<span class="type">Map</span>[<span class="type">String</span>,<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JNum</span>(</span>num:<span class="type">Double</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JStr</span>(</span>str:<span class="type">String</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JBool</span>(</span>b: <span class="type">Boolean</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">JNull</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">JSON</span></span></span><br></pre></td></tr></table></figure></p>
-<p>Example</p>
-<p><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; ” firstName ” : ” John ” ,</span><br><span class="line">  ” lastName ” : ” Smith ” ,</span><br><span class="line">   ” address ”: <span class="collection">&#123;</span><br><span class="line">  ” streetAddress ”: ”<span class="number">21</span> <span class="number">2</span> nd Street ” ,</span><br><span class="line">	” state ”: ” NY ” ,</span><br><span class="line">	” postalCode ”: <span class="number">10021</span></span><br><span class="line"> &#125;</span>,</span><br><span class="line">” phoneNumbers ”: <span class="collection">[</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” home ” , ” number ”: ”<span class="number">212</span> <span class="number">555</span> <span class="number">-1234</span>” &#125;</span> ,</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” fax ” , ” number ”: ”<span class="number">646</span> <span class="number">555</span> <span class="number">-4567</span>” &#125;</span></span><br><span class="line"> ]</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+        <h3 id="Representation_of_JSON_in_Scala">Representation of JSON in Scala</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">JSON</span></span><br><span class="line"></span><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JSeq</span>(</span>elems:<span class="type">List</span>[<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JObj</span>(</span>bindings:<span class="type">Map</span>[<span class="type">String</span>,<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JNum</span>(</span>num:<span class="type">Double</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JStr</span>(</span>str:<span class="type">String</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JBool</span>(</span>b: <span class="type">Boolean</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">JNull</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">JSON</span></span></span><br></pre></td></tr></table></figure>
+<p>Example </p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; ” firstName ” : ” John ” ,</span><br><span class="line">  ” lastName ” : ” Smith ” ,</span><br><span class="line">   ” address ”: <span class="collection">&#123;</span><br><span class="line">  ” streetAddress ”: ”<span class="number">21</span> <span class="number">2</span> nd Street ” ,</span><br><span class="line">	” state ”: ” NY ” ,</span><br><span class="line">	” postalCode ”: <span class="number">10021</span></span><br><span class="line"> &#125;</span>,</span><br><span class="line">” phoneNumbers ”: <span class="collection">[</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” home ” , ” number ”: ”<span class="number">212</span> <span class="number">555</span> <span class="number">-1234</span>” &#125;</span> ,</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” fax ” , ” number ”: ”<span class="number">646</span> <span class="number">555</span> <span class="number">-4567</span>” &#125;</span></span><br><span class="line"> ]</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>Scala Rep</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val data = JObj(Map(</span><br><span class="line">”firstName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”John”)</span></span>,</span><br><span class="line">”lastName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”Smith”)</span></span>,</span><br><span class="line">”address” -&gt; JObj(Map(</span><br><span class="line">”streetAddress” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">21</span> <span class="number">2</span>nd Street”)</span></span>,</span><br><span class="line">”state” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”NY”)</span></span>,</span><br><span class="line">”postalCode” -&gt; <span class="function"><span class="title">JNum</span><span class="params">(<span class="number">10021</span>)</span></span></span><br><span class="line">)),</span><br><span class="line">”phoneNumbers” -&gt; JSeq(List(</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”home”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">212</span> <span class="number">555</span>-<span class="number">1234</span>”)</span></span></span><br><span class="line">)),</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”fax”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">646</span> <span class="number">555</span>-<span class="number">4567</span>”)</span></span></span><br><span class="line">)) )) ))</span><br></pre></td></tr></table></figure></p>
-<h3>Functions Are Objects</h3>
-<p>In Scala, every concrete type is the type of some class or trait.
-The function type is no exception. A type like</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val data = JObj(Map(</span><br><span class="line">”firstName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”John”)</span></span>,</span><br><span class="line">”lastName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”Smith”)</span></span>,</span><br><span class="line">”address” -&gt; JObj(Map(</span><br><span class="line">”streetAddress” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">21</span> <span class="number">2</span>nd Street”)</span></span>,</span><br><span class="line">”state” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”NY”)</span></span>,</span><br><span class="line">”postalCode” -&gt; <span class="function"><span class="title">JNum</span><span class="params">(<span class="number">10021</span>)</span></span></span><br><span class="line">)),</span><br><span class="line">”phoneNumbers” -&gt; JSeq(List(</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”home”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">212</span> <span class="number">555</span>-<span class="number">1234</span>”)</span></span></span><br><span class="line">)),</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”fax”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">646</span> <span class="number">555</span>-<span class="number">4567</span>”)</span></span></span><br><span class="line">)) )) ))</span><br></pre></td></tr></table></figure>
+<h3 id="Functions_Are_Objects">Functions Are Objects</h3><p>In Scala, every concrete type is the type of some class or trait.<br>The function type is no exception. A type like</p>
 <p>JBinding =&gt; String</p>
-<p>is just a shorthand for: scala.Function1[JBinding,String]
-where scala.Function1 is a trait and JBinding and String are its type arguments.</p>
-<h4>The Function1 Trait</h4>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Function1[-A, +R]&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">apply</span><span class="params">(x:A)</span>:</span> R</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>is just a shorthand for: scala.Function1[JBinding,String]<br>where scala.Function1 is a trait and JBinding and String are its type arguments.</p>
+<h4 id="The_Function1_Trait">The Function1 Trait</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Function1[-A, +R]&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">apply</span><span class="params">(x:A)</span>:</span> R</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>The pattern matching block</p>
-<p><figure class="highlight"><figcaption><span>(key,value) => key + ": " + value&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><figcaption><span>(key,value) => key + ": " + value&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure>
 <p>expands to the Function1 instance:</p>
-<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Function1[JBinding,<span class="keyword">String</span>]&#123;</span><br><span class="line">	def apply(x:JBinding) = x <span class="built_in">match</span>&#123;</span><br><span class="line">		<span class="keyword">case</span>(<span class="variable">key</span>,value) =&gt; <span class="variable">key</span> + <span class="string">": "</span> + show(value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3>Subclassing Functions</h3>
-<p>One nice aspect of functions being traits is that we can subclass the function type.
-e.g. mpas care functions from keys to values:</p>
-<p>trait Map[Key,Value] extends (Key=&gt;Value)...</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Function1[JBinding,<span class="keyword">String</span>]&#123;</span><br><span class="line">	def apply(x:JBinding) = x <span class="built_in">match</span>&#123;</span><br><span class="line">		<span class="keyword">case</span>(<span class="variable">key</span>,value) =&gt; <span class="variable">key</span> + <span class="string">": "</span> + show(value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Subclassing_Functions">Subclassing Functions</h3><p>One nice aspect of functions being traits is that we can subclass the function type.<br>e.g. mpas care functions from keys to values:</p>
+<p>trait Map[Key,Value] extends (Key=&gt;Value)…</p>
 <p>Sequences are functions from Int indices to values:</p>
-<p>trait Seq[Elem] extends (Int=&gt;Elem)
-for sequence(and array) indexing</p>
-<p>###Partial Matches</p>
-<p>{case &quot;ping&quot; =&gt;&quot;pong&quot;}
-can be given type String=&gt;String</p>
-<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:<span class="built_in">String</span>=&gt; <span class="built_in">String</span> =&#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">                           <span class="comment">//&gt; f  : String =&gt; String = &lt;function1&gt;</span></span><br><span class="line">f(<span class="string">"ping"</span>)                        <span class="comment">//&gt; res1: String = pong</span></span><br></pre></td></tr></table></figure></p>
-<h3>Partial Functions</h3>
-<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>] = &#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">f.isDefinedAt(<span class="string">"ping"</span>)  <span class="comment">// true</span></span><br><span class="line">f.isDefinedAt(<span class="string">"pong"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
-<p>The partial function trait is defined as follows:
-trait PartialFunction[-A,+R] extends Function1[-A,+R]{
-def apply(x:A):R
-def isDefinedAt(x:A):Boolean
-}</p>
-<h3>Partial Function Objects</h3>
-<p>if the expected type is a PartialFunction, the Scala compiler will expand {case &quot;ping&quot; =&gt; &quot;pong&quot;}
-as follows:</p>
-<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>]&#123;</span><br><span class="line">	def apply(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"poing"</span></span><br><span class="line">	&#125;</span><br><span class="line">	def isDefinedAt(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="keyword">true</span></span><br><span class="line">		<span class="keyword">case</span> _ =&gt; <span class="keyword">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>trait Seq[Elem] extends (Int=&gt;Elem)<br>for sequence(and array) indexing</p>
+<h3 id="Partial_Matches">Partial Matches</h3><p>{case “ping” =&gt;”pong”}<br>can be given type String=&gt;String</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:<span class="built_in">String</span>=&gt; <span class="built_in">String</span> =&#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">                           <span class="comment">//&gt; f  : String =&gt; String = &lt;function1&gt;</span></span><br><span class="line">f(<span class="string">"ping"</span>)                        <span class="comment">//&gt; res1: String = pong</span></span><br></pre></td></tr></table></figure>
+<h3 id="Partial_Functions">Partial Functions</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>] = &#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">f.isDefinedAt(<span class="string">"ping"</span>)  <span class="comment">// true</span></span><br><span class="line">f.isDefinedAt(<span class="string">"pong"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>The partial function trait is defined as follows:<br>trait PartialFunction[-A,+R] extends Function1[-A,+R]{<br>    def apply(x:A):R<br>    def isDefinedAt(x:A):Boolean<br>}</p>
+<h3 id="Partial_Function_Objects">Partial Function Objects</h3><p>if the expected type is a PartialFunction, the Scala compiler will expand {case “ping” =&gt; “pong”}<br>as follows:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>]&#123;</span><br><span class="line">	def apply(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"poing"</span></span><br><span class="line">	&#125;</span><br><span class="line">	def isDefinedAt(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="keyword">true</span></span><br><span class="line">		<span class="keyword">case</span> _ =&gt; <span class="keyword">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cii5fst8r000x1ss714hz6g76" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/" data-id="cijvijxbd00158js79ti8703a" data_title="reactive-prog-recap" data_summary="Representation of JSON in S..." class="article-share-link">Share</a>
       
 
       
@@ -201,15 +562,11 @@ as follows:</p>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements...</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Changing_Requirements…"><span class="toc-number">1.</span> <span class="toc-text">Changing Requirements…</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Need_New_Architectures"><span class="toc-number">2.</span> <span class="toc-text">Need New Architectures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven"><span class="toc-number">3.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scalable"><span class="toc-number">4.</span> <span class="toc-text">Scalable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resilient"><span class="toc-number">5.</span> <span class="toc-text">Resilient</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsive"><span class="toc-number">6.</span> <span class="toc-text">Responsive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-backs"><span class="toc-number">7.</span> <span class="toc-text">Call-backs</span></a></li></ol>
 		
 		</div>
 		
-        <h3>Changing Requirements...</h3>
-<p>Server nodes          10's      1000's
-Response times      seconds   milliseconds
-Maintenance downtimes  hours      none
-Data volume           GBs        TBs -&gt; PBs</p>
+        <h3 id="Changing_Requirements…">Changing Requirements…</h3><p>Server nodes          10’s      1000’s<br>Response times      seconds   milliseconds<br>Maintenance downtimes  hours      none<br>Data volume           GBs        TBs -&gt; PBs    </p>
 <table>
 <thead>
 <tr>
@@ -223,8 +580,8 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <tbody>
 <tr>
 <td>Server nodes</td>
-<td>10's</td>
-<td>1000's</td>
+<td>10’s</td>
+<td>1000’s</td>
 <td></td>
 <td></td>
 </tr>
@@ -247,12 +604,10 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <td>GBs</td>
 <td>TBs -&gt; PBs</td>
 <td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
-<h3>Need New Architectures</h3>
-<p>Previously: Managed servers and containers</p>
+<h3 id="Need_New_Architectures">Need New Architectures</h3><p>Previously: Managed servers and containers</p>
 <p>Now: Reactive application</p>
 <ul>
 <li>event-driven -&gt; react to events</li>
@@ -260,54 +615,43 @@ Data volume           GBs        TBs -&gt; PBs</p>
 <li>resilient -&gt; react to failures</li>
 <li>responsive -&gt; react to users</li>
 </ul>
-<h3>Event-Driven</h3>
-<p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
+<h3 id="Event-Driven">Event-Driven</h3><p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
 <ul>
 <li>String coupling, hard to compose</li>
 </ul>
 <p>Now: Systems are composed from loosely coupled event handlers.</p>
 <ul>
-<li>Events can be handled asynchronously, without blocking.
-none-blocking: resource can be utilized more efficiently.</li>
+<li>Events can be handled asynchronously, without blocking.<br>none-blocking: resource can be utilized more efficiently.</li>
 </ul>
-<h3>Scalable</h3>
-<p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
+<h3 id="Scalable">Scalable</h3><p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
 <ul>
 <li>scale up: make use of parallelism in multi-core systems.</li>
 <li>scale out: make use of multiple server nodes in a data center or in the cloud.</li>
 </ul>
-<p>Important for scalability: Minimize shared mutable state.
-Important for scale out: Location transparency,resilience.</p>
-<p>Location transparency: it doesn't matter where the location is ,could be at the same computer or across the internet.</p>
-<h3>Resilient</h3>
-<p>An application is <strong>resilient</strong> if it can recover quickly from failures.
-Failures can be:</p>
+<p>Important for scalability: Minimize shared mutable state.<br>Important for scale out: Location transparency,resilience.</p>
+<p>Location transparency: it doesn’t matter where the location is ,could be at the same computer or across the internet.</p>
+<h3 id="Resilient">Resilient</h3><p>An application is <strong>resilient</strong> if it can recover quickly from failures.<br>Failures can be:</p>
 <ul>
 <li>software failures</li>
 <li>hardware failures, or</li>
 <li>connection failures.</li>
 </ul>
-<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.
-Needed:</p>
+<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.<br>Needed:</p>
 <ul>
 <li>loose coupling.</li>
 <li>strong encapsulation of state.</li>
 <li>pervasive supervisor hierachies.</li>
 </ul>
-<h3>Responsive</h3>
-<p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
+<h3 id="Responsive">Responsive</h3><p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
 <p>Responsive applications can be built on an event-driven,scalable, and resilient architecture.</p>
-<h3>Call-backs</h3>
-<p>Handling events is often done using call-backs. E.g. using Java observers:
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Call-backs">Call-backs</h3><p>Handling events is often done using call-backs. E.g. using Java observers:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>Problems:</p>
 <ul>
 <li>needs shared mutable state.</li>
 <li>cannot be composed.</li>
-<li>leads quickly to &quot;call-back hell&quot;</li>
+<li>leads quickly to “call-back hell”</li>
 </ul>
-<p>Soveld in this course:
-to get <strong>composable</strong> event abstractions.</p>
+<p>Soveld in this course:<br>to get <strong>composable</strong> event abstractions.</p>
 <ul>
 <li>Events are first class.</li>
 <li>Events are often represented as messages.</li>
@@ -319,8 +663,7 @@ to get <strong>composable</strong> event abstractions.</p>
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cii5fst8n000t1ss7h7ux8isy" data_title="reactive-programming-intro" data_summary="Changing Requirements...
-Se..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/13/reactive-programming/" data-id="cijvijxa700118js7lhr4jb1c" data_title="reactive-programming-intro" data_summary="Changing Requirements…Serve..." class="article-share-link">Share</a>
       
 
       
@@ -377,78 +720,48 @@ Se..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">2.4 字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">3.1 对象自变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">3.6 反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">3.7 枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">4.5 返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">4.6 异常</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">1.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4_字符串"><span class="toc-number">1.1.</span> <span class="toc-text">2.4 字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1_对象自变量"><span class="toc-number">1.2.</span> <span class="toc-text">3.1 对象自变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6_反射"><span class="toc-number">1.3.</span> <span class="toc-text">3.6 反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7_枚举"><span class="toc-number">1.4.</span> <span class="toc-text">3.7 枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5_返回"><span class="toc-number">1.5.</span> <span class="toc-text">4.5 返回</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6_异常"><span class="toc-number">1.6.</span> <span class="toc-text">4.6 异常</span></a></li></ol></li></ol>
 		
 		</div>
 		
-        <p>##语法</p>
-<h3>2.4 字符串</h3>
-<p>Javascript再被创建的时候，Unicode是一个16位的字符集，所以Javascript中的所有字符都是16位的。
-字符串是不可变的，一旦创建，就永远无法改变。
-字符串有一个length属性。
-If做条件判断时，为false的情况：</p>
+        <h2 id="语法">语法</h2><h3 id="2-4_字符串">2.4 字符串</h3><p>Javascript再被创建的时候，Unicode是一个16位的字符集，所以Javascript中的所有字符都是16位的。<br>字符串是不可变的，一旦创建，就永远无法改变。<br>字符串有一个length属性。<br>If做条件判断时，为false的情况：</p>
 <ul>
 <li>false</li>
 <li>null</li>
 <li>undefined</li>
 <li>空字符串“ ”</li>
 <li>数字0</li>
-<li>数字NaN
-其他所有值都为true，包括true 跟字符串&quot;false&quot;，包括所有对象</li>
+<li>数字NaN<br>其他所有值都为true，包括true 跟字符串”false”，包括所有对象</li>
 </ul>
-<h3>3.1 对象自变量</h3>
-<p>对象属性的访问
-object[&quot;propertyName&quot;] or object.property</p>
-<h3>3.6 反射</h3>
-<p>确定对象属性类型: typeof</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typeof flight<span class="class">.number</span>   <span class="comment">// 'number'</span></span><br><span class="line">typeof flight<span class="class">.number</span>	<span class="comment">// 'string'</span></span><br><span class="line">typeof flight<span class="class">.arrival</span>  <span class="comment">// 'object'</span></span><br><span class="line">typeof flight<span class="class">.manifest</span>	<span class="comment">// 'undefined'</span></span><br><span class="line">typeof flight<span class="class">.toString</span>	<span class="comment">// 'function'</span></span><br><span class="line">typeof flight<span class="class">.constructor</span> <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure></p>
-<p>hasOwnProperty方法，可以用来判断是否是对象独有属性，如果是，将返回true。注意：hasOwnProperty不会检查原型链. - 用来判断某个属性是否定义
-flight.hasOwnProperty('number')     // true
-flight.hasOwnPeoperty('constructor')  // false</p>
-<h3>3.7 枚举</h3>
-<p>利用for in来遍历一个对象中所有属性名- 枚举过程列出所有的属性，其中包括函数和原型中的属性.
-可以用hasOwnProperty或 typeof 来进行筛选.</p>
-<p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> name;</span><br><span class="line"><span class="keyword">for</span>(name <span class="keyword">in</span> another_stooge)&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> another_shooge[name] !== <span class="string">'function'</span>)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(name + <span class="string">';'</span> + another_stooge[name]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">`<span class="javascript"></span>``<span class="javascript"> </span><br><span class="line">尽量避免使用<span class="keyword">for</span> <span class="keyword">in</span>来遍历属性， 推荐用<span class="keyword">for</span>. 可以避免发掘出原型链中的属性.</span></span><br></pre></td></tr></table></figure></p>
-<p>var i;
-var properties = {
-'first-name',
-'last-name',
-'gender',
-'profession'
-};
-for(i = 0; i &lt; properties.length;i++){
-...
-}</p>
-<p><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.1 函数对象</span></span><br><span class="line">函数即对象<span class="built_in">Object</span>，也就是“name/value”的集合。 </span><br><span class="line">由<span class="built_in">Object</span>生成的objects对象继承于<span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="keyword">Function</span> objects对象继承于<span class="keyword">Function</span>.prototype</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.3 调用</span></span><br><span class="line">JavaScript的四种调用模式： 方法调用模式，函数调用模式，构造器调用模式，跟apply调用模式.</span><br><span class="line"></span><br><span class="line">- 方法调用模式</span><br><span class="line">当函数作为对象属性时，被称之为方法. </span><br><span class="line">当对象的一个方法被调用时候，this被绑定到该对象.</span><br><span class="line">如果一个调用表达式包含一个属性存取表达式（<span class="built_in">object</span>.<span class="keyword">property</span> 或<span class="built_in">object</span>[<span class="keyword">property</span>]）,这时表达式也会被当作一个方法来调用.</span><br><span class="line"></span><br><span class="line">另外， 方法可以使用this来访问对象.</span><br><span class="line">- 函数调用模式</span><br><span class="line">指的是函数不作为对象属性时，仅仅会被当作一个函数来调用:</span><br><span class="line">```var sum = add(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure></p>
-<p>在此调用模式下，this被绑定到全局对象.  js语言设计上的bug.
-为何错误： 假设设计正确，当内部函数被调用时，this应该仍然绑定到外部函数的this变量。这个设计错误的后果是方法不能利用内部函数来帮助它工作，因为内部函数的this被绑定了错误的值，所以不能共享该方法对对象的访问权.</p>
+<h3 id="3-1_对象自变量">3.1 对象自变量</h3><p>对象属性的访问<br>object[“propertyName”] or object.property</p>
+<h3 id="3-6_反射">3.6 反射</h3><p>确定对象属性类型: typeof</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typeof flight<span class="class">.number</span>   <span class="comment">// 'number'</span></span><br><span class="line">typeof flight<span class="class">.number</span>	<span class="comment">// 'string'</span></span><br><span class="line">typeof flight<span class="class">.arrival</span>  <span class="comment">// 'object'</span></span><br><span class="line">typeof flight<span class="class">.manifest</span>	<span class="comment">// 'undefined'</span></span><br><span class="line">typeof flight<span class="class">.toString</span>	<span class="comment">// 'function'</span></span><br><span class="line">typeof flight<span class="class">.constructor</span> <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure>
+<p>hasOwnProperty方法，可以用来判断是否是对象独有属性，如果是，将返回true。注意：hasOwnProperty不会检查原型链. - 用来判断某个属性是否定义<br>flight.hasOwnProperty(‘number’)        // true<br>flight.hasOwnPeoperty(‘constructor’)  // false</p>
+<h3 id="3-7_枚举">3.7 枚举</h3><p>利用for in来遍历一个对象中所有属性名- 枚举过程列出所有的属性，其中包括函数和原型中的属性.<br>可以用hasOwnProperty或 typeof 来进行筛选.</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> name;</span><br><span class="line"><span class="keyword">for</span>(name <span class="keyword">in</span> another_stooge)&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> another_shooge[name] !== <span class="string">'function'</span>)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(name + <span class="string">';'</span> + another_stooge[name]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">`<span class="javascript"></span>``<span class="javascript"> </span><br><span class="line">尽量避免使用<span class="keyword">for</span> <span class="keyword">in</span>来遍历属性， 推荐用<span class="keyword">for</span>. 可以避免发掘出原型链中的属性.</span></span><br></pre></td></tr></table></figure>
+<p>var i;<br>var properties = {<br>    ‘first-name’,<br>    ‘last-name’,<br>    ‘gender’,<br>    ‘profession’<br>};<br>for(i = 0; i &lt; properties.length;i++){<br>    …<br>}</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.1 函数对象</span></span><br><span class="line">函数即对象<span class="built_in">Object</span>，也就是“name/value”的集合。 </span><br><span class="line">由<span class="built_in">Object</span>生成的objects对象继承于<span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="keyword">Function</span> objects对象继承于<span class="keyword">Function</span>.prototype</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.3 调用</span></span><br><span class="line">JavaScript的四种调用模式： 方法调用模式，函数调用模式，构造器调用模式，跟apply调用模式.</span><br><span class="line"></span><br><span class="line">- 方法调用模式</span><br><span class="line">当函数作为对象属性时，被称之为方法. </span><br><span class="line">当对象的一个方法被调用时候，this被绑定到该对象.</span><br><span class="line">如果一个调用表达式包含一个属性存取表达式（<span class="built_in">object</span>.<span class="keyword">property</span> 或<span class="built_in">object</span>[<span class="keyword">property</span>]）,这时表达式也会被当作一个方法来调用.</span><br><span class="line"></span><br><span class="line">另外， 方法可以使用this来访问对象.</span><br><span class="line">- 函数调用模式</span><br><span class="line">指的是函数不作为对象属性时，仅仅会被当作一个函数来调用:</span><br><span class="line">```var sum = add(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>在此调用模式下，this被绑定到全局对象.  js语言设计上的bug.<br>为何错误： 假设设计正确，当内部函数被调用时，this应该仍然绑定到外部函数的this变量。这个设计错误的后果是方法不能利用内部函数来帮助它工作，因为内部函数的this被绑定了错误的值，所以不能共享该方法对对象的访问权.</p>
 <p>解决方案：将该方法定义一个变量并赋值为this，那么内部函数就可以通过这个变量访问到this.</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">myObject.double = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> that = <span class="keyword">this</span>;  <span class="comment">// 访问权绑定到that</span></span><br><span class="line">	<span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		that.value = add(that.value,that.value)</span><br><span class="line">	&#125;;</span><br><span class="line">	helper();  <span class="comment">//以函数形式调用helper</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以方法形式调用double</span></span><br><span class="line">myObject.double();</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">myObject.double = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> that = <span class="keyword">this</span>;  <span class="comment">// 访问权绑定到that</span></span><br><span class="line">	<span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		that.value = add(that.value,that.value)</span><br><span class="line">	&#125;;</span><br><span class="line">	helper();  <span class="comment">//以函数形式调用helper</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以方法形式调用double</span></span><br><span class="line">myObject.double();</span><br></pre></td></tr></table></figure>
 <ul>
-<li>构造器调用
-用new关键字来创建一个新对象，其对象具有一个隐藏连接到该函数prototype的成员,这个成员也被绑定到新创建的对象上.</li>
+<li>构造器调用<br>用new关键字来创建一个新对象，其对象具有一个隐藏连接到该函数prototype的成员,这个成员也被绑定到新创建的对象上.</li>
 </ul>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Quo = <span class="function"><span class="keyword">function</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.status = string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给Quo所有实例提供一个get_status的公共方法</span></span><br><span class="line">Guo.prototype.get_status = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Quo实例</span></span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> Quo(<span class="string">"confused"</span>);</span><br><span class="line"><span class="built_in">document</span>.writeln(myQuo.get_status());</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Quo = <span class="function"><span class="keyword">function</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.status = string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给Quo所有实例提供一个get_status的公共方法</span></span><br><span class="line">Guo.prototype.get_status = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Quo实例</span></span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> Quo(<span class="string">"confused"</span>);</span><br><span class="line"><span class="built_in">document</span>.writeln(myQuo.get_status());</span><br></pre></td></tr></table></figure>
 <ul>
 <li>Apply调用</li>
 </ul>
-<h3>4.5 返回</h3>
-<p>一个函数总是会有一个返回值，没有指定return的，则返回undefined.
-如果函数前面加上new 来调用，返回值不是一个对象，则返回this</p>
-<h3>4.6 异常</h3>
-<p>throw 与 try...catch</p>
-<p>throw 包含一个可识别异常类的name属性和解释原因的message熟悉。
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span><span class="params">(a,b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> a !== <span class="string">'number'</span> || <span class="keyword">typeof</span> b !== <span class="string">'number'</span>)&#123;</span><br><span class="line">		<span class="keyword">throw</span>&#123;</span><br><span class="line">			name:<span class="string">'TypeError'</span>,</span><br><span class="line">			message:<span class="string">'add needs numbers'</span></span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>try...catch， 一个try语句只包含一个catch代码块</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> try_it = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		add(<span class="string">"seven"</span>);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(e.name + <span class="string">": "</span> + e.message );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-5_返回">4.5 返回</h3><p>一个函数总是会有一个返回值，没有指定return的，则返回undefined.<br>如果函数前面加上new 来调用，返回值不是一个对象，则返回this</p>
+<h3 id="4-6_异常">4.6 异常</h3><p>throw 与 try…catch</p>
+<p>throw 包含一个可识别异常类的name属性和解释原因的message熟悉。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span><span class="params">(a,b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> a !== <span class="string">'number'</span> || <span class="keyword">typeof</span> b !== <span class="string">'number'</span>)&#123;</span><br><span class="line">		<span class="keyword">throw</span>&#123;</span><br><span class="line">			name:<span class="string">'TypeError'</span>,</span><br><span class="line">			message:<span class="string">'add needs numbers'</span></span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>try…catch， 一个try语句只包含一个catch代码块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> try_it = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		add(<span class="string">"seven"</span>);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(e.name + <span class="string">": "</span> + e.message );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/" data-id="cii5fst9000161ss7wrh7uokw" data_title="javascript-the-good-parts-notes" data_summary="##语法
-2.4 字符串
-Javascript再被创建..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/" data-id="cijvijxej001g8js7fawn85eb" data_title="javascript-the-good-parts-notes" data_summary="语法2.4 字符串Javascript再被创建的时候，..." class="article-share-link">Share</a>
       
 
       
@@ -505,51 +818,39 @@ Javascript再被创建..." class="article-share-link">Share</a>
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#router-js"><span class="toc-number">1.</span> <span class="toc-text">router.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web_Components"><span class="toc-number">2.</span> <span class="toc-text">Web Components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tick_#1_Computed_Property_Macros"><span class="toc-number">3.</span> <span class="toc-text">Tick #1 Computed Property Macros</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trick_#2_The_Run_Loop"><span class="toc-number">4.</span> <span class="toc-text">Trick #2 The Run Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Async_Everything"><span class="toc-number">4.1.</span> <span class="toc-text">Async Everything</span></a></li></ol></li></ol>
 		
 		</div>
 		
-        <h3>router.js</h3>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+        <h3 id="router-js">router.js</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure>
 <p>/user -&gt; ProductRoute -&gt; Product -&gt; ProductController -&gt; product.handlebars</p>
-<h3>Web Components</h3>
-<p>demo.hardlebars</p>
-<p><figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure></p>
-<h3>Tick #1 Computed Property Macros</h3>
-<p>object.js - object model</p>
-<p><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Web_Components">Web Components</h3><p>demo.hardlebars</p>
+<figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure>
+<h3 id="Tick_#1_Computed_Property_Macros">Tick #1 Computed Property Macros</h3><p>object.js - object model</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure>
 <p>staff.js</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure>
 <p>macros_extras.js</p>
-<p><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Composable:
-Filter:</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Composable:<br>Filter:</p>
 <p>macros_array.js</p>
-<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure></p>
-<h3>Trick #2 The Run Loop</h3>
-<h4>Async Everything</h4>
-<p>not_updated.js</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure></p>
-<p>set_timeout.js
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p>schedule.js
-Scheduling:
-- Is there an Run Loop SCHEDULED?
--If YES, add event to it/
-- If No , &quot;setTimeout(fn,1)&quot;</p>
-<p>height.js</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>Ember View
-Performance: More Vies = Slower Rendering
-Infinte Scrolling
-<img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="Trick_#2_The_Run_Loop">Trick #2 The Run Loop</h3><h4 id="Async_Everything">Async Everything</h4><p>not_updated.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure>
+<p>set_timeout.js<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>schedule.js<br>Scheduling:</p>
+<pre><code>- <span class="keyword">Is</span> there an Run <span class="keyword">Loop</span> SCHEDULED?
+  -<span class="keyword">If</span> YES, add <span class="keyword">event</span> <span class="keyword">to</span> it/
+ - <span class="keyword">If</span> No , <span class="string">"setTimeout(fn,1)"</span>
+</code></pre><p>height.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Ember View<br>Performance: More Vies = Slower Rendering<br>Infinte Scrolling<br><img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cii5fst9j001j1ss7re12kpjs" data_title="Ember Tricks" data_summary="router.js
-1this.resource('p..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/08/ember-tricks/" data-id="cijvijxfy001t8js72iffwxld" data_title="Ember Tricks" data_summary="router.js1this.resource('pr..." class="article-share-link">Share</a>
       
 
       
@@ -608,14 +909,13 @@ Infinte Scrolling
 		
 		</div>
 		
-        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？
-显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与**.get(”propertyName”)**方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
+        <p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="cii5fst7z000g1ss7ytvs6obb" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/05/set-get-emberjs/" data-id="cijvijx4r000l8js782qbihid" data_title="“Emberjs中的set与get”" data_summary="以Java为例，在面向对象的编程思想中，通过实现set..." class="article-share-link">Share</a>
       
 
       
@@ -628,377 +928,6 @@ Infinte Scrolling
 	  
 <span>
 更新日期:<time datetime="2015-04-06T00:13:12.000Z" itemprop="dateModified">2015-04-05</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-computed-properties-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/05/computed-properties-emberjs/" class="article-date">
-  <time datetime="2015-04-05T23:28:34.000Z" itemprop="datePublished">2015-04-05</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/05/computed-properties-emberjs/">“Emberjs中的Computed Properties”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>Emberjs中的Computed Properties指的是其中属性的值依赖于给定的另外一个属性的值。 而被依赖的属性可以来自于其他的controller，model等。 在已经指定属性间依赖关系的前提下，如果被依赖属性发生改变，依赖属性也会根据被依赖属性的值进行改变。 例如：</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">applicationName:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> st=<span class="keyword">this</span>.<span class="keyword">get</span>(‘searchTerms’);</span><br><span class="line">	<span class="keyword">if</span>(st)&#123;</span><br><span class="line">		<span class="keyword">return</span> st+”???”</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Rock’n Roll Call”</span><br><span class="line">	&#125;</span><br><span class="line">&#125;.property(‘searchTerms’)</span><br></pre></td></tr></table></figure></p>
-<p>其中，<em>applicationName</em> 作为computed property， 而searchTerms作为dependency.当然，单个computed propriety还可以依赖多个指定属性的值，例如：</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Person = Ember.Object.extend(&#123;</span><br><span class="line">  <span class="comment">// these will be supplied by `create`</span></span><br><span class="line">  firstName: <span class="literal">null</span>,</span><br><span class="line">  lastName: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  fullName: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'firstName'</span>) + <span class="string">' '</span> + <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'lastName'</span>);</span><br><span class="line">  &#125;.property(<span class="string">'firstName'</span>, <span class="string">'lastName'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ironMan = Person.create(&#123;</span><br><span class="line">  firstName: <span class="string">"Tony"</span>,</span><br><span class="line">  lastName:  <span class="string">"Stark"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ironMan.<span class="keyword">get</span>(<span class="string">'fullName'</span>); <span class="comment">// "Tony Stark"</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/" data-id="cii5fst9z001v1ss7lq3nok4i" data_title="“Emberjs中的Computed Properties”" data_summary="Emberjs中的Computed Propertie..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/computed-properties-emberjs/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-06T00:29:21.000Z" itemprop="dateModified">2015-04-05</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-emberjs-controller" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/05/emberjs-controller/" class="article-date">
-  <time datetime="2015-04-05T05:52:48.000Z" itemprop="datePublished">2015-04-05</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/05/emberjs-controller/">“Emberjs中的Controller”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>在Emberjs中，controllers大概做以下几件事情</p>
-<blockquote></blockquote>
-<ul>
-<li>Manipulate the data within the application’s models</li>
-<li>Store transient data, whether standalone or made up of data retrieved from models</li>
-<li>Listen to events dispatched by and dispatch events intended for other controllers,views, and templates</li>
-<li>Instigate the transition from one route to another</li>
-</ul>
-<p>也就是说，controller的作用能够处理models中的数据，暂时存储来自models中的数据，监听由其他controllers，views，templates发起的事件，对route进行跳转操作。</p>
-<p>页面关键字搜索实例：</p>
-<p><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ApplicationController =Em.ObjectController.extend(&#123;	searchTerms: <span class="string">''</span>,	applicationName: <span class="string">"Rock'n'Roll Call"</span>,	actions: &#123;	submit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;		<span class="keyword">this</span>.transitionToRoute(<span class="string">'search-results'</span>,<span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'searchTerms'</span>));		&#125;	&#125;&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>以上controller代码中，创建本地临时变量searchTerms，用来获取view中用户输入的关键字。</p>
-<p><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"nav navbar-nav search-lockup"</span>&gt;</span>	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">class</span>=<span class="value">"search-group"</span>&gt;</span>		</span><span class="expression">&#123;&#123;<span class="variable">input</span> <span class="variable">type</span>=<span class="string">"text"</span> <span class="variable">class</span>=<span class="string">"search-input"</span> <span class="variable">placeholder</span>=<span class="string">"Search for artists or song names"</span> <span class="variable">valueBinding</span>=<span class="string">"controller.searchTerms"</span>&#125;&#125;</span><span class="xml">	<span class="tag">&lt;<span class="title">button</span> </span></span><span class="expression">&#123;&#123;<span class="variable"><span class="keyword">action</span></span> <span class="string">"submit"</span>&#125;&#125;</span><span class="xml"><span class="tag"> <span class="attribute">class</span>=<span class="value">"btn btn-primary"</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"glyphicon glyphicon-play"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;/<span class="title">button</span>&gt;</span>	<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<p>通过valueBinding属性来将之前定义的controller.searchTerms 绑定到input helper中。 当用户在input field中输入关键字的时候，关键字内容会绑定到controller中的searchTerms属性上。当用户点击submit后，会触发之前在template中定义的<em>submit</em> action。 在<em>submit</em> 中调用了transitionToRoute，之后emberjs会跳转到’search-results’ route并将searchTerms的值已参数的形式传递.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/emberjs-controller/" data-id="cii5fst9g001h1ss7fuw14oq0" data_title="“Emberjs中的Controller”" data_summary="在Emberjs中，controllers大概做以下几..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/05/emberjs-controller/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/emberjs-controller/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-05T06:18:55.000Z" itemprop="dateModified">2015-04-05</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-ember-model" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/05/ember-model/" class="article-date">
-  <time datetime="2015-04-05T05:22:38.000Z" itemprop="datePublished">2015-04-05</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/05/ember-model/">“Emberjs中的Model”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>总结下在Emberjs中利用Ember.Object来实现面向对象。
-首先定义对象:</p>
-<p><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.Artist = Em.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	id:<span class="keyword">null</span>,</span><br><span class="line">	name:<span class="keyword">null</span>,</span><br><span class="line">	enid:<span class="keyword">null</span>,</span><br><span class="line">	biography:<span class="keyword">null</span>,</span><br><span class="line">	hotttnesss:<span class="keyword">null</span>,</span><br><span class="line">	<span class="built_in">image</span>:<span class="keyword">null</span>,</span><br><span class="line">	videos:<span class="keyword">null</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>定义的Artist对象的初始化属性值都为null。
-然后，通过系统给对象生成的create方法，创建Artist对象实例：</p>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> artist = <span class="type">RocknrollcallYeoman</span>.<span class="type">Artist</span>.create(&#123;</span><br><span class="line">	enid: <span class="symbol">'ARERLPG1187FB3BB3</span>9',	name: <span class="symbol">'Tom</span> <span class="type">Waits</span>',	hotttnesss: <span class="number">100</span>,	biography: <span class="symbol">'Rain</span> dog.',	image: <span class="symbol">'http</span>:<span class="comment">//is.gd/GeaUhC'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>利用Ajax的Promise实现创建对象</p>
-<p>Promise 大概写法如下：</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.all([functionOnWhichWeDepend(),anotherFunctionOnWhichWeDepend(),yetAnotherFunctionOnWhichWeDepend()]).then(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.log(<span class="string">"They're all finished, success is ours!"</span>)&#125;, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;	<span class="built_in">console</span>.error(<span class="string">"One or more FAILED!"</span>)&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>通常情况下通过调用jquery.get方法来获取JSON并以Promise类型返回，示例如下：</p>
-<p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.ArtistRoute = Ember.Route.extend(&#123;	model: function(params) &#123;</span><br><span class="line">		<span class="keyword">var</span> url = "http:<span class="comment">//developer.echonest.com/api/v4/artist/profile?api_key=&lt;YOUR-API-KEY&gt;&amp;format=json&amp;bucket=biographies&amp;bucket=blogs&amp;bucket=</span>familiarity&amp;bucket=hotttnesss&amp;bucket=images&amp;bucket=<span class="keyword">news</span>&amp;bucket=reviews&amp;bucket=terms&amp;bucket=urls&amp;bucket=video&amp;bucket=id:musicbrainz”;		obj = &#123;<span class="string">"id"</span>: params.enid&#125;;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Ember.$.getJSON(url,obj).then(function(data)&#123;</span><br><span class="line">			<span class="keyword">var</span> entry = data.response.artist;			<span class="keyword">var</span> bio = null;			<span class="keyword">var</span> img = null;</span><br><span class="line">			<span class="keyword">for</span> (i = 0;i&lt;entry.biographies.length;i++) &#123;				<span class="keyword">if</span> (entry.biographies[i].site.toLowerCase() == <span class="string">"wikipedia"</span>) &#123;					bio = entry.biographies[i];				&#125;			&#125;			<span class="keyword">if</span> (!bio &amp;&amp; entry.biographies.length &gt; 0) &#123;				bio = entry.biographies[0];			&#125;</span><br><span class="line">			<span class="keyword">if</span> (entry.images.length) &#123;				img = entry.images[0];</span><br><span class="line">			&#125;			<span class="keyword">var</span> lastVideo = 4;			<span class="keyword">if</span> (entry.video.length &lt; 4) &#123;				lastVideo = entry.video.length;			&#125;			<span class="keyword">var</span> videos = [];			<span class="keyword">for</span> (i=0;i&lt;lastVideo;i++) &#123;				videos.push(entry.video[i]);			&#125;</span><br><span class="line">			<span class="keyword">return</span> RocknrollcallYeoman.Artist.create(&#123;				enid: entry.id,				name: entry.name,				hotttnesss: entry.hotttnesss,				biography: bio,				image: img,				videos: videos			&#125;);	</span><br><span class="line">				</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/05/ember-model/" data-id="cii5fst9n001k1ss72xbl5fff" data_title="“Emberjs中的Model”" data_summary="总结下在Emberjs中利用Ember.Object来..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/05/ember-model/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/05/ember-model/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-05T05:42:20.000Z" itemprop="dateModified">2015-04-05</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-dynamic-route-emberjs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/04/dynamic-route-emberjs/" class="article-date">
-  <time datetime="2015-04-05T03:37:51.000Z" itemprop="datePublished">2015-04-04</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/04/dynamic-route-emberjs/">“Emberjs中的dynamic route”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>Emerbjs中对于单个资源的的动态路径获取再次做个实例总结，</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RocknrollcallYeoman.dummySearchResultsArtists = [</span><br><span class="line">	&#123;</span><br><span class="line">		id: <span class="number">1</span>,		name: <span class="string">'Tom Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'1'</span></span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;		id: <span class="number">2</span>,		name: <span class="string">'Thomas Alan Waits'</span>,		<span class="built_in">type</span>: <span class="string">'artist'</span>,		enid: <span class="string">'ARERLPG1187FB3BB39'</span>,		hotttnesss: <span class="string">'.89'</span>	&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>根据以上数据模型，我们定义routes：</p>
-<p>RocknrollcallYeoman.Router.map(function(){
-this.route(‘artist’,{
-path: ‘artist/:enid’
-});
-});</p>
-<p>对于artist，如果用户想指定访问单一artist，例如：Tom Waits，可以通过访问 <em>http://localhost:9000/#/artist/ARERLPG1187FB3BB39</em>来获取。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/" data-id="cii5fst9q001m1ss7mtp8j26v" data_title="“Emberjs中的dynamic route”" data_summary="Emerbjs中对于单个资源的的动态路径获取再次做个实..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/04/dynamic-route-emberjs/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-05T03:46:21.000Z" itemprop="dateModified">2015-04-04</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-active-generation-in-ember" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/04/04/active-generation-in-ember/" class="article-date">
-  <time datetime="2015-04-05T03:13:26.000Z" itemprop="datePublished">2015-04-04</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/04/active-generation-in-ember/">“Emerbjs中的Acive Generation”</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>所谓的Active Generation是指的在Emberjs中，如果<em>route</em> 找不到相对应的<em>handler</em>或<em>controller</em>下，Emerbjs往往会自动生成一个相对应的handler或controller。 如何判断Emberjs是否给你生成的呢？可以利用如下方法：</p>
-<p><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> app = <span class="built_in">window</span>.app = Ember.Application.create(&#123;</span><br><span class="line">	<span class="attribute">LOG_TRANSITIONS</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attribute">LOG_ACTIVE_GENERATION</span>:<span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>此外，在Emerbjs中，我们往往不需要定义<em>application</em> 或 <em>index</em>的route，因为Emerbjs会默认生成相对应的route。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/" data-id="cii5fsta900211ss7rhzarfd0" data_title="“Emerbjs中的Acive Generation”" data_summary="所谓的Active Generation是指的在Emb..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/04/04/active-generation-in-ember/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/04/04/active-generation-in-ember/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/emberjs/">emberjs</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-04-05T03:24:57.000Z" itemprop="dateModified">2015-04-04</time>
 </span>
 
 
@@ -1047,7 +976,7 @@ path: ‘artist/:enid’
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -1057,7 +986,7 @@ path: ‘artist/:enid’
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -1067,7 +996,7 @@ path: ‘artist/:enid’
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1124,10 +1053,22 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
@@ -1146,6 +1087,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -1200,6 +1147,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
@@ -1310,6 +1263,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1342,23 +1301,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
           </li>
         
           <li>
-            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
           </li>
         
           <li>
-            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
           </li>
         
           <li>
-            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
           </li>
         
       </ul>
@@ -1397,7 +1356,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Dylan<br>
+      &copy; 2016 Dylan<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
     </div>
   </div>

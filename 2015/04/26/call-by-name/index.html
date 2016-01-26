@@ -6,10 +6,9 @@
   <title>Scala中的=&gt;, ()=&gt; 与 Unit=&gt;区别 | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在此总结下Call-by-Name的传递函数的类型问题.
-expr:=&amp;gt;Type
-=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
 1def f(x:=&amp;gt;Int)= x*x
-调用函数
+调用函数 
 12var y=0f(y+=1;y)
 代码执行如下
 1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
@@ -18,20 +17,18 @@ expr:=&amp;gt;Type
 <meta property="og:url" content="http://dyangspot.github.io/2015/04/26/call-by-name/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
 <meta property="og:description" content="在此总结下Call-by-Name的传递函数的类型问题.
-expr:=&amp;gt;Type
-=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
 1def f(x:=&amp;gt;Int)= x*x
-调用函数
+调用函数 
 12var y=0f(y+=1;y)
 代码执行如下
 1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala中的=>, ()=> 与 Unit=>区别">
 <meta name="twitter:description" content="在此总结下Call-by-Name的传递函数的类型问题.
-expr:=&amp;gt;Type
-=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
+expr:=&amp;gt;Type=&amp;gt;Type 表示call by name. wiki解释。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:
 1def f(x:=&amp;gt;Int)= x*x
-调用函数
+调用函数 
 12var y=0f(y+=1;y)
 代码执行如下
 1&amp;#123;y+=1;y&amp;#125; *&amp;#123;y">
@@ -114,38 +111,30 @@ expr:=&amp;gt;Type
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
 		
 		</div>
 		
         <p>在此总结下Call-by-Name的传递函数的类型问题.</p>
-<h3>expr:=&gt;Type</h3>
-<p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure></p>
-<p>调用函数</p>
-<p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure>
+<p>调用函数 </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure>
 <p>代码执行如下</p>
-<p><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure></p>
-<h3>expr:()=&gt;Type</h3>
-<p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.
-<strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
-<p><figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="expr:()=&gt;Type">expr:()=&gt;Type</h3><p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.<br><strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
+<figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure>
 <p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
-<h3>Unit =&gt; Type</h3>
-<p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。
-其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：
-···
-def f(x:Unit) = ...
-···</p>
+<h3 id="Unit_=&gt;_Type">Unit =&gt; Type</h3><p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。<br>其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：<br>···<br>def f(x:Unit) = …<br>···</p>
 <p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
-<p><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure>
 <p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cii5fsta3001x1ss7nznjap4l" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/04/26/call-by-name/" data-id="cijvijxhn00278js7z5tq6tw9" data_title="Scala中的=>, ()=> 与 Unit=>区别" data_summary="在此总结下Call-by-Name的传递函数的类型问题..." class="article-share-link">Share</a>
       
 
       
@@ -204,7 +193,7 @@ def f(x:Unit) = ...
   <div id="toc" class="toc-aside">
   <h2 class="toc-title">文章目录</h2>
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:=>Type"><span class="toc-number">1.</span> <span class="toc-text">expr:=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expr:()=>Type"><span class="toc-number">2.</span> <span class="toc-text">expr:()=>Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit_=>_Type"><span class="toc-number">3.</span> <span class="toc-text">Unit => Type</span></a></li></ol>
     
   </div>
 
@@ -233,7 +222,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -243,7 +232,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -253,7 +242,7 @@ def f(x:Unit) = ...
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -310,10 +299,22 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
@@ -332,6 +333,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -386,6 +393,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
@@ -496,6 +509,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -528,23 +547,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
           </li>
         
           <li>
-            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
           </li>
         
           <li>
-            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
           </li>
         
           <li>
-            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
           </li>
         
       </ul>
@@ -583,7 +602,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Dylan<br>
+      &copy; 2016 Dylan<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
     </div>
   </div>

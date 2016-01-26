@@ -5,20 +5,17 @@
   
   <title>Extractor @ use in scala | Dylan&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+  <meta name="description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Extractor @ use in scala">
 <meta property="og:url" content="http://dyangspot.github.io/2015/12/10/extractor-at-scala/index.html">
 <meta property="og:site_name" content="Dylan's Blog">
-<meta property="og:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+<meta property="og:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Extractor @ use in scala">
-<meta name="twitter:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:
+<meta name="twitter:description" content="Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.Define the User model: 
 123456789101112131415trait User &amp;#123;  def name: String  def score: Int&amp;#125;class F">
   
     <link rel="alternative" href="/atom.xml" title="Dylan&#39;s Blog" type="application/atom+xml">
@@ -103,21 +100,19 @@ Define the User model:
 		
 		</div>
 		
-        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.
-Define the User model:</p>
-<p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Define a boolean extractor:
-Note: 'premiumCandidate' the first letter use the lower case here</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match:</p>
-<p><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job.</p>
+        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cii5fst9300191ss7gqfw58jd" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cijvijxeu001j8js70udnnulf" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
       
 
       
@@ -205,7 +200,7 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -215,7 +210,7 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 17.2px; color: #43ba59">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/emberjs/" style="font-size: 20px; color: #1db400">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 18.6px; color: #30b72c">scala</a><a href="/tags/work-point-io/" style="font-size: 17.2px; color: #43ba59">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
     </div>
   </div>
 
@@ -225,7 +220,7 @@ Note: 'premiumCandidate' the first letter use the lower case here</p>
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -282,10 +277,22 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/23/worksummary-03-23-2015/' title='“03-23-2015&quot;'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Dec 14 2015 23:46:49 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/14/twitter-play/' title='Twitter Streaming example using Play'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sat Nov 28 2015 23:12:19 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/28/summary_of_social_engagement_app/' title='关于搭建Social Engagement Apps的总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sun Dec 13 2015 23:06:28 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2015/12/13/summary-at-scala/' title='@在Scala中的用法总结'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Dec 10 2015 10:04:06 GMT-0500"); 
@@ -304,6 +311,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/04/05/set-get-emberjs/' title='“Emberjs中的set与get”'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 20:27:58 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
@@ -358,6 +371,12 @@ var cale = new Calendar("idCalendar", {
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
                 this.Days[day].innerHTML = "<a href='/2015/11/30/nestedFuture-md/' title='处理Nested Future结构总结'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Mon Jan 25 2016 11:58:56 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/load-balancer-notes/' title='load_balancer_notes'>" + day + "</a>";
             } 
     
             var postdate = new Date("Thu Apr 09 2015 22:36:16 GMT-0400"); 
@@ -468,6 +487,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/03/Ember-in-action/' title='Ember-in-action'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Jan 25 2016 17:29:55 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -500,23 +525,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
+            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
           </li>
         
           <li>
-            <a href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
+            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
           </li>
         
           <li>
-            <a href="/2015/12/07/play-recipes/">Play recipes for real world</a>
+            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
           </li>
         
           <li>
-            <a href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
+            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
           </li>
         
           <li>
-            <a href="/2015/11/30/scala-identity/">Scala中的identity</a>
+            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
           </li>
         
       </ul>
@@ -555,7 +580,7 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Dylan<br>
+      &copy; 2016 Dylan<br>
       Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
     </div>
   </div>
