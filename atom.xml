@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://dyangspot.github.io/"/>
-  <updated>2016-01-26T01:45:31.000Z</updated>
+  <updated>2016-02-01T22:36:55.000Z</updated>
   <id>http://dyangspot.github.io/</id>
   
   <author>
@@ -15,11 +15,226 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[scalability-availability-stability-patterns]]></title>
+    <link href="http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/"/>
+    <id>http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/</id>
+    <published>2016-02-01T21:37:20.000Z</published>
+    <updated>2016-02-01T22:36:55.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Trade-offs">Trade-offs</h2><ul>
+<li>Performance vs Scalability</li>
+<li>Latency vs Throughput</li>
+<li>Availability vs Consistency<h2 id="Performance_vs_Scalability">Performance vs Scalability</h2>Performance problem? system is slow for a single user<br>Scalability problem? system is fast for a single user but slow under heavy load.</li>
+</ul>
+<h2 id="Latency_vs_Throughput">Latency vs Throughput</h2><p>strive for <em>maximal</em> throughput vs <em>acceptable</em> latency</p>
+<h2 id="CAP_Theorem">CAP Theorem</h2><p>pick 2 of them from Consistency, Availability, Partition tolerance at<br>a given point in time.</p>
+<p>Example1. Centralized System(RDBMS etc):  don’t hve network partitons. e.g P in CAP =&gt; get Availability and Consistency.<br>Example2. Distributed System: will have network partitions.<br> =&gt; only pick one between Availability and Consistency</p>
+<h2 id="Availability_Patterns">Availability Patterns</h2><ul>
+<li>Fail-over<br>normal state -&gt; failure occurs=&gt; Failover state -&gt; service restored. </li>
+<li>Replication<ul>
+<li>Master-Slave</li>
+<li>Tree replication</li>
+<li>Master- Master</li>
+<li>Buddy Replication<br>Active replication - Push<br>Passive replication - Pull</li>
+</ul>
+</li>
+</ul>
+<h2 id="Scalability_Patterns:_State">Scalability Patterns: State</h2><ul>
+<li>Partitioning</li>
+<li>HTTP Caching</li>
+<li>RDBMS Sharding</li>
+<li>NOSQL</li>
+<li>Distributed Caching</li>
+<li>Data Grids</li>
+<li>Concurrency<h3 id="HTTP_Caching_(p56,p57)">HTTP Caching (p56,p57)</h3>借助 Reverse Proxy: Varnish, Squid, rack-cache, Pound, Nginx, Apache mod_proxy, Traffic Server<br>借助CDN，<br>Proecompute Content: Homegrown + cron orQuartz, Spring Batch, Gearman, Hadoop, Google Data Protocol, Amazon Elastic MapReduce</li>
+</ul>
+<h2 id="Service_of_Record">Service of Record</h2><ul>
+<li>Relational Database<br>scale: Partitioning &amp; Replication</li>
+<li>NoSQL Database</li>
+</ul>
+<ol>
+<li>key-Value db (Voldemort, Dynomite)</li>
+<li>Column db (Cassandra, Vertica, Sybase IQ)</li>
+<li>Document db (MongoDB, CouchDB)</li>
+<li>Graph db (Neo4J, AllegroGraph)</li>
+<li>Datastructure db (Redis, Hazelcast)<br>NoSQL in the wild:<br>Google: Bigtable<br>Amazon: Dynamo<br>Amazon: SimpleDB<br>Yahoo: HBase<br>Facebook: Cassandra<br>Linkedin: Voldmort</li>
+</ol>
+<h3 id="Chord_&amp;_Pastry">Chord &amp; Pastry</h3><ul>
+<li>Distributed Hash Tables(DHT)</li>
+<li>Scalable</li>
+<li>Partitioned</li>
+<li>Fault-tolerant</li>
+<li>Decentralized</li>
+<li>Peer to peer</li>
+<li>Popularized 1. Node ring 2. Consistent Hashing<br> Node ring with consisting hashing(p80): lookup log(N) jumps<h3 id="Distributed_Caching">Distributed Caching</h3></li>
+<li>Write- through (p86)</li>
+<li>Write- behind (87)</li>
+<li>Eviction Policies<ol>
+<li>TTL(time to live)</li>
+<li>Bounded FIFO</li>
+<li>Bounded LIFO</li>
+<li>Explicit cache invalidation</li>
+</ol>
+</li>
+<li>Replication</li>
+<li>Peer- To- Peer(P2P)    <h4 id="Distributed_Caching_Products">Distributed Caching Products</h4></li>
+<li>EHCache</li>
+<li>JBoss Cache</li>
+<li>OSCache</li>
+<li>Memcached: 1. Very fast 2. Simple 3. key-value(string -&gt; binary) 4. clients for most languages 5. Distributed 6. Not replicated </li>
+</ul>
+<h3 id="Concurrency(p96)">Concurrency(p96)</h3><ul>
+<li>Shared-State Concurrency(locks)</li>
+<li>Message- Passing Concurrency(Actor) </li>
+<li>Dataflow Concurrency</li>
+<li>Software Transactional Memory</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Trade-offs">Trade-offs</h2><ul>
+<li>Performance vs Scalability</li>
+<li>Latency vs Throughput</li>
+<li>Availability vs Consistency<h]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[databse-sharding]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/databse-sharding/"/>
+    <id>http://dyangspot.github.io/2016/01/30/databse-sharding/</id>
+    <published>2016-01-31T02:37:59.000Z</published>
+    <updated>2016-01-31T02:56:15.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Database_Sharding"><a href="http://dbshards.com/database-sharding/" target="_blank" rel="external">Database Sharding</a></h1><p>Purpose: improving the throughput and overall performance . </p>
+<p>volumns and transactions of DB linear growth =&gt; response times grow logarithmically</p>
+<ul>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk, bottleneck -&gt; disk I/O</li>
+</ul>
+<h2 id="Database_Partitioning_Options">Database Partitioning Options</h2><h3 id="Master/Slave">Master/Slave</h3><p>master: CRUD<br>slave: read-only<br>downside: </p>
+<ol>
+<li>single master server reach to limit =&gt; bottleneck</li>
+<li>“near real time”, slaves do not guaranteed to have current data in master.</li>
+<li>failure on master occurs. </li>
+</ol>
+<h3 id="Clustering_Computering">Clustering Computering</h3><p>Utilizes many servers operating in a group, share messaging between nodes.<br>modes: </p>
+<ol>
+<li>Many nodes for reads, only one for write. </li>
+<li>nodes up to date via a real-time messaging system. each nodes both read or write mode.</li>
+</ol>
+<h3 id="Database_Sharding,_“Shared-Nothing”">Database Sharding, “Shared-Nothing”</h3><p>a large db -&gt; break it into many small dbs. </p>
+<h3 id="Sharding_Challenges">Sharding Challenges</h3><p>Reliability<br>Distrubuted queries</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Database_Sharding"><a href="http://dbshards.com/database-sharding/" target="_blank" rel="external">Database Sharding</a></h1><p>Purp]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CAP_Theory]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/CAP-Theory/"/>
+    <id>http://dyangspot.github.io/2016/01/30/CAP-Theory/</id>
+    <published>2016-01-31T02:15:22.000Z</published>
+    <updated>2016-01-31T02:38:01.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="CAP_Theorem"><a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem/" target="_blank" rel="external">CAP Theorem</a></h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="CAP_Theorem"><a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem/" target="_blank" rel="external">CAP Theorem</a></h]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Ace_the_System_Design_Interview]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/"/>
+    <id>http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/</id>
+    <published>2016-01-31T02:04:10.000Z</published>
+    <updated>2016-01-31T02:04:10.000Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Introduction to Architecting Systems for Scale]]></title>
+    <link href="http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/"/>
+    <id>http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/</id>
+    <published>2016-01-28T21:11:47.000Z</published>
+    <updated>2016-01-28T21:59:42.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Load_Balancing:_Scalability_&amp;_Redundancy">Load Balancing: Scalability &amp; Redundancy</h2><p>Redunancy: system isn’t disrupted by loss of a server.</p>
+<p>Large system balance load at 3 layers:</p>
+<ul>
+<li>user to web servers</li>
+<li>web servers to an internal platform layers</li>
+<li>internal platform layer to database</li>
+</ul>
+<p>Question:  [Load Balance] What are the three ways to implement load balancing? </p>
+<h2 id="Smart_Clients">Smart Clients</h2><p>What is smart client?<br>a client detectes downed hosts and avoids sending requests.</p>
+<h2 id="Hardware_Load_Balancers">Hardware Load Balancers</h2><h2 id="Software_Load_balancers">Software Load balancers</h2><h2 id="Caching">Caching</h2><p>Caching will enable you to make vastly better use of the resources you already have.<br>Consists of: </p>
+<ul>
+<li><ol>
+<li>precalculating results. </li>
+</ol>
+</li>
+<li><ol>
+<li>pre-generating expensive indexes. suggested stories based on user’s click history. </li>
+</ol>
+</li>
+<li><ol>
+<li>stroing copies of frequently accessed data in a fast backend. e,g memcached <h2 id="Application_Versus_Database_Caching">Application Versus Database Caching</h2></li>
+</ol>
+</li>
+</ul>
+<p>Two primary approaches: 1. application caching 2. databse caching(most systems heavily use)</p>
+<h3 id="Application_caching">Application caching</h3><p>requires explicit integration in the code. </p>
+<ol>
+<li>checking if a value is in the cache; </li>
+<li>if not, retrieve the value from the database</li>
+<li>then write the value into the cache.<br>LRU caching algorithm.</li>
+</ol>
+<h3 id="Database_caching">Database caching</h3><p>good side: your code don’t need change.</p>
+<h3 id="In_Memory_Caches">In Memory Caches</h3><p>e.g Memcached and Redis<br>LRU(least recently used) </p>
+<h3 id="Content_Distribution_Networks">Content Distribution Networks</h3><p>CDNs take the burden of serving static media off of your application servers .</p>
+<ol>
+<li>a request will first ask your CDN for a piece of static media</li>
+<li>the CDN will serve that content if it has it locally availble</li>
+<li>if isn’t available, the CDN will query your servers for the file and then cache it locally; and then serve it to the requesting user.</li>
+</ol>
+<h3 id="Cache_Invalidation">Cache Invalidation</h3><p>Maintain consistency between your caches and the databse.<br>write-through cache: each time a value changes, write the new value into the cache, or simply delete the current value from the cache and allow a read-through cache to populate it later. </p>
+<h3 id="Off-Line_Processing">Off-Line Processing</h3><p>because of unacceptable latency. or because needs to occur periodically</p>
+<h3 id="Message_Queues">Message Queues</h3><p>processing inline request is too slow. add a message queue. e.g RabbitMQ -&gt; quickly publish messages to the queue.</p>
+<p>another benefit: allow you to create a separate machine poool for performing off-line processing rather than burdening web servers.</p>
+<h3 id="Scheduling_Periodic_Tasks">Scheduling Periodic Tasks</h3><p>Cron: job scheduler in unix system.</p>
+<h3 id="Map-Reduce">Map-Reduce</h3><p>large quantity of data. </p>
+<h3 id="Platform_Layer">Platform Layer</h3><p>Reasons to add: your web app communicate with a platform layer which in turn communicates with your database.<br>Pros:</p>
+<ol>
+<li>Separate the web applicaton and the platfrom allow to scale the pieces independently. </li>
+<li>resue your infrastructure for multiple products or interfaces: a web application, an API, iPhone app.</li>
+<li>Easier to scale an organization. </li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Load_Balancing:_Scalability_&amp;_Redundancy">Load Balancing: Scalability &amp; Redundancy</h2><p>Redunancy: system isn’t disrupted ]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[scalability-for-dummies]]></title>
     <link href="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/"/>
     <id>http://dyangspot.github.io/2016/01/25/scalability-for-dummies/</id>
     <published>2016-01-26T01:27:58.000Z</published>
-    <updated>2016-01-26T01:45:31.000Z</updated>
+    <updated>2016-01-28T00:31:50.000Z</updated>
     <content type="html"><![CDATA[<h3 id="Clones">Clones</h3><p>Clones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.<br>Session可以保持到centralized data store，<br>存在形式： external persistent cache or db，cache better performance。<br><em>external</em> means outside application server.<br>AWS: create an image based on other server.</p>
 <h3 id="Database">Database</h3><ul>
 <li>path1: mast-slave replication, +RAM, sharding, denormalization, sql tuning</li>
@@ -28,7 +243,7 @@
 <h3 id="Cache">Cache</h3><p>key-value store. buffer layer between application and data storage<br>refer to in-memory cache, e.g. Memcached or Redis <em>never do file-based caching</em></p>
 <h4 id="2_patterns_of_caching_data">2 patterns of caching data</h4><ul>
 <li>Cached Database Queries.<br>Hashed query as a key, result as value.<br>main issue: expiration. hard to delete a cached result when cached a complex query.</li>
-<li>Cached Objects.<br>stored the complete instance of the clas or the assembed dataset in the cache.</li>
+<li>Cached Objects.<br>stored the complete instance of the class or the assembed dataset in the cache ?<br>best part: makes asyn processing possible.<br>object to cache:<br>user sessions(never use database!)<br>fully rendered blog articles<br>activity streams<br>user&lt;-&gt;friend relationships<br>Tools:<br>Redis: can replace database<br>Memcached: just need cache, scale like a charm<h3 id="Asynchronism">Asynchronism</h3></li>
 </ul>
 ]]></content>
     <summary type="html">
@@ -416,254 +631,6 @@
     </summary>
     
       <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[reactive-prog-recap]]></title>
-    <link href="http://dyangspot.github.io/2015/04/13/reactive-prog-recap/"/>
-    <id>http://dyangspot.github.io/2015/04/13/reactive-prog-recap/</id>
-    <published>2015-04-14T02:43:26.000Z</published>
-    <updated>2015-04-14T03:23:41.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="Representation_of_JSON_in_Scala">Representation of JSON in Scala</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">JSON</span></span><br><span class="line"></span><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JSeq</span>(</span>elems:<span class="type">List</span>[<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JObj</span>(</span>bindings:<span class="type">Map</span>[<span class="type">String</span>,<span class="type">JSON</span>]) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JNum</span>(</span>num:<span class="type">Double</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JStr</span>(</span>str:<span class="type">String</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">JBool</span>(</span>b: <span class="type">Boolean</span>) <span class="keyword">extends</span> <span class="type">JSON</span></span><br><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">object</span> <span class="title">JNull</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">JSON</span></span></span><br></pre></td></tr></table></figure>
-<p>Example </p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123; ” firstName ” : ” John ” ,</span><br><span class="line">  ” lastName ” : ” Smith ” ,</span><br><span class="line">   ” address ”: <span class="collection">&#123;</span><br><span class="line">  ” streetAddress ”: ”<span class="number">21</span> <span class="number">2</span> nd Street ” ,</span><br><span class="line">	” state ”: ” NY ” ,</span><br><span class="line">	” postalCode ”: <span class="number">10021</span></span><br><span class="line"> &#125;</span>,</span><br><span class="line">” phoneNumbers ”: <span class="collection">[</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” home ” , ” number ”: ”<span class="number">212</span> <span class="number">555</span> <span class="number">-1234</span>” &#125;</span> ,</span><br><span class="line">  <span class="collection">&#123; ” type ”: ” fax ” , ” number ”: ”<span class="number">646</span> <span class="number">555</span> <span class="number">-4567</span>” &#125;</span></span><br><span class="line"> ]</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>Scala Rep</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">val data = JObj(Map(</span><br><span class="line">”firstName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”John”)</span></span>,</span><br><span class="line">”lastName” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”Smith”)</span></span>,</span><br><span class="line">”address” -&gt; JObj(Map(</span><br><span class="line">”streetAddress” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">21</span> <span class="number">2</span>nd Street”)</span></span>,</span><br><span class="line">”state” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”NY”)</span></span>,</span><br><span class="line">”postalCode” -&gt; <span class="function"><span class="title">JNum</span><span class="params">(<span class="number">10021</span>)</span></span></span><br><span class="line">)),</span><br><span class="line">”phoneNumbers” -&gt; JSeq(List(</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”home”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">212</span> <span class="number">555</span>-<span class="number">1234</span>”)</span></span></span><br><span class="line">)),</span><br><span class="line">JObj(Map(</span><br><span class="line">”type” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”fax”)</span></span>, ”number” -&gt; <span class="function"><span class="title">JStr</span><span class="params">(”<span class="number">646</span> <span class="number">555</span>-<span class="number">4567</span>”)</span></span></span><br><span class="line">)) )) ))</span><br></pre></td></tr></table></figure>
-<h3 id="Functions_Are_Objects">Functions Are Objects</h3><p>In Scala, every concrete type is the type of some class or trait.<br>The function type is no exception. A type like</p>
-<p>JBinding =&gt; String</p>
-<p>is just a shorthand for: scala.Function1[JBinding,String]<br>where scala.Function1 is a trait and JBinding and String are its type arguments.</p>
-<h4 id="The_Function1_Trait">The Function1 Trait</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Function1[-A, +R]&#123;</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">apply</span><span class="params">(x:A)</span>:</span> R</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>The pattern matching block</p>
-<figure class="highlight"><figcaption><span>(key,value) => key + ": " + value&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure>
-<p>expands to the Function1 instance:</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Function1[JBinding,<span class="keyword">String</span>]&#123;</span><br><span class="line">	def apply(x:JBinding) = x <span class="built_in">match</span>&#123;</span><br><span class="line">		<span class="keyword">case</span>(<span class="variable">key</span>,value) =&gt; <span class="variable">key</span> + <span class="string">": "</span> + show(value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Subclassing_Functions">Subclassing Functions</h3><p>One nice aspect of functions being traits is that we can subclass the function type.<br>e.g. mpas care functions from keys to values:</p>
-<p>trait Map[Key,Value] extends (Key=&gt;Value)…</p>
-<p>Sequences are functions from Int indices to values:</p>
-<p>trait Seq[Elem] extends (Int=&gt;Elem)<br>for sequence(and array) indexing</p>
-<h3 id="Partial_Matches">Partial Matches</h3><p>{case “ping” =&gt;”pong”}<br>can be given type String=&gt;String</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:<span class="built_in">String</span>=&gt; <span class="built_in">String</span> =&#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">                           <span class="comment">//&gt; f  : String =&gt; String = &lt;function1&gt;</span></span><br><span class="line">f(<span class="string">"ping"</span>)                        <span class="comment">//&gt; res1: String = pong</span></span><br></pre></td></tr></table></figure>
-<h3 id="Partial_Functions">Partial Functions</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val f:PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>] = &#123;<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"pong"</span>&#125;</span><br><span class="line">f.isDefinedAt(<span class="string">"ping"</span>)  <span class="comment">// true</span></span><br><span class="line">f.isDefinedAt(<span class="string">"pong"</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>The partial function trait is defined as follows:<br>trait PartialFunction[-A,+R] extends Function1[-A,+R]{<br>    def apply(x:A):R<br>    def isDefinedAt(x:A):Boolean<br>}</p>
-<h3 id="Partial_Function_Objects">Partial Function Objects</h3><p>if the expected type is a PartialFunction, the Scala compiler will expand {case “ping” =&gt; “pong”}<br>as follows:</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> PartialFunction[<span class="built_in">String</span>,<span class="built_in">String</span>]&#123;</span><br><span class="line">	def apply(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="string">"poing"</span></span><br><span class="line">	&#125;</span><br><span class="line">	def isDefinedAt(x:<span class="built_in">String</span>) = x match&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">"ping"</span> =&gt; <span class="keyword">true</span></span><br><span class="line">		<span class="keyword">case</span> _ =&gt; <span class="keyword">false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="Representation_of_JSON_in_Scala">Representation of JSON in Scala</h3><figure class="highlight scala"><table><tr><td class="gutter"><]]>
-    </summary>
-    
-      <category term="reactive programming" scheme="http://dyangspot.github.io/tags/reactive-programming/"/>
-    
-      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[reactive-programming-intro]]></title>
-    <link href="http://dyangspot.github.io/2015/04/13/reactive-programming/"/>
-    <id>http://dyangspot.github.io/2015/04/13/reactive-programming/</id>
-    <published>2015-04-14T02:02:21.000Z</published>
-    <updated>2015-04-14T02:44:12.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="Changing_Requirements…">Changing Requirements…</h3><p>Server nodes          10’s      1000’s<br>Response times      seconds   milliseconds<br>Maintenance downtimes  hours      none<br>Data volume           GBs        TBs -&gt; PBs    </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>10 years ago</th>
-<th>Now</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Server nodes</td>
-<td>10’s</td>
-<td>1000’s</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Response times</td>
-<td>seconds</td>
-<td>milliseconds</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Maintenance downtimes</td>
-<td>hours</td>
-<td>none</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Data volume</td>
-<td>GBs</td>
-<td>TBs -&gt; PBs</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="Need_New_Architectures">Need New Architectures</h3><p>Previously: Managed servers and containers</p>
-<p>Now: Reactive application</p>
-<ul>
-<li>event-driven -&gt; react to events</li>
-<li>scalable -&gt; react to load</li>
-<li>resilient -&gt; react to failures</li>
-<li>responsive -&gt; react to users</li>
-</ul>
-<h3 id="Event-Driven">Event-Driven</h3><p>Traditionally: Systems are composed of multiple threads, which communicated with shared, synchronized state.</p>
-<ul>
-<li>String coupling, hard to compose</li>
-</ul>
-<p>Now: Systems are composed from loosely coupled event handlers.</p>
-<ul>
-<li>Events can be handled asynchronously, without blocking.<br>none-blocking: resource can be utilized more efficiently.</li>
-</ul>
-<h3 id="Scalable">Scalable</h3><p>An application is <strong>scalable</strong> if it is able to be expanded according to its usage.</p>
-<ul>
-<li>scale up: make use of parallelism in multi-core systems.</li>
-<li>scale out: make use of multiple server nodes in a data center or in the cloud.</li>
-</ul>
-<p>Important for scalability: Minimize shared mutable state.<br>Important for scale out: Location transparency,resilience.</p>
-<p>Location transparency: it doesn’t matter where the location is ,could be at the same computer or across the internet.</p>
-<h3 id="Resilient">Resilient</h3><p>An application is <strong>resilient</strong> if it can recover quickly from failures.<br>Failures can be:</p>
-<ul>
-<li>software failures</li>
-<li>hardware failures, or</li>
-<li>connection failures.</li>
-</ul>
-<p>Typically, resilience cannot be added as an afterthought; it needs to be part of the design from the beginning.<br>Needed:</p>
-<ul>
-<li>loose coupling.</li>
-<li>strong encapsulation of state.</li>
-<li>pervasive supervisor hierachies.</li>
-</ul>
-<h3 id="Responsive">Responsive</h3><p>An application is <strong>responsive</strong> if it provides rich, real-time interaction with its users even under load and in the presence of failures.</p>
-<p>Responsive applications can be built on an event-driven,scalable, and resilient architecture.</p>
-<h3 id="Call-backs">Call-backs</h3><p>Handling events is often done using call-backs. E.g. using Java observers:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">ActionListener</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">	button.addActionListener(<span class="keyword">this</span>)</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">actionPerformed</span>(</span>e:<span class="type">ActionEvent</span>):<span class="type">Unit</span> = &#123;</span><br><span class="line">		count +=<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Problems:</p>
-<ul>
-<li>needs shared mutable state.</li>
-<li>cannot be composed.</li>
-<li>leads quickly to “call-back hell”</li>
-</ul>
-<p>Soveld in this course:<br>to get <strong>composable</strong> event abstractions.</p>
-<ul>
-<li>Events are first class.</li>
-<li>Events are often represented as messages.</li>
-<li>Handlers of events are also first-class.</li>
-<li>Complex handlers can be composed from primitive ones.</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="Changing_Requirements…">Changing Requirements…</h3><p>Server nodes          10’s      1000’s<br>Response times      seconds   millis]]>
-    </summary>
-    
-      <category term="reactive programming" scheme="http://dyangspot.github.io/tags/reactive-programming/"/>
-    
-      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[javascript-the-good-parts-notes]]></title>
-    <link href="http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/"/>
-    <id>http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/</id>
-    <published>2015-04-10T02:36:16.000Z</published>
-    <updated>2015-04-12T03:41:05.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="语法">语法</h2><h3 id="2-4_字符串">2.4 字符串</h3><p>Javascript再被创建的时候，Unicode是一个16位的字符集，所以Javascript中的所有字符都是16位的。<br>字符串是不可变的，一旦创建，就永远无法改变。<br>字符串有一个length属性。<br>If做条件判断时，为false的情况：</p>
-<ul>
-<li>false</li>
-<li>null</li>
-<li>undefined</li>
-<li>空字符串“ ”</li>
-<li>数字0</li>
-<li>数字NaN<br>其他所有值都为true，包括true 跟字符串”false”，包括所有对象</li>
-</ul>
-<h3 id="3-1_对象自变量">3.1 对象自变量</h3><p>对象属性的访问<br>object[“propertyName”] or object.property</p>
-<h3 id="3-6_反射">3.6 反射</h3><p>确定对象属性类型: typeof</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typeof flight<span class="class">.number</span>   <span class="comment">// 'number'</span></span><br><span class="line">typeof flight<span class="class">.number</span>	<span class="comment">// 'string'</span></span><br><span class="line">typeof flight<span class="class">.arrival</span>  <span class="comment">// 'object'</span></span><br><span class="line">typeof flight<span class="class">.manifest</span>	<span class="comment">// 'undefined'</span></span><br><span class="line">typeof flight<span class="class">.toString</span>	<span class="comment">// 'function'</span></span><br><span class="line">typeof flight<span class="class">.constructor</span> <span class="comment">// 'function'</span></span><br></pre></td></tr></table></figure>
-<p>hasOwnProperty方法，可以用来判断是否是对象独有属性，如果是，将返回true。注意：hasOwnProperty不会检查原型链. - 用来判断某个属性是否定义<br>flight.hasOwnProperty(‘number’)        // true<br>flight.hasOwnPeoperty(‘constructor’)  // false</p>
-<h3 id="3-7_枚举">3.7 枚举</h3><p>利用for in来遍历一个对象中所有属性名- 枚举过程列出所有的属性，其中包括函数和原型中的属性.<br>可以用hasOwnProperty或 typeof 来进行筛选.</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> name;</span><br><span class="line"><span class="keyword">for</span>(name <span class="keyword">in</span> another_stooge)&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> another_shooge[name] !== <span class="string">'function'</span>)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(name + <span class="string">';'</span> + another_stooge[name]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">`<span class="javascript"></span>``<span class="javascript"> </span><br><span class="line">尽量避免使用<span class="keyword">for</span> <span class="keyword">in</span>来遍历属性， 推荐用<span class="keyword">for</span>. 可以避免发掘出原型链中的属性.</span></span><br></pre></td></tr></table></figure>
-<p>var i;<br>var properties = {<br>    ‘first-name’,<br>    ‘last-name’,<br>    ‘gender’,<br>    ‘profession’<br>};<br>for(i = 0; i &lt; properties.length;i++){<br>    …<br>}</p>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.1 函数对象</span></span><br><span class="line">函数即对象<span class="built_in">Object</span>，也就是“name/value”的集合。 </span><br><span class="line">由<span class="built_in">Object</span>生成的objects对象继承于<span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="keyword">Function</span> objects对象继承于<span class="keyword">Function</span>.prototype</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">### 4.3 调用</span></span><br><span class="line">JavaScript的四种调用模式： 方法调用模式，函数调用模式，构造器调用模式，跟apply调用模式.</span><br><span class="line"></span><br><span class="line">- 方法调用模式</span><br><span class="line">当函数作为对象属性时，被称之为方法. </span><br><span class="line">当对象的一个方法被调用时候，this被绑定到该对象.</span><br><span class="line">如果一个调用表达式包含一个属性存取表达式（<span class="built_in">object</span>.<span class="keyword">property</span> 或<span class="built_in">object</span>[<span class="keyword">property</span>]）,这时表达式也会被当作一个方法来调用.</span><br><span class="line"></span><br><span class="line">另外， 方法可以使用this来访问对象.</span><br><span class="line">- 函数调用模式</span><br><span class="line">指的是函数不作为对象属性时，仅仅会被当作一个函数来调用:</span><br><span class="line">```var sum = add(<span class="number">3</span>,<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
-<p>在此调用模式下，this被绑定到全局对象.  js语言设计上的bug.<br>为何错误： 假设设计正确，当内部函数被调用时，this应该仍然绑定到外部函数的this变量。这个设计错误的后果是方法不能利用内部函数来帮助它工作，因为内部函数的this被绑定了错误的值，所以不能共享该方法对对象的访问权.</p>
-<p>解决方案：将该方法定义一个变量并赋值为this，那么内部函数就可以通过这个变量访问到this.</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">myObject.double = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> that = <span class="keyword">this</span>;  <span class="comment">// 访问权绑定到that</span></span><br><span class="line">	<span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		that.value = add(that.value,that.value)</span><br><span class="line">	&#125;;</span><br><span class="line">	helper();  <span class="comment">//以函数形式调用helper</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以方法形式调用double</span></span><br><span class="line">myObject.double();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>构造器调用<br>用new关键字来创建一个新对象，其对象具有一个隐藏连接到该函数prototype的成员,这个成员也被绑定到新创建的对象上.</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Quo = <span class="function"><span class="keyword">function</span><span class="params">(string)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.status = string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//给Quo所有实例提供一个get_status的公共方法</span></span><br><span class="line">Guo.prototype.get_status = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.status;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Quo实例</span></span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> Quo(<span class="string">"confused"</span>);</span><br><span class="line"><span class="built_in">document</span>.writeln(myQuo.get_status());</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Apply调用</li>
-</ul>
-<h3 id="4-5_返回">4.5 返回</h3><p>一个函数总是会有一个返回值，没有指定return的，则返回undefined.<br>如果函数前面加上new 来调用，返回值不是一个对象，则返回this</p>
-<h3 id="4-6_异常">4.6 异常</h3><p>throw 与 try…catch</p>
-<p>throw 包含一个可识别异常类的name属性和解释原因的message熟悉。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span><span class="params">(a,b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">typeof</span> a !== <span class="string">'number'</span> || <span class="keyword">typeof</span> b !== <span class="string">'number'</span>)&#123;</span><br><span class="line">		<span class="keyword">throw</span>&#123;</span><br><span class="line">			name:<span class="string">'TypeError'</span>,</span><br><span class="line">			message:<span class="string">'add needs numbers'</span></span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>try…catch， 一个try语句只包含一个catch代码块</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> try_it = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		add(<span class="string">"seven"</span>);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">		<span class="built_in">document</span>.writeln(e.name + <span class="string">": "</span> + e.message );</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="语法">语法</h2><h3 id="2-4_字符串">2.4 字符串</h3><p>Javascript再被创建的时候，Unicode是一个16位的字符集，所以Javascript中的所有字符都是16位的。<br>字符串是不可变的，一旦创建，就永远无法改变。<b]]>
-    </summary>
-    
-      <category term="javascript" scheme="http://dyangspot.github.io/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Ember Tricks]]></title>
-    <link href="http://dyangspot.github.io/2015/04/08/ember-tricks/"/>
-    <id>http://dyangspot.github.io/2015/04/08/ember-tricks/</id>
-    <published>2015-04-09T03:16:05.000Z</published>
-    <updated>2015-04-09T04:05:18.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="router-js">router.js</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.resource(<span class="string">'product'</span>,&#123;path,<span class="string">'/user'</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>/user -&gt; ProductRoute -&gt; Product -&gt; ProductController -&gt; product.handlebars</p>
-<h3 id="Web_Components">Web Components</h3><p>demo.hardlebars</p>
-<figure class="highlight"><figcaption><span>soText="evail" suchText="trout"&#125;&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;components/doge-text&#10;&#10;```&#60;img src=&#34;images/doge.jpg&#34;&#62; wow so &#60;b&#62;&#123;&#123;soText&#125;&#125;&#60;/b&#62; &#123;&#123;suchText&#125;&#125;&#60;/b&#62;</span><br></pre></td></tr></table></figure>
-<h3 id="Tick_#1_Computed_Property_Macros">Tick #1 Computed Property Macros</h3><p>object.js - object model</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.<span class="built_in">Object</span>.extend(&#123;&#125;);</span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;name:<span class="string">'Cool User'</span>&#125;);</span><br><span class="line">console.log(user.<span class="literal">get</span>(<span class="string">'name'</span>)); <span class="comment">// Cool User</span></span><br></pre></td></tr></table></figure>
-<p>staff.js</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	staff:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'moderator'</span>) || <span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'admin'</span>);</span><br><span class="line">	&#125;.property(<span class="string">'moderator'</span>,<span class="string">'admin'</span>)</span><br><span class="line">&#125;); </span><br><span class="line"><span class="keyword">var</span> user = App.User.create(&#123;moderator:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(user.<span class="keyword">get</span>(<span class="string">'staff'</span>)); <span class="comment">// true   -&gt; cached</span></span><br></pre></td></tr></table></figure>
-<p>macros_extras.js</p>
-<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.User = Ember.Object.extend(&#123;</span><br><span class="line">	validUsername: Ember.computed.<span class="keyword">match</span>(<span class="string">'username'</span>,/^[a-z0-<span class="number">9</span>]+<span class="variable">$/</span>),</span><br><span class="line">	adult:Ember.computed.gte(<span class="string">'age'</span>,<span class="number">18</span>),</span><br><span class="line">	candaian:Ember.computed.equal(<span class="string">'country'</span>,<span class="string">'CA'</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Composable:<br>Filter:</p>
-<p>macros_array.js</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">App.Project = Ember.<span class="keyword">Object</span>.extend(&#123;</span><br><span class="line">	openTickets: Ember.computed.filterBy(<span class="string">'tickets'</span>,<span class="string">'open'</span>,<span class="keyword">true</span>);</span><br><span class="line">&#125;);</span><br><span class="line">project = App.Project.create(&#123;</span><br><span class="line">	tickets:[&#123;</span><br><span class="line">		id:<span class="number">1</span>,<span class="built_in">open</span>:<span class="keyword">true</span>&#125;,</span><br><span class="line">		&#123;id:<span class="number">2</span>,<span class="built_in">open</span>:<span class="keyword">false</span>&#125;]</span><br><span class="line">&#125;);</span><br><span class="line">console.<span class="built_in">log</span>(project.<span class="built_in">get</span>(<span class="string">'openTickets'</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="Trick_#2_The_Run_Loop">Trick #2 The Run Loop</h3><h4 id="Async_Everything">Async Everything</h4><p>not_updated.js</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.<span class="keyword">set</span>(<span class="string">'productId'</span>,<span class="number">1234</span>);</span><br><span class="line"><span class="keyword">this</span>.<span class="keyword">get</span>(<span class="string">'productId'</span>); <span class="comment">// new value</span></span><br><span class="line">$(<span class="string">'#product-id'</span>).html() <span class="comment">// still old value!</span></span><br></pre></td></tr></table></figure>
-<p>set_timeout.js<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//do something later!</span></span><br><span class="line">&#125;,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p>schedule.js<br>Scheduling:</p>
-<pre><code>- <span class="keyword">Is</span> there an Run <span class="keyword">Loop</span> SCHEDULED?
-  -<span class="keyword">If</span> YES, add <span class="keyword">event</span> <span class="keyword">to</span> it/
- - <span class="keyword">If</span> No , <span class="string">"setTimeout(fn,1)"</span>
-</code></pre><p>height.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">App.PostView = Ember.View.extend(&#123;</span><br><span class="line">	didInsertElement:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">var</span> h = <span class="keyword">this</span>.$().height();  <span class="comment">// get current view height</span></span><br><span class="line">		<span class="keyword">this</span>.$().height(h*<span class="number">2</span>)   <span class="comment">// resize view height</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Ember View<br>Performance: More Vies = Slower Rendering<br>Infinte Scrolling<br><img src="http://7xi7ot.com1.z0.glb.clouddn.com/emberview.png" alt="EmberView"></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="router-js">router.js</h3><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></]]>
-    </summary>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[“Emberjs中的set与get”]]></title>
-    <link href="http://dyangspot.github.io/2015/04/05/set-get-emberjs/"/>
-    <id>http://dyangspot.github.io/2015/04/05/set-get-emberjs/</id>
-    <published>2015-04-05T23:51:03.000Z</published>
-    <updated>2015-04-06T00:13:12.000Z</updated>
-    <content type="html"><![CDATA[<p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyValue”)</strong> 与<strong>.get(”propertyName”)</strong>方法来对object中的properties进行赋值与取值的操作.另外,通过Emerbjs的API可以了解到在Ember.observable mixing下，对Ember.object对象定义了观察功能，也就是说，对于使用set方法来赋值，或者使用get方法来取值，这些属性操作的一举一动都可以马上被Emberjs来观察（observe）到.</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>以Java为例，在面向对象的编程思想中，通过实现setter跟getter方法，来进行对属性的赋值和取值操作。 Emerbjs中如何实现属性的setter跟getter方法呢？<br>显而易见,<strong>.set(“propertyName”,”propertyVal]]>
-    </summary>
-    
-      <category term="emberjs" scheme="http://dyangspot.github.io/tags/emberjs/"/>
     
   </entry>
   

@@ -2,8 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/</loc>
+    <lastmod>2016-02-01T22:36:55.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/databse-sharding/</loc>
+    <lastmod>2016-01-31T02:56:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/CAP-Theory/</loc>
+    <lastmod>2016-01-31T02:38:01.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/</loc>
+    <lastmod>2016-01-31T02:04:10.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/</loc>
+    <lastmod>2016-01-28T21:59:42.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://dyangspot.github.io/2016/01/25/scalability-for-dummies/</loc>
-    <lastmod>2016-01-26T01:45:31.000Z</lastmod>
+    <lastmod>2016-01-28T00:31:50.000Z</lastmod>
   </url>
   
   <url>
@@ -197,12 +222,12 @@
   </url>
   
   <url>
-    <loc>http://dyangspot.github.io/about/index.html</loc>
+    <loc>http://dyangspot.github.io/2015/03/22/emberjs-reference/</loc>
     <lastmod>2015-03-23T03:41:54.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://dyangspot.github.io/2015/03/22/emberjs-reference/</loc>
+    <loc>http://dyangspot.github.io/about/index.html</loc>
     <lastmod>2015-03-23T03:41:54.000Z</lastmod>
   </url>
   

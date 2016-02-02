@@ -66,6 +66,474 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-scalability-availability-stability-patterns" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/02/01/scalability-availability-stability-patterns/" class="article-date">
+  <time datetime="2016-02-01T21:37:20.000Z" itemprop="datePublished">2016-02-01</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/01/scalability-availability-stability-patterns/">scalability-availability-stability-patterns</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Trade-offs"><span class="toc-number">1.</span> <span class="toc-text">Trade-offs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Performance_vs_Scalability"><span class="toc-number">2.</span> <span class="toc-text">Performance vs Scalability</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Latency_vs_Throughput"><span class="toc-number">3.</span> <span class="toc-text">Latency vs Throughput</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAP_Theorem"><span class="toc-number">4.</span> <span class="toc-text">CAP Theorem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Availability_Patterns"><span class="toc-number">5.</span> <span class="toc-text">Availability Patterns</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scalability_Patterns:_State"><span class="toc-number">6.</span> <span class="toc-text">Scalability Patterns: State</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP_Caching_(p56,p57)"><span class="toc-number">6.1.</span> <span class="toc-text">HTTP Caching (p56,p57)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Service_of_Record"><span class="toc-number">7.</span> <span class="toc-text">Service of Record</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Chord_&_Pastry"><span class="toc-number">7.1.</span> <span class="toc-text">Chord & Pastry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Distributed_Caching"><span class="toc-number">7.2.</span> <span class="toc-text">Distributed Caching</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Distributed_Caching_Products"><span class="toc-number">7.2.1.</span> <span class="toc-text">Distributed Caching Products</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Concurrency(p96)"><span class="toc-number">7.3.</span> <span class="toc-text">Concurrency(p96)</span></a></li></ol></li></ol>
+		
+		</div>
+		
+        <h2 id="Trade-offs">Trade-offs</h2><ul>
+<li>Performance vs Scalability</li>
+<li>Latency vs Throughput</li>
+<li>Availability vs Consistency<h2 id="Performance_vs_Scalability">Performance vs Scalability</h2>Performance problem? system is slow for a single user<br>Scalability problem? system is fast for a single user but slow under heavy load.</li>
+</ul>
+<h2 id="Latency_vs_Throughput">Latency vs Throughput</h2><p>strive for <em>maximal</em> throughput vs <em>acceptable</em> latency</p>
+<h2 id="CAP_Theorem">CAP Theorem</h2><p>pick 2 of them from Consistency, Availability, Partition tolerance at<br>a given point in time.</p>
+<p>Example1. Centralized System(RDBMS etc):  don’t hve network partitons. e.g P in CAP =&gt; get Availability and Consistency.<br>Example2. Distributed System: will have network partitions.<br> =&gt; only pick one between Availability and Consistency</p>
+<h2 id="Availability_Patterns">Availability Patterns</h2><ul>
+<li>Fail-over<br>normal state -&gt; failure occurs=&gt; Failover state -&gt; service restored. </li>
+<li>Replication<ul>
+<li>Master-Slave</li>
+<li>Tree replication</li>
+<li>Master- Master</li>
+<li>Buddy Replication<br>Active replication - Push<br>Passive replication - Pull</li>
+</ul>
+</li>
+</ul>
+<h2 id="Scalability_Patterns:_State">Scalability Patterns: State</h2><ul>
+<li>Partitioning</li>
+<li>HTTP Caching</li>
+<li>RDBMS Sharding</li>
+<li>NOSQL</li>
+<li>Distributed Caching</li>
+<li>Data Grids</li>
+<li>Concurrency<h3 id="HTTP_Caching_(p56,p57)">HTTP Caching (p56,p57)</h3>借助 Reverse Proxy: Varnish, Squid, rack-cache, Pound, Nginx, Apache mod_proxy, Traffic Server<br>借助CDN，<br>Proecompute Content: Homegrown + cron orQuartz, Spring Batch, Gearman, Hadoop, Google Data Protocol, Amazon Elastic MapReduce</li>
+</ul>
+<h2 id="Service_of_Record">Service of Record</h2><ul>
+<li>Relational Database<br>scale: Partitioning &amp; Replication</li>
+<li>NoSQL Database</li>
+</ul>
+<ol>
+<li>key-Value db (Voldemort, Dynomite)</li>
+<li>Column db (Cassandra, Vertica, Sybase IQ)</li>
+<li>Document db (MongoDB, CouchDB)</li>
+<li>Graph db (Neo4J, AllegroGraph)</li>
+<li>Datastructure db (Redis, Hazelcast)<br>NoSQL in the wild:<br>Google: Bigtable<br>Amazon: Dynamo<br>Amazon: SimpleDB<br>Yahoo: HBase<br>Facebook: Cassandra<br>Linkedin: Voldmort</li>
+</ol>
+<h3 id="Chord_&amp;_Pastry">Chord &amp; Pastry</h3><ul>
+<li>Distributed Hash Tables(DHT)</li>
+<li>Scalable</li>
+<li>Partitioned</li>
+<li>Fault-tolerant</li>
+<li>Decentralized</li>
+<li>Peer to peer</li>
+<li>Popularized 1. Node ring 2. Consistent Hashing<br> Node ring with consisting hashing(p80): lookup log(N) jumps<h3 id="Distributed_Caching">Distributed Caching</h3></li>
+<li>Write- through (p86)</li>
+<li>Write- behind (87)</li>
+<li>Eviction Policies<ol>
+<li>TTL(time to live)</li>
+<li>Bounded FIFO</li>
+<li>Bounded LIFO</li>
+<li>Explicit cache invalidation</li>
+</ol>
+</li>
+<li>Replication</li>
+<li>Peer- To- Peer(P2P)    <h4 id="Distributed_Caching_Products">Distributed Caching Products</h4></li>
+<li>EHCache</li>
+<li>JBoss Cache</li>
+<li>OSCache</li>
+<li>Memcached: 1. Very fast 2. Simple 3. key-value(string -&gt; binary) 4. clients for most languages 5. Distributed 6. Not replicated </li>
+</ul>
+<h3 id="Concurrency(p96)">Concurrency(p96)</h3><ul>
+<li>Shared-State Concurrency(locks)</li>
+<li>Message- Passing Concurrency(Actor) </li>
+<li>Dataflow Concurrency</li>
+<li>Software Transactional Memory</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/" data-id="cik5oyh0l000q09s7g44fp3uj" data_title="scalability-availability-stability-patterns" data_summary="Trade-offs
+Performance vs S..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/02/01/scalability-availability-stability-patterns/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-02-01T22:36:55.000Z" itemprop="dateModified">2016-02-01</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-databse-sharding" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/30/databse-sharding/" class="article-date">
+  <time datetime="2016-01-31T02:37:59.000Z" itemprop="datePublished">2016-01-30</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/30/databse-sharding/">databse-sharding</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Database_Sharding"><span class="toc-number">1.</span> <span class="toc-text">Database Sharding</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Database_Partitioning_Options"><span class="toc-number">1.1.</span> <span class="toc-text">Database Partitioning Options</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Master/Slave"><span class="toc-number">1.1.1.</span> <span class="toc-text">Master/Slave</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Clustering_Computering"><span class="toc-number">1.1.2.</span> <span class="toc-text">Clustering Computering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database_Sharding,_“Shared-Nothing”"><span class="toc-number">1.1.3.</span> <span class="toc-text">Database Sharding, “Shared-Nothing”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sharding_Challenges"><span class="toc-number">1.1.4.</span> <span class="toc-text">Sharding Challenges</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+        <h1 id="Database_Sharding"><a href="http://dbshards.com/database-sharding/" target="_blank" rel="external">Database Sharding</a></h1><p>Purpose: improving the throughput and overall performance . </p>
+<p>volumns and transactions of DB linear growth =&gt; response times grow logarithmically</p>
+<ul>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk, bottleneck -&gt; disk I/O</li>
+</ul>
+<h2 id="Database_Partitioning_Options">Database Partitioning Options</h2><h3 id="Master/Slave">Master/Slave</h3><p>master: CRUD<br>slave: read-only<br>downside: </p>
+<ol>
+<li>single master server reach to limit =&gt; bottleneck</li>
+<li>“near real time”, slaves do not guaranteed to have current data in master.</li>
+<li>failure on master occurs. </li>
+</ol>
+<h3 id="Clustering_Computering">Clustering Computering</h3><p>Utilizes many servers operating in a group, share messaging between nodes.<br>modes: </p>
+<ol>
+<li>Many nodes for reads, only one for write. </li>
+<li>nodes up to date via a real-time messaging system. each nodes both read or write mode.</li>
+</ol>
+<h3 id="Database_Sharding,_“Shared-Nothing”">Database Sharding, “Shared-Nothing”</h3><p>a large db -&gt; break it into many small dbs. </p>
+<h3 id="Sharding_Challenges">Sharding Challenges</h3><p>Reliability<br>Distrubuted queries</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/30/databse-sharding/" data-id="cik5oyh2l002709s7dxykaipk" data_title="databse-sharding" data_summary="Database ShardingPurpose: i..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/30/databse-sharding/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/30/databse-sharding/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-31T02:56:15.000Z" itemprop="dateModified">2016-01-30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-CAP-Theory" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/30/CAP-Theory/" class="article-date">
+  <time datetime="2016-01-31T02:15:22.000Z" itemprop="datePublished">2016-01-30</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/30/CAP-Theory/">CAP_Theory</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CAP_Theorem"><span class="toc-number">1.</span> <span class="toc-text">CAP Theorem</span></a></li></ol>
+		
+		</div>
+		
+        <h1 id="CAP_Theorem"><a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem/" target="_blank" rel="external">CAP Theorem</a></h1>
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/30/CAP-Theory/" data-id="cik5oyh3f002o09s7qluil4rv" data_title="CAP_Theory" data_summary="CAP Theorem..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/30/CAP-Theory/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/30/CAP-Theory/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-31T02:38:01.000Z" itemprop="dateModified">2016-01-30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-Ace-the-System-Design-Interview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/30/Ace-the-System-Design-Interview/" class="article-date">
+  <time datetime="2016-01-31T02:04:10.000Z" itemprop="datePublished">2016-01-30</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/30/Ace-the-System-Design-Interview/">Ace_the_System_Design_Interview</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/" data-id="cik5oyh3h002q09s77j5pbxr3" data_title="Ace_the_System_Design_Interview" data_summary="..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/30/Ace-the-System-Design-Interview/">暂无评论</a>
+      
+	  
+      
+	  
+<span>
+更新日期:<time datetime="2016-01-31T02:04:10.000Z" itemprop="dateModified">2016-01-30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
+    <article id="post-intro-to-archit-systems-for-scale" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/2016/01/28/intro-to-archit-systems-for-scale/" class="article-date">
+  <time datetime="2016-01-28T21:11:47.000Z" itemprop="datePublished">2016-01-28</time>
+</a>
+
+
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/28/intro-to-archit-systems-for-scale/">Introduction to Architecting Systems for Scale</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Load_Balancing:_Scalability_&_Redundancy"><span class="toc-number">1.</span> <span class="toc-text">Load Balancing: Scalability & Redundancy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Smart_Clients"><span class="toc-number">2.</span> <span class="toc-text">Smart Clients</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hardware_Load_Balancers"><span class="toc-number">3.</span> <span class="toc-text">Hardware Load Balancers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Software_Load_balancers"><span class="toc-number">4.</span> <span class="toc-text">Software Load balancers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caching"><span class="toc-number">5.</span> <span class="toc-text">Caching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Application_Versus_Database_Caching"><span class="toc-number">6.</span> <span class="toc-text">Application Versus Database Caching</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Application_caching"><span class="toc-number">6.1.</span> <span class="toc-text">Application caching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database_caching"><span class="toc-number">6.2.</span> <span class="toc-text">Database caching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#In_Memory_Caches"><span class="toc-number">6.3.</span> <span class="toc-text">In Memory Caches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Content_Distribution_Networks"><span class="toc-number">6.4.</span> <span class="toc-text">Content Distribution Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache_Invalidation"><span class="toc-number">6.5.</span> <span class="toc-text">Cache Invalidation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Off-Line_Processing"><span class="toc-number">6.6.</span> <span class="toc-text">Off-Line Processing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Message_Queues"><span class="toc-number">6.7.</span> <span class="toc-text">Message Queues</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduling_Periodic_Tasks"><span class="toc-number">6.8.</span> <span class="toc-text">Scheduling Periodic Tasks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Map-Reduce"><span class="toc-number">6.9.</span> <span class="toc-text">Map-Reduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Platform_Layer"><span class="toc-number">6.10.</span> <span class="toc-text">Platform Layer</span></a></li></ol></li></ol>
+		
+		</div>
+		
+        <h2 id="Load_Balancing:_Scalability_&amp;_Redundancy">Load Balancing: Scalability &amp; Redundancy</h2><p>Redunancy: system isn’t disrupted by loss of a server.</p>
+<p>Large system balance load at 3 layers:</p>
+<ul>
+<li>user to web servers</li>
+<li>web servers to an internal platform layers</li>
+<li>internal platform layer to database</li>
+</ul>
+<p>Question:  [Load Balance] What are the three ways to implement load balancing? </p>
+<h2 id="Smart_Clients">Smart Clients</h2><p>What is smart client?<br>a client detectes downed hosts and avoids sending requests.</p>
+<h2 id="Hardware_Load_Balancers">Hardware Load Balancers</h2><h2 id="Software_Load_balancers">Software Load balancers</h2><h2 id="Caching">Caching</h2><p>Caching will enable you to make vastly better use of the resources you already have.<br>Consists of: </p>
+<ul>
+<li><ol>
+<li>precalculating results. </li>
+</ol>
+</li>
+<li><ol>
+<li>pre-generating expensive indexes. suggested stories based on user’s click history. </li>
+</ol>
+</li>
+<li><ol>
+<li>stroing copies of frequently accessed data in a fast backend. e,g memcached <h2 id="Application_Versus_Database_Caching">Application Versus Database Caching</h2></li>
+</ol>
+</li>
+</ul>
+<p>Two primary approaches: 1. application caching 2. databse caching(most systems heavily use)</p>
+<h3 id="Application_caching">Application caching</h3><p>requires explicit integration in the code. </p>
+<ol>
+<li>checking if a value is in the cache; </li>
+<li>if not, retrieve the value from the database</li>
+<li>then write the value into the cache.<br>LRU caching algorithm.</li>
+</ol>
+<h3 id="Database_caching">Database caching</h3><p>good side: your code don’t need change.</p>
+<h3 id="In_Memory_Caches">In Memory Caches</h3><p>e.g Memcached and Redis<br>LRU(least recently used) </p>
+<h3 id="Content_Distribution_Networks">Content Distribution Networks</h3><p>CDNs take the burden of serving static media off of your application servers .</p>
+<ol>
+<li>a request will first ask your CDN for a piece of static media</li>
+<li>the CDN will serve that content if it has it locally availble</li>
+<li>if isn’t available, the CDN will query your servers for the file and then cache it locally; and then serve it to the requesting user.</li>
+</ol>
+<h3 id="Cache_Invalidation">Cache Invalidation</h3><p>Maintain consistency between your caches and the databse.<br>write-through cache: each time a value changes, write the new value into the cache, or simply delete the current value from the cache and allow a read-through cache to populate it later. </p>
+<h3 id="Off-Line_Processing">Off-Line Processing</h3><p>because of unacceptable latency. or because needs to occur periodically</p>
+<h3 id="Message_Queues">Message Queues</h3><p>processing inline request is too slow. add a message queue. e.g RabbitMQ -&gt; quickly publish messages to the queue.</p>
+<p>another benefit: allow you to create a separate machine poool for performing off-line processing rather than burdening web servers.</p>
+<h3 id="Scheduling_Periodic_Tasks">Scheduling Periodic Tasks</h3><p>Cron: job scheduler in unix system.</p>
+<h3 id="Map-Reduce">Map-Reduce</h3><p>large quantity of data. </p>
+<h3 id="Platform_Layer">Platform Layer</h3><p>Reasons to add: your web app communicate with a platform layer which in turn communicates with your database.<br>Pros:</p>
+<ol>
+<li>Separate the web applicaton and the platfrom allow to scale the pieces independently. </li>
+<li>resue your infrastructure for multiple products or interfaces: a web application, an API, iPhone app.</li>
+<li>Easier to scale an organization. </li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/" data-id="cik5oyh1n001l09s723njfyh4" data_title="Introduction to Architecting Systems for Scale" data_summary="Load Balancing: Scalability..." class="article-share-link">Share</a>
+      
+
+      
+        <a href="http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2016/01/28/intro-to-archit-systems-for-scale/">暂无评论</a>
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System-Design/">System Design</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2016-01-28T21:59:42.000Z" itemprop="dateModified">2016-01-28</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-scalability-for-dummies" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -95,7 +563,7 @@
 		<div id="toc" class="toc-article">
 			<h2 class="toc-title"><span>文章目录</span></h2>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Clones"><span class="toc-number">1.</span> <span class="toc-text">Clones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database"><span class="toc-number">2.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache"><span class="toc-number">3.</span> <span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2_patterns_of_caching_data"><span class="toc-number">3.1.</span> <span class="toc-text">2 patterns of caching data</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Clones"><span class="toc-number">1.</span> <span class="toc-text">Clones</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Database"><span class="toc-number">2.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache"><span class="toc-number">3.</span> <span class="toc-text">Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2_patterns_of_caching_data"><span class="toc-number">3.1.</span> <span class="toc-text">2 patterns of caching data</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronism"><span class="toc-number">4.</span> <span class="toc-text">Asynchronism</span></a></li></ol>
 		
 		</div>
 		
@@ -107,14 +575,14 @@
 <h3 id="Cache">Cache</h3><p>key-value store. buffer layer between application and data storage<br>refer to in-memory cache, e.g. Memcached or Redis <em>never do file-based caching</em></p>
 <h4 id="2_patterns_of_caching_data">2 patterns of caching data</h4><ul>
 <li>Cached Database Queries.<br>Hashed query as a key, result as value.<br>main issue: expiration. hard to delete a cached result when cached a complex query.</li>
-<li>Cached Objects.<br>stored the complete instance of the clas or the assembed dataset in the cache.</li>
+<li>Cached Objects.<br>stored the complete instance of the class or the assembed dataset in the cache ?<br>best part: makes asyn processing possible.<br>object to cache:<br>user sessions(never use database!)<br>fully rendered blog articles<br>activity streams<br>user&lt;-&gt;friend relationships<br>Tools:<br>Redis: can replace database<br>Memcached: just need cache, scale like a charm<h3 id="Asynchronism">Asynchronism</h3></li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/" data-id="cijvijx5e000n8js7yphv18ty" data_title="scalability-for-dummies" data_summary="ClonesClones： 每个server都有相同的..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/" data-id="cik5oyh0i000n09s7781uzxc9" data_title="scalability-for-dummies" data_summary="ClonesClones： 每个server都有相同的..." class="article-share-link">Share</a>
       
 
       
@@ -126,7 +594,7 @@
 
 	  
 <span>
-更新日期:<time datetime="2016-01-26T01:45:31.000Z" itemprop="dateModified">2016-01-25</time>
+更新日期:<time datetime="2016-01-28T00:31:50.000Z" itemprop="dateModified">2016-01-27</time>
 </span>
 
 
@@ -200,7 +668,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/" data-id="cijvijxj7002h8js7u35p75n1" data_title="CS75_Lecture_9_Scalability_Harvard_Web_Development" data_summary="Scale Purpose: Serve more u..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/" data-id="cik5oyh3b002n09s7k5q195zn" data_title="CS75_Lecture_9_Scalability_Harvard_Web_Development" data_summary="Scale Purpose: Serve more u..." class="article-share-link">Share</a>
       
 
       
@@ -294,7 +762,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2016/01/25/load-balancer-notes/" data-id="cijvijxdo001e8js77qtv0q5x" data_title="load_balancer_notes" data_summary="发送数据包过程中IP和MAC谁变谁不变？src ip,..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2016/01/25/load-balancer-notes/" data-id="cik5oyh1i001g09s70fqw7z0d" data_title="load_balancer_notes" data_summary="发送数据包过程中IP和MAC谁变谁不变？src ip,..." class="article-share-link">Share</a>
       
 
       
@@ -360,7 +828,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/14/twitter-play/" data-id="cijvijx3600048js7ps3jmnq7" data_title="Twitter Streaming example using Play" data_summary="123456789101112131415161718..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/14/twitter-play/" data-id="cik5oyh02000409s7klvi22h2" data_title="Twitter Streaming example using Play" data_summary="123456789101112131415161718..." class="article-share-link">Share</a>
       
 
       
@@ -435,7 +903,7 @@
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://dyangspot.github.io/2015/12/13/summary-at-scala/" data-id="cijvijx3p000c8js7h09zwuoy" data_title="@在Scala中的用法总结" data_summary="最近在看The Neophyte’s Guide to..." class="article-share-link">Share</a>
+	  <a data-url="http://dyangspot.github.io/2015/12/13/summary-at-scala/" data-id="cik5oyh09000c09s7tya60pcf" data_title="@在Scala中的用法总结" data_summary="最近在看The Neophyte’s Guide to..." class="article-share-link">Share</a>
       
 
       
@@ -463,387 +931,9 @@
 <!-- 多说评论框 end -->
 
   
-    <article id="post-stream-extractor-scala" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/12/10/stream-extractor-scala/" class="article-date">
-  <time datetime="2015-12-10T15:04:06.000Z" itemprop="datePublished">2015-12-10</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/10/stream-extractor-scala/">Stream extractor in Scala</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>The way to destructure lists and streams is to use cons operator:<br> <em>::</em> and <em>#::</em>, respectively:</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Why <em>#::</em> operator works in Scala?<br>Scala allows extractors to be used in a infix notation.  So, the</p>
- <figure class="highlight"><figcaption><span>p2) ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;, e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as&#10;&#10; ``` p1 e p2</span><br></pre></td></tr></table></figure>
-<p>Therefore, the infix operation pattern</p>
- <figure class="highlight"><figcaption><span>#:: tail ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#10;  can also be written as &#10;  &#10;  ```#::(head, tail) ``` &#10;  &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure>
-<p>object PremiumUser {<br>  def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))<br>}<br><figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
-<p>name premiumUser score<br>```</p>
-<p>Let’s go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return <em>Some((xs.head, xs.tail))</em>, the <em>xs.head</em> wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a <em>Tuple2</em> was wrapped in a <em>Some</em>, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/" data-id="cijvijx3v000e8js79jwfb7xv" data_title="Stream extractor in Scala" data_summary="The way to destructure list..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/10/stream-extractor-scala/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-14T04:06:08.000Z" itemprop="dateModified">2015-12-13</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-extractor-at-scala" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/12/10/extractor-at-scala/" class="article-date">
-  <time datetime="2015-12-10T15:03:33.000Z" itemprop="datePublished">2015-12-10</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/10/extractor-at-scala/">Extractor @ use in scala</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/12/10/extractor-at-scala/" data-id="cijvijxeu001j8js70udnnulf" data_title="Extractor @ use in scala" data_summary="Use @ operator to bind the ..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/12/10/extractor-at-scala/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/10/extractor-at-scala/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-10T19:19:31.000Z" itemprop="dateModified">2015-12-10</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-play-recipes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/12/07/play-recipes/" class="article-date">
-  <time datetime="2015-12-08T01:31:43.000Z" itemprop="datePublished">2015-12-07</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/07/play-recipes/">Play recipes for real world</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Play_beauty:_Stateless"><span class="toc-number">1.</span> <span class="toc-text">Play beauty: Stateless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Challenges:"><span class="toc-number">2.</span> <span class="toc-text">Challenges:</span></a></li></ol>
-		
-		</div>
-		
-        <h3 id="Play_beauty:_Stateless">Play beauty: Stateless</h3><p>Where to put the state??? </p>
-<h3 id="Challenges:">Challenges:</h3><ul>
-<li>Accumulated state<br>build the state of user ?</li>
-<li>Location</li>
-<li>Node crashes</li>
-</ul>
-<p>Akka Sharding. </p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/12/07/play-recipes/" data-id="cijvijxbz00188js7x68xekg0" data_title="Play recipes for real world" data_summary="Play beauty: StatelessWhere..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/12/07/play-recipes/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/07/play-recipes/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/play/">play</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-08T01:37:14.000Z" itemprop="dateModified">2015-12-07</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-scala-implicits" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/12/03/scala-implicits/" class="article-date">
-  <time datetime="2015-12-04T02:36:27.000Z" itemprop="datePublished">2015-12-03</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/03/scala-implicits/">Scala中的Implicits</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type_conversions"><span class="toc-number">1.</span> <span class="toc-text">Type conversions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resolve_scope"><span class="toc-number">1.1.</span> <span class="toc-text">Resolve scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extended_scope"><span class="toc-number">1.2.</span> <span class="toc-text">Extended scope</span></a></li></ol></li></ol>
-		
-		</div>
-		
-        <p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
-<h3 id="Type_conversions">Type conversions</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure>
-<p>Compiler将会搜索implicits的B =&gt; A类型<br>其中Compiler的搜索范围包括</p>
-<h4 id="Resolve_scope">Resolve scope</h4><ul>
-<li>Declared implicits</li>
-<li>Imported implicits</li>
-<li>Implicitly imported implicits</li>
-</ul>
-<h4 id="Extended_scope">Extended scope</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Type</span>
-</span>
-<span class="class"><span class="keyword">class</span> <span class="title">T</span>[</span><span class="type">Y</span>]
-
-<span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Container</span>
-</span><span class="class"><span class="keyword">class</span> <span class="title">Container</span>
-</span><span class="class"><span class="keyword">object</span> <span class="title">Container</span> {</span>
-    <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">conv</span>(</span>c: <span class="type">Child</span>): <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Type</span>
-}
-
-<span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">T</span>[</span><span class="type">D</span>]
-
-
-<span class="function"><span class="keyword">val</span> <span class="title">x</span>:</span> <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Child</span>
-</code></pre><p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/12/03/scala-implicits/" data-id="cijvijx8e000t8js78il89ph5" data_title="Scala中的Implicits" data_summary="Implicits引入在scala中有两种形式， 一种..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/12/03/scala-implicits/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/12/03/scala-implicits/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-04T05:03:59.000Z" itemprop="dateModified">2015-12-04</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
-    <article id="post-scala-identity" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/2015/11/30/scala-identity/" class="article-date">
-  <time datetime="2015-12-01T03:31:20.000Z" itemprop="datePublished">2015-11-30</time>
-</a>
-
-
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/30/scala-identity/">Scala中的identity</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
-<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://dyangspot.github.io/2015/11/30/scala-identity/" data-id="cijvijx9h000w8js7vb5w6n96" data_title="Scala中的identity" data_summary="针对与Future[Future[Seq[MyObje..." class="article-share-link">Share</a>
-      
-
-      
-        <a href="http://dyangspot.github.io/2015/11/30/scala-identity/#ds-thread" class="ds-thread-count article-comment-link" data-thread-key="/2015/11/30/scala-identity/">暂无评论</a>
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scala/">scala</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2015-12-01T03:54:14.000Z" itemprop="dateModified">2015-11-30</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -874,7 +964,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Design/">System Design</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/emberjs/">emberjs</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/play/">play</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactive-programming/">reactive programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work-point-io/">work@point.io</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -884,7 +974,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Algorithm/" style="font-size: 16.5px; color: #4dbc6f">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 14.75px; color: #65bfa7">System Design</a><a href="/tags/emberjs/" style="font-size: 18.25px; color: #35b838">emberjs</a><a href="/tags/javascript/" style="font-size: 14.75px; color: #65bfa7">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 16.5px; color: #4dbc6f">play</a><a href="/tags/reactive-programming/" style="font-size: 14.75px; color: #65bfa7">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 16.5px; color: #4dbc6f">work@point.io</a>
+      <a href="/tags/Algorithm/" style="font-size: 15.8px; color: #57bd85">Algorithm</a><a href="/tags/Scala/" style="font-size: 13px; color: #7dc3de">Scala</a><a href="/tags/System-Design/" style="font-size: 17.2px; color: #43ba59">System Design</a><a href="/tags/emberjs/" style="font-size: 18.6px; color: #30b72c">emberjs</a><a href="/tags/javascript/" style="font-size: 14.4px; color: #6ac0b2">javascript</a><a href="/tags/nodejs/" style="font-size: 13px; color: #7dc3de">nodejs</a><a href="/tags/others/" style="font-size: 13px; color: #7dc3de">others</a><a href="/tags/play/" style="font-size: 15.8px; color: #57bd85">play</a><a href="/tags/reactive-programming/" style="font-size: 14.4px; color: #6ac0b2">reactive programming</a><a href="/tags/scala/" style="font-size: 20px; color: #1db400">scala</a><a href="/tags/work-point-io/" style="font-size: 15.8px; color: #57bd85">work@point.io</a>
     </div>
   </div>
 
@@ -894,7 +984,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -993,6 +1083,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2016/01/25/scalability-for-dummies/' title='scalability-for-dummies'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Mon Feb 01 2016 16:37:20 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/02/01/scalability-availability-stability-patterns/' title='scalability-availability-stability-patterns'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Sun Mar 22 2015 23:58:15 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1059,6 +1155,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/04/09/javascript-good-parts-notes/' title='javascript-the-good-parts-notes'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Thu Jan 28 2016 16:11:47 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/28/intro-to-archit-systems-for-scale/' title='Introduction to Architecting Systems for Scale'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Thu Dec 10 2015 10:03:33 GMT-0500"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1119,6 +1221,12 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2015/03/24/depth-first-search/' title='depth-first-search'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sat Jan 30 2016 21:37:59 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/30/databse-sharding/' title='databse-sharding'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Tue Mar 24 2015 22:09:50 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1167,6 +1275,18 @@ var cale = new Calendar("idCalendar", {
                 this.Days[day].innerHTML = "<a href='/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/' title='CS75_Lecture_9_Scalability_Harvard_Web_Development'>" + day + "</a>";
             } 
     
+            var postdate = new Date("Sat Jan 30 2016 21:15:22 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/30/CAP-Theory/' title='CAP_Theory'>" + day + "</a>";
+            } 
+    
+            var postdate = new Date("Sat Jan 30 2016 21:04:10 GMT-0500"); 
+            if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
+                var day = postdate.getDate();
+                this.Days[day].innerHTML = "<a href='/2016/01/30/Ace-the-System-Design-Interview/' title='Ace_the_System_Design_Interview'>" + day + "</a>";
+            } 
+    
             var postdate = new Date("Fri Apr 03 2015 21:55:09 GMT-0400"); 
             if (postdate.getFullYear() == this.Year && postdate.getMonth()+1 == this.Month) { 
                 var day = postdate.getDate();
@@ -1199,23 +1319,23 @@ $("idCalendarNext").onclick = function(){ cale.NextMonth(); }
       <ul>
         
           <li>
-            <a href="/2016/01/25/scalability-for-dummies/">scalability-for-dummies</a>
+            <a href="/2016/02/01/scalability-availability-stability-patterns/">scalability-availability-stability-patterns</a>
           </li>
         
           <li>
-            <a href="/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/">CS75_Lecture_9_Scalability_Harvard_Web_Development</a>
+            <a href="/2016/01/30/databse-sharding/">databse-sharding</a>
           </li>
         
           <li>
-            <a href="/2016/01/25/load-balancer-notes/">load_balancer_notes</a>
+            <a href="/2016/01/30/CAP-Theory/">CAP_Theory</a>
           </li>
         
           <li>
-            <a href="/2015/12/14/twitter-play/">Twitter Streaming example using Play</a>
+            <a href="/2016/01/30/Ace-the-System-Design-Interview/">Ace_the_System_Design_Interview</a>
           </li>
         
           <li>
-            <a href="/2015/12/13/summary-at-scala/">@在Scala中的用法总结</a>
+            <a href="/2016/01/28/intro-to-archit-systems-for-scale/">Introduction to Architecting Systems for Scale</a>
           </li>
         
       </ul>
