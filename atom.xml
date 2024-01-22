@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Dylan's Blog]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://dyangspot.github.io/"/>
+  <updated>2016-02-01T22:36:55.000Z</updated>
+  <id>http://dyangspot.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Dylan]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[scalability-availability-stability-patterns]]></title>
+    <link href="http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/"/>
+    <id>http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/</id>
+    <published>2016-02-01T21:37:20.000Z</published>
+    <updated>2016-02-01T22:36:55.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Trade-offs">Trade-offs</h2><ul>
+<li>Performance vs Scalability</li>
+<li>Latency vs Throughput</li>
+<li>Availability vs Consistency<h2 id="Performance_vs_Scalability">Performance vs Scalability</h2>Performance problem? system is slow for a single user<br>Scalability problem? system is fast for a single user but slow under heavy load.</li>
+</ul>
+<h2 id="Latency_vs_Throughput">Latency vs Throughput</h2><p>strive for <em>maximal</em> throughput vs <em>acceptable</em> latency</p>
+<h2 id="CAP_Theorem">CAP Theorem</h2><p>pick 2 of them from Consistency, Availability, Partition tolerance at<br>a given point in time.</p>
+<p>Example1. Centralized System(RDBMS etc):  don’t hve network partitons. e.g P in CAP =&gt; get Availability and Consistency.<br>Example2. Distributed System: will have network partitions.<br> =&gt; only pick one between Availability and Consistency</p>
+<h2 id="Availability_Patterns">Availability Patterns</h2><ul>
+<li>Fail-over<br>normal state -&gt; failure occurs=&gt; Failover state -&gt; service restored. </li>
+<li>Replication<ul>
+<li>Master-Slave</li>
+<li>Tree replication</li>
+<li>Master- Master</li>
+<li>Buddy Replication<br>Active replication - Push<br>Passive replication - Pull</li>
+</ul>
+</li>
+</ul>
+<h2 id="Scalability_Patterns:_State">Scalability Patterns: State</h2><ul>
+<li>Partitioning</li>
+<li>HTTP Caching</li>
+<li>RDBMS Sharding</li>
+<li>NOSQL</li>
+<li>Distributed Caching</li>
+<li>Data Grids</li>
+<li>Concurrency<h3 id="HTTP_Caching_(p56,p57)">HTTP Caching (p56,p57)</h3>借助 Reverse Proxy: Varnish, Squid, rack-cache, Pound, Nginx, Apache mod_proxy, Traffic Server<br>借助CDN，<br>Proecompute Content: Homegrown + cron orQuartz, Spring Batch, Gearman, Hadoop, Google Data Protocol, Amazon Elastic MapReduce</li>
+</ul>
+<h2 id="Service_of_Record">Service of Record</h2><ul>
+<li>Relational Database<br>scale: Partitioning &amp; Replication</li>
+<li>NoSQL Database</li>
+</ul>
+<ol>
+<li>key-Value db (Voldemort, Dynomite)</li>
+<li>Column db (Cassandra, Vertica, Sybase IQ)</li>
+<li>Document db (MongoDB, CouchDB)</li>
+<li>Graph db (Neo4J, AllegroGraph)</li>
+<li>Datastructure db (Redis, Hazelcast)<br>NoSQL in the wild:<br>Google: Bigtable<br>Amazon: Dynamo<br>Amazon: SimpleDB<br>Yahoo: HBase<br>Facebook: Cassandra<br>Linkedin: Voldmort</li>
+</ol>
+<h3 id="Chord_&amp;_Pastry">Chord &amp; Pastry</h3><ul>
+<li>Distributed Hash Tables(DHT)</li>
+<li>Scalable</li>
+<li>Partitioned</li>
+<li>Fault-tolerant</li>
+<li>Decentralized</li>
+<li>Peer to peer</li>
+<li>Popularized 1. Node ring 2. Consistent Hashing<br> Node ring with consisting hashing(p80): lookup log(N) jumps<h3 id="Distributed_Caching">Distributed Caching</h3></li>
+<li>Write- through (p86)</li>
+<li>Write- behind (87)</li>
+<li>Eviction Policies<ol>
+<li>TTL(time to live)</li>
+<li>Bounded FIFO</li>
+<li>Bounded LIFO</li>
+<li>Explicit cache invalidation</li>
+</ol>
+</li>
+<li>Replication</li>
+<li>Peer- To- Peer(P2P)    <h4 id="Distributed_Caching_Products">Distributed Caching Products</h4></li>
+<li>EHCache</li>
+<li>JBoss Cache</li>
+<li>OSCache</li>
+<li>Memcached: 1. Very fast 2. Simple 3. key-value(string -&gt; binary) 4. clients for most languages 5. Distributed 6. Not replicated </li>
+</ul>
+<h3 id="Concurrency(p96)">Concurrency(p96)</h3><ul>
+<li>Shared-State Concurrency(locks)</li>
+<li>Message- Passing Concurrency(Actor) </li>
+<li>Dataflow Concurrency</li>
+<li>Software Transactional Memory</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Trade-offs">Trade-offs</h2><ul>
+<li>Performance vs Scalability</li>
+<li>Latency vs Throughput</li>
+<li>Availability vs Consistency<h]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[databse-sharding]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/databse-sharding/"/>
+    <id>http://dyangspot.github.io/2016/01/30/databse-sharding/</id>
+    <published>2016-01-31T02:37:59.000Z</published>
+    <updated>2016-01-31T02:56:15.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Database_Sharding"><a href="http://dbshards.com/database-sharding/" target="_blank" rel="external">Database Sharding</a></h1><p>Purpose: improving the throughput and overall performance . </p>
+<p>volumns and transactions of DB linear growth =&gt; response times grow logarithmically</p>
+<ul>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk, bottleneck -&gt; disk I/O</li>
+</ul>
+<h2 id="Database_Partitioning_Options">Database Partitioning Options</h2><h3 id="Master/Slave">Master/Slave</h3><p>master: CRUD<br>slave: read-only<br>downside: </p>
+<ol>
+<li>single master server reach to limit =&gt; bottleneck</li>
+<li>“near real time”, slaves do not guaranteed to have current data in master.</li>
+<li>failure on master occurs. </li>
+</ol>
+<h3 id="Clustering_Computering">Clustering Computering</h3><p>Utilizes many servers operating in a group, share messaging between nodes.<br>modes: </p>
+<ol>
+<li>Many nodes for reads, only one for write. </li>
+<li>nodes up to date via a real-time messaging system. each nodes both read or write mode.</li>
+</ol>
+<h3 id="Database_Sharding,_“Shared-Nothing”">Database Sharding, “Shared-Nothing”</h3><p>a large db -&gt; break it into many small dbs. </p>
+<h3 id="Sharding_Challenges">Sharding Challenges</h3><p>Reliability<br>Distrubuted queries</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Database_Sharding"><a href="http://dbshards.com/database-sharding/" target="_blank" rel="external">Database Sharding</a></h1><p>Purp]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CAP_Theory]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/CAP-Theory/"/>
+    <id>http://dyangspot.github.io/2016/01/30/CAP-Theory/</id>
+    <published>2016-01-31T02:15:22.000Z</published>
+    <updated>2016-01-31T02:38:01.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="CAP_Theorem"><a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem/" target="_blank" rel="external">CAP Theorem</a></h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="CAP_Theorem"><a href="http://ksat.me/a-plain-english-introduction-to-cap-theorem/" target="_blank" rel="external">CAP Theorem</a></h]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Ace_the_System_Design_Interview]]></title>
+    <link href="http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/"/>
+    <id>http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/</id>
+    <published>2016-01-31T02:04:10.000Z</published>
+    <updated>2016-01-31T02:04:10.000Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Introduction to Architecting Systems for Scale]]></title>
+    <link href="http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/"/>
+    <id>http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/</id>
+    <published>2016-01-28T21:11:47.000Z</published>
+    <updated>2016-01-28T21:59:42.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Load_Balancing:_Scalability_&amp;_Redundancy">Load Balancing: Scalability &amp; Redundancy</h2><p>Redunancy: system isn’t disrupted by loss of a server.</p>
+<p>Large system balance load at 3 layers:</p>
+<ul>
+<li>user to web servers</li>
+<li>web servers to an internal platform layers</li>
+<li>internal platform layer to database</li>
+</ul>
+<p>Question:  [Load Balance] What are the three ways to implement load balancing? </p>
+<h2 id="Smart_Clients">Smart Clients</h2><p>What is smart client?<br>a client detectes downed hosts and avoids sending requests.</p>
+<h2 id="Hardware_Load_Balancers">Hardware Load Balancers</h2><h2 id="Software_Load_balancers">Software Load balancers</h2><h2 id="Caching">Caching</h2><p>Caching will enable you to make vastly better use of the resources you already have.<br>Consists of: </p>
+<ul>
+<li><ol>
+<li>precalculating results. </li>
+</ol>
+</li>
+<li><ol>
+<li>pre-generating expensive indexes. suggested stories based on user’s click history. </li>
+</ol>
+</li>
+<li><ol>
+<li>stroing copies of frequently accessed data in a fast backend. e,g memcached <h2 id="Application_Versus_Database_Caching">Application Versus Database Caching</h2></li>
+</ol>
+</li>
+</ul>
+<p>Two primary approaches: 1. application caching 2. databse caching(most systems heavily use)</p>
+<h3 id="Application_caching">Application caching</h3><p>requires explicit integration in the code. </p>
+<ol>
+<li>checking if a value is in the cache; </li>
+<li>if not, retrieve the value from the database</li>
+<li>then write the value into the cache.<br>LRU caching algorithm.</li>
+</ol>
+<h3 id="Database_caching">Database caching</h3><p>good side: your code don’t need change.</p>
+<h3 id="In_Memory_Caches">In Memory Caches</h3><p>e.g Memcached and Redis<br>LRU(least recently used) </p>
+<h3 id="Content_Distribution_Networks">Content Distribution Networks</h3><p>CDNs take the burden of serving static media off of your application servers .</p>
+<ol>
+<li>a request will first ask your CDN for a piece of static media</li>
+<li>the CDN will serve that content if it has it locally availble</li>
+<li>if isn’t available, the CDN will query your servers for the file and then cache it locally; and then serve it to the requesting user.</li>
+</ol>
+<h3 id="Cache_Invalidation">Cache Invalidation</h3><p>Maintain consistency between your caches and the databse.<br>write-through cache: each time a value changes, write the new value into the cache, or simply delete the current value from the cache and allow a read-through cache to populate it later. </p>
+<h3 id="Off-Line_Processing">Off-Line Processing</h3><p>because of unacceptable latency. or because needs to occur periodically</p>
+<h3 id="Message_Queues">Message Queues</h3><p>processing inline request is too slow. add a message queue. e.g RabbitMQ -&gt; quickly publish messages to the queue.</p>
+<p>another benefit: allow you to create a separate machine poool for performing off-line processing rather than burdening web servers.</p>
+<h3 id="Scheduling_Periodic_Tasks">Scheduling Periodic Tasks</h3><p>Cron: job scheduler in unix system.</p>
+<h3 id="Map-Reduce">Map-Reduce</h3><p>large quantity of data. </p>
+<h3 id="Platform_Layer">Platform Layer</h3><p>Reasons to add: your web app communicate with a platform layer which in turn communicates with your database.<br>Pros:</p>
+<ol>
+<li>Separate the web applicaton and the platfrom allow to scale the pieces independently. </li>
+<li>resue your infrastructure for multiple products or interfaces: a web application, an API, iPhone app.</li>
+<li>Easier to scale an organization. </li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Load_Balancing:_Scalability_&amp;_Redundancy">Load Balancing: Scalability &amp; Redundancy</h2><p>Redunancy: system isn’t disrupted ]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[scalability-for-dummies]]></title>
+    <link href="http://dyangspot.github.io/2016/01/25/scalability-for-dummies/"/>
+    <id>http://dyangspot.github.io/2016/01/25/scalability-for-dummies/</id>
+    <published>2016-01-26T01:27:58.000Z</published>
+    <updated>2016-01-28T00:31:50.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Clones">Clones</h3><p>Clones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.<br>Session可以保持到centralized data store，<br>存在形式： external persistent cache or db，cache better performance。<br><em>external</em> means outside application server.<br>AWS: create an image based on other server.</p>
+<h3 id="Database">Database</h3><ul>
+<li>path1: mast-slave replication, +RAM, sharding, denormalization, sql tuning</li>
+<li>path2: NoSQL</li>
+</ul>
+<h3 id="Cache">Cache</h3><p>key-value store. buffer layer between application and data storage<br>refer to in-memory cache, e.g. Memcached or Redis <em>never do file-based caching</em></p>
+<h4 id="2_patterns_of_caching_data">2 patterns of caching data</h4><ul>
+<li>Cached Database Queries.<br>Hashed query as a key, result as value.<br>main issue: expiration. hard to delete a cached result when cached a complex query.</li>
+<li>Cached Objects.<br>stored the complete instance of the class or the assembed dataset in the cache ?<br>best part: makes asyn processing possible.<br>object to cache:<br>user sessions(never use database!)<br>fully rendered blog articles<br>activity streams<br>user&lt;-&gt;friend relationships<br>Tools:<br>Redis: can replace database<br>Memcached: just need cache, scale like a charm<h3 id="Asynchronism">Asynchronism</h3></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Clones">Clones</h3><p>Clones： 每个server都有相同的codebase， 本地都不存用户数据，session, profile pic.<br>Session可以保持到centralized data store，<br>存在形式：]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CS75_Lecture_9_Scalability_Harvard_Web_Development]]></title>
+    <link href="http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/"/>
+    <id>http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/</id>
+    <published>2016-01-25T22:29:55.000Z</published>
+    <updated>2016-01-26T01:28:13.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Scale_Purpose:_Serve_more_users">Scale Purpose: Serve more users</h3><h3 id="Vertical_Scaling:">Vertical Scaling:</h3><ul>
+<li>CPU</li>
+<li>RAM</li>
+<li><p>Disks<br><a href="http://mp.weixin.qq.com/s?__biz=MzA5NTcyMjg1Nw==&amp;mid=402215713&amp;idx=1&amp;sn=c32644feddd90cefa498f7f66da9a78a&amp;scene=5&amp;srcid=01236siTCwxNurd5S71Y1s0K#rd" target="_blank" rel="external">硬盘、内存与闪存</a></p>
+<p>Why not always work? real world constrains</p>
+</li>
+</ul>
+<h3 id="Horizational_scaling">Horizational scaling</h3><p>Multiple servers.<br>Distribute request<br>Load Balancer : Round Robin<br>DNS（Domain Name System）: domain -&gt; ip</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">nslookup google.com</span><br><span class="line"><span class="label">Server:</span>		<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line"><span class="label">Address:</span>	<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span><span class="preprocessor">#53</span></span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.41</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.33</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br><span class="line"><span class="label">Address:</span> <span class="number">173.194</span><span class="number">.123</span><span class="number">.37</span></span><br><span class="line"><span class="label">Name:</span>	google.com</span><br></pre></td></tr></table></figure>
+<p>Caching<br>TTL:<br>Sessions per server cause issue. =&gt; Share State =&gt; Share session</p>
+<p>RAID: Save data<br>RAID0: parallel for performance<br>RAID1: mirror data<br>RAID5:<br>RAID6<br>RAID10</p>
+<p>Replication: </p>
+<p>Load Balancer:<br>Software: ELB, HAProxy, LVS<br>Hardware: Barracuda, F5, Cisco, Citrix</p>
+<p>Sticky Sessions: Perserve session. visiting a website multiple times, still end up with same session object =&gt; same backend server.</p>
+<p>Shared Storage: FC, iSCSI, MySQL, NFS,etc<br>Cookies: finite size(4k)<br>store id of server.<br>Downside? </p>
+<p>Caching:<br>Memcached<br>Cache getting big: expire and garbage collection. reuse space and memory. LRU</p>
+<p>Facebook: Both read/write heavy. </p>
+<p>Replication: automatically copy something<br>Master-Slave. master copy down to slaves.<br>    slaves: get copy every row of master db. master and slaves     identical<br>upside: one master die, back up there becomes master<br>downside: take time to promote slave to master.<br>Master-Master:</p>
+<p>Partition: </p>
+<p>High Availablity:  </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Scale_Purpose:_Serve_more_users">Scale Purpose: Serve more users</h3><h3 id="Vertical_Scaling:">Vertical Scaling:</h3><ul>
+<li>CPU</]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[load_balancer_notes]]></title>
+    <link href="http://dyangspot.github.io/2016/01/25/load-balancer-notes/"/>
+    <id>http://dyangspot.github.io/2016/01/25/load-balancer-notes/</id>
+    <published>2016-01-25T16:58:56.000Z</published>
+    <updated>2016-01-25T17:34:18.000Z</updated>
+    <content type="html"><![CDATA[<p>发送数据包过程中IP和MAC谁变谁不变？<br>src ip, dest ip 不变；<br>发薪日 =&gt; 邮递员 =&gt; … =&gt; 收信人的身份(Mac)一直在变</p>
+<p>Load Balancer:  distribute workloads across multiple computing resources.</p>
+<p>Load Balancer： 主+备</p>
+<ol>
+<li>LB “对外”（external） 提供”virtual server”</li>
+<li>LB “对内”（internal） 提供”virtual client”</li>
+<li>Packets转发： 源地址 &lt;=&gt; 目的地址解析 即Bi-directional Network Address Translation(BNAT = SNAT + DNAT)</li>
+<li>based on service的 balancing(ip：port), instead of the Host(IP) =&gt; a server may have more than one service (HTTP: 80, HTTPS: 443, FTP: 21, DNS: 53)</li>
+</ol>
+<h3 id="q1:_Host_is_not_working?">q1: Host is not working?</h3><p>ping, time out.<br>Health monitoring: 1. deamon,  ping. 2. “service ping”</p>
+<h3 id="q2:_How_does_the_LB_decide_which_server_to_send_a_connection_request_to_?">q2: How does the LB decide which server to send a connection request to ?</h3><ol>
+<li>Configure each virtual server has a specific dedicated cluster of services with makes up all the available servers.</li>
+<li>By <em>health monitoring</em> modifies list to make a list of <em>currently available servers</em>.</li>
+<li>Load balancing algorithms to pick right the right server. e.g. round robin, random…<h3 id="How_about_follow-on_traffic_from_a_known_connection?_To_load_balance_or_not_to_load_balance_?">How about <em>follow-on traffic</em> from a known connection? To load balance or not to load balance ?</h3></li>
+<li><p>TCP 长连接: Connection maintenance.<br>Used for <em>long-lived</em> TCP connections</p>
+<ul>
+<li>Keep track of open connections and the server service it belongs to.</li>
+<li>Monitor the connection and update connection table when the connection closes.</li>
+</ul>
+</li>
+<li><p>TCP 短链接: Persistence (aka. Server Affinity)<br>Used for multiple short-lived TCP conenctions from the same server.<br>困难，怎么判断是同一个用户。</p>
+</li>
+</ol>
+<ul>
+<li>可以通过源地址(source-address affinity)， 可能不是不准确，可能是同一个路由器下同一个子网，用同一个IP，无法区分. 也有可能是同一个用户在家里，公司，学校进行访问。 </li>
+<li>用DPI（Deep Packet Inspection）技术来查看网络层以上的信息. 例如用户把信息存到cookie，通过查看cookie就能知道哪个用户在访问。</li>
+</ul>
+<ol>
+<li>All above information is stored in “Flow Table”.</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>发送数据包过程中IP和MAC谁变谁不变？<br>src ip, dest ip 不变；<br>发薪日 =&gt; 邮递员 =&gt; … =&gt; 收信人的身份(Mac)一直在变</p>
+<p>Load Balancer:  distribute workloads ac]]>
+    </summary>
+    
+      <category term="System Design" scheme="http://dyangspot.github.io/tags/System-Design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Twitter Streaming example using Play]]></title>
+    <link href="http://dyangspot.github.io/2015/12/14/twitter-play/"/>
+    <id>http://dyangspot.github.io/2015/12/14/twitter-play/</id>
+    <published>2015-12-15T04:46:49.000Z</published>
+    <updated>2015-12-15T04:47:40.000Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> controllers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> play.api.<span class="type">Play</span></span><br><span class="line"><span class="keyword">import</span> play.api.libs.oauth.&#123;<span class="type">OAuthCalculator</span>, <span class="type">ConsumerKey</span>, <span class="type">RequestToken</span>&#125;</span><br><span class="line"><span class="keyword">import</span> play.api.libs.ws.<span class="type">WS</span></span><br><span class="line"><span class="keyword">import</span> play.api.mvc._</span><br><span class="line"><span class="keyword">import</span> play.api.<span class="type">Play</span>.current</span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global.</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Controller</span> &#123;</span></span><br><span class="line">  <span class="keyword">final</span> <span class="function"><span class="keyword">val</span> <span class="title">TwitterStatus</span> =</span> <span class="string">"https://stream.twitter.com/1.1/statuses/filter.json"</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">index</span> =</span> <span class="type">Action</span> &#123;</span><br><span class="line">    <span class="type">Ok</span>(views.html.index(<span class="string">"Your new application is ready."</span>))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tweets</span> =</span> <span class="type">Action</span>.async &#123;</span><br><span class="line">    credentials map &#123;</span><br><span class="line">      <span class="keyword">case</span> (consumerKey, requestToken) =&gt;</span><br><span class="line">        <span class="type">WS</span>.url(<span class="type">TwitterStatus</span>)</span><br><span class="line">          .sign(<span class="type">OAuthCalculator</span>(consumerKey, requestToken))</span><br><span class="line">        .withQueryString(<span class="string">"track"</span> -&gt; <span class="string">"reactive"</span>)</span><br><span class="line">        .get</span><br><span class="line">        .map &#123; response =&gt;</span><br><span class="line">          <span class="type">Ok</span>(response.body)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; getOrElse &#123;</span><br><span class="line">      <span class="type">Future</span> &#123;</span><br><span class="line">        <span class="type">InternalServerError</span>(<span class="string">"Twitter credentials not match"</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">credentials</span>:</span> <span class="type">Option</span>[(<span class="type">ConsumerKey</span>,<span class="type">RequestToken</span>)] =</span><br><span class="line">      <span class="keyword">for</span> &#123;</span><br><span class="line">        consumerKey &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.consumerKey"</span>)</span><br><span class="line">        consumerSecret &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.consumerSecret"</span>)</span><br><span class="line">        token &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.token"</span>)</span><br><span class="line">        tokenSecret &lt;- <span class="type">Play</span>.configuration.getString(<span class="string">"twitter.tokenSecret"</span>)</span><br><span class="line">      &#125; <span class="keyword">yield</span></span><br><span class="line">        (<span class="type">ConsumerKey</span>(consumerKey, consumerSecret),</span><br><span class="line">        <span class="type">RequestToken</span>(token, tokenSecret))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class]]>
+    </summary>
+    
+      <category term="play" scheme="http://dyangspot.github.io/tags/play/"/>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[@在Scala中的用法总结]]></title>
+    <link href="http://dyangspot.github.io/2015/12/13/summary-at-scala/"/>
+    <id>http://dyangspot.github.io/2015/12/13/summary-at-scala/</id>
+    <published>2015-12-14T04:06:28.000Z</published>
+    <updated>2015-12-14T04:27:36.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在看<a href="http://danielwestheide.com/scala/neophytes.html" target="_blank" rel="external">The Neophyte’s Guide to Scala </a>的时候，在part1-extractors跟part3-patterns中都提到了<em>@</em>，对此进行总结下，上述文章中出现的代码例子如下：</p>
+<p>extractors：</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user: <span class="type">User</span> = <span class="keyword">new</span> <span class="type">FreeUser</span>(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0.8</span>d)</span><br><span class="line">user <span class="keyword">match</span> &#123;</span><br><span class="line">  case freeUser @ premiumCandidate<span class="literal">()</span> =&gt; initiateSpamProgram(freeUser)</span><br><span class="line">  case _ =&gt; sendRegularNewsletter(user)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>patterns everywhere：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val lists <span class="subst">=</span> <span class="built_in">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="tag">:: List.empty</span> <span class="tag">:: List</span>(<span class="number">5</span>, <span class="number">3</span>) <span class="tag">:: Nil</span></span><br><span class="line"></span><br><span class="line">for &#123;</span><br><span class="line">  <span class="built_in">list</span> @ head <span class="tag">:: _</span> <span class="subst">&lt;-</span> lists</span><br><span class="line">&#125; <span class="keyword">yield</span> <span class="built_in">list</span><span class="built_in">.</span>size</span><br></pre></td></tr></table></figure>
+<p><em>@</em>在scala中被称之为Pattern Binder， 给出的<a href="http://www.scala-lang.org/files/archive/spec/2.11/08-pattern-matching.html#pattern-binders" target="_blank" rel="external">定义</a>如下，</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pattern2        ::=  varid <span class="smartquote">`@'</span> Pattern3</span><br></pre></td></tr></table></figure>
+<p>A pattern binder x@p consists of a pattern variable x and a pattern p. The type of the variable x is the static type T of the pattern p. This pattern matches any value v matched by the pattern p, provided the run-time type of v is also an instance of T, and it binds the variable name to that value.</p>
+<p>定义如上，根据定义可以我们每次的实例x都要被绑定到模式p上面， 可以理解为x是模式p的类型T的实例。 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在看<a href="http://danielwestheide.com/scala/neophytes.html" target="_blank" rel="external">The Neophyte’s Guide to Scala </a>的时候，在part1]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Stream extractor in Scala]]></title>
+    <link href="http://dyangspot.github.io/2015/12/10/stream-extractor-scala/"/>
+    <id>http://dyangspot.github.io/2015/12/10/stream-extractor-scala/</id>
+    <published>2015-12-10T15:04:06.000Z</published>
+    <updated>2015-12-14T04:06:08.000Z</updated>
+    <content type="html"><![CDATA[<p>The way to destructure lists and streams is to use cons operator:<br> <em>::</em> and <em>#::</em>, respectively:</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val xs = <span class="number">58</span> <span class="comment">#:: 43 #:: 93 #:: Stream.empty</span></span><br><span class="line">xs match &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">first</span> <span class="comment">#:: second #:: _ =&gt; first - second</span></span><br><span class="line">  <span class="keyword">case</span> _ =&gt; -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Why <em>#::</em> operator works in Scala?<br>Scala allows extractors to be used in a infix notation.  So, the</p>
+ <figure class="highlight"><figcaption><span>p2) ``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;, e is the extractor, p1 and p2 are parameters to be extracted from a given data structure. It can also be written as&#10;&#10; ``` p1 e p2</span><br></pre></td></tr></table></figure>
+<p>Therefore, the infix operation pattern</p>
+ <figure class="highlight"><figcaption><span>#:: tail ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> &#10;  can also be written as &#10;  &#10;  ```#::(head, tail) ``` &#10;  &#10;And also our *PremiumUser* extractor:</span><br></pre></td></tr></table></figure>
+<p>object PremiumUser {<br>  def unapply(user: PremiumUser): Option[(String, Int)] = Some((user.name, user.score))<br>}<br><figure class="highlight mizar"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Can also <span class="keyword">be</span> written <span class="keyword">as</span></span><br></pre></td></tr></table></figure></p>
+<p>name premiumUser score<br>```</p>
+<p>Let’s go back to the stream extractor. The extractor is called for the initial stream xs that passed to the match block. Then, the extractor will return <em>Some((xs.head, xs.tail))</em>, the <em>xs.head</em> wis bound to 58 and the xs will be passed to the extractor again. Again, it will return the head and the tail as a <em>Tuple2</em> was wrapped in a <em>Some</em>, so that the second xs.head will be bound to t43. the tail is bound to the wildcard _. </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>The way to destructure lists and streams is to use cons operator:<br> <em>::</em> and <em>#::</em>, respectively:</p>
+<figure class="high]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Extractor @ use in scala]]></title>
+    <link href="http://dyangspot.github.io/2015/12/10/extractor-at-scala/"/>
+    <id>http://dyangspot.github.io/2015/12/10/extractor-at-scala/</id>
+    <published>2015-12-10T15:03:33.000Z</published>
+    <updated>2015-12-10T19:19:31.000Z</updated>
+    <content type="html"><![CDATA[<p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">User</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">name</span>:</span> <span class="type">String</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">score</span>:</span> <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FreeUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>, <span class="function"><span class="keyword">val</span> <span class="title">upgradeProbability</span>:</span> <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PremiumUser</span>(</span><span class="function"><span class="keyword">val</span> <span class="title">name</span>:</span> <span class="type">String</span>, <span class="function"><span class="keyword">val</span> <span class="title">score</span>:</span> <span class="type">Int</span>) <span class="keyword">extends</span> <span class="type">User</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">FreeUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">FreeUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>, <span class="type">Double</span>)] =</span><br><span class="line">    <span class="type">Some</span>((user.name, user.score, user.upgradeProbability))</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">PremiumUser</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span>(</span>user: <span class="type">PremiumUser</span>): <span class="type">Option</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = <span class="type">Some</span>((user.name, user.score))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Define a boolean extractor:<br>Note: ‘premiumCandidate’ the first letter use the lower case here </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object premiumCandidate &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unapply</span><span class="params">(user: FreeUser)</span>:</span> Boolean = user.upgradeProbability &gt; <span class="number">0.75</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, we can apply the @ operator at the premiumCandiate to do the pattern match: </p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val <span class="keyword">user</span>: <span class="constant">User</span> = new <span class="constant">Free</span>User(<span class="string">"Daniel"</span>, <span class="number">2500</span>, <span class="number">0</span>.<span class="number">8</span>d)</span><br><span class="line"><span class="keyword">user</span> <span class="keyword">match &#123;</span></span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">user</span> @ premiumCandidate() =&gt;  <span class="string">"cool, you gonna upgrade now: "</span> + <span class="keyword">user</span>.<span class="literal">name</span></span><br><span class="line">  <span class="keyword">case</span> <span class="function">_ =&gt;</span> sendRegularNewsletter(<span class="keyword">user</span>)</span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Finally, we can extract the users with their upgradeProbability value &gt;.75 to do the next job. </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Use @ operator to bind the value that is matched to a varibale is very power in Scala. e.g.<br>Define the User model: </p>
+<figure class=]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Play recipes for real world]]></title>
+    <link href="http://dyangspot.github.io/2015/12/07/play-recipes/"/>
+    <id>http://dyangspot.github.io/2015/12/07/play-recipes/</id>
+    <published>2015-12-08T01:31:43.000Z</published>
+    <updated>2015-12-08T01:37:14.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Play_beauty:_Stateless">Play beauty: Stateless</h3><p>Where to put the state??? </p>
+<h3 id="Challenges:">Challenges:</h3><ul>
+<li>Accumulated state<br>build the state of user ?</li>
+<li>Location</li>
+<li>Node crashes</li>
+</ul>
+<p>Akka Sharding. </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Play_beauty:_Stateless">Play beauty: Stateless</h3><p>Where to put the state??? </p>
+<h3 id="Challenges:">Challenges:</h3><ul>
+<li>A]]>
+    </summary>
+    
+      <category term="play" scheme="http://dyangspot.github.io/tags/play/"/>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scala中的Implicits]]></title>
+    <link href="http://dyangspot.github.io/2015/12/03/scala-implicits/"/>
+    <id>http://dyangspot.github.io/2015/12/03/scala-implicits/</id>
+    <published>2015-12-04T02:36:27.000Z</published>
+    <updated>2015-12-04T05:03:59.000Z</updated>
+    <content type="html"><![CDATA[<p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
+<h3 id="Type_conversions">Type conversions</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">b2a</span>(</span>a: <span class="type">B</span>): <span class="type">A</span> = <span class="keyword">new</span> <span class="type">A</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">B</span></span><br><span class="line"></span><span class="function"><span class="keyword">val</span> <span class="title">a</span>:</span> <span class="type">A</span> = <span class="keyword">new</span> <span class="type">B</span></span><br></pre></td></tr></table></figure>
+<p>Compiler将会搜索implicits的B =&gt; A类型<br>其中Compiler的搜索范围包括</p>
+<h4 id="Resolve_scope">Resolve scope</h4><ul>
+<li>Declared implicits</li>
+<li>Imported implicits</li>
+<li>Implicitly imported implicits</li>
+</ul>
+<h4 id="Extended_scope">Extended scope</h4><pre><code><span class="class"><span class="keyword">class</span> <span class="title">Type</span>
+</span>
+<span class="class"><span class="keyword">class</span> <span class="title">T</span>[</span><span class="type">Y</span>]
+
+<span class="class"><span class="keyword">class</span> <span class="title">D</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">class</span> <span class="title">Container</span>
+</span><span class="class"><span class="keyword">object</span> <span class="title">Container</span> {</span>
+    <span class="keyword">implicit</span> <span class="function"><span class="keyword">def</span> <span class="title">conv</span>(</span>c: <span class="type">Child</span>): <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Type</span>
+}
+
+<span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">T</span>[</span><span class="type">D</span>]
+
+
+<span class="function"><span class="keyword">val</span> <span class="title">x</span>:</span> <span class="type">Type</span> = <span class="keyword">new</span> <span class="type">Child</span>
+</code></pre><p>给定以上代码, 创建的new Child实例对象赋给Type类型的x。这其中Child =&gt; Type类型的转换通过extended scope 来不停的向上寻找完成的。首先，Child类型继承与T[D], 而D 又继承与Container类，Container的半生对象object Container中implicit了 Child =&gt; Type类型的转换，所以new Child的实例化对象也是Type类型的.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Implicits引入在scala中有两种形式， 一种是Parameters, 另一种是Conversions. 其中Conversions又包括Type conversions跟Extension Methods.</p>
+<h3 id="Type_conversions]]>
+    </summary>
+    
+      <category term="Scala" scheme="http://dyangspot.github.io/tags/Scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scala中的identity]]></title>
+    <link href="http://dyangspot.github.io/2015/11/30/scala-identity/"/>
+    <id>http://dyangspot.github.io/2015/11/30/scala-identity/</id>
+    <published>2015-12-01T03:31:20.000Z</published>
+    <updated>2015-12-01T03:54:14.000Z</updated>
+    <content type="html"><![CDATA[<p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">34</span>,<span class="number">4</span>)&#125;&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">55</span>f57b35</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="literal">result</span>.flatMap(identity)</span><br><span class="line">res7: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">505</span>acb8b</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>针对与Future[Future[Seq[MyObject]]]类型，想要映射为Future[Seq[MyObject]]类型，这里有个小trick， 可以直接调用flatMap(identity),等同于flatMap(x =&gt; x)</p>
+<figure cla]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[处理Nested Future结构总结]]></title>
+    <link href="http://dyangspot.github.io/2015/11/30/nestedFuture-md/"/>
+    <id>http://dyangspot.github.io/2015/11/30/nestedFuture-md/</id>
+    <published>2015-11-30T23:10:23.000Z</published>
+    <updated>2015-12-01T03:29:40.000Z</updated>
+    <content type="html"><![CDATA[<p>Play中经常会遇到在结构体中循环嵌套Async调用， 导致最后出现Future[Future[myObject]]类似代码，我们期望最终返回结果为Future[myObject]类型，而非嵌套Future的结构。在异步调用中，为了实现None-blocking I/O，应当尽量避免用Await方法.</p>
+<h3 id="flatMap">flatMap</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; Future[A])</span>:</span> Future[A]</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span>[<span class="title">A</span>]<span class="params">(f: T =&gt; A)</span>:</span> Future[A]</span><br></pre></td></tr></table></figure>
+<p>根据上述定义，我们可以用flatMap方法将一个Future[A]类型映射成我们想要的类型</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplateStoreDao</span>.findAll(page, perPage) flatMap  &#123; templates =&gt; // <span class="type">Seq</span>[<span class="type">Tempalte</span>]</span><br><span class="line">      val appList = new scala.collection.mutable.<span class="type">ArrayBuffer</span>[<span class="type">JsObject</span>]()</span><br><span class="line">      val response = <span class="type">ObjectStoreDao</span>.query(query) map &#123; tryObj =&gt; // <span class="type">Try</span>[<span class="type">Object</span>]</span><br><span class="line">        tryObj map &#123;obj =&gt; </span><br><span class="line">          val favoriteApps = (obj(<span class="number">0</span>) \ <span class="string">"data"</span> \ <span class="string">"vars"</span> \<span class="string">"favoriteApps"</span>).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">          <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">template</span> &lt;- templates</span><br><span class="line">            appId &lt;- favoriteApps.value</span><br><span class="line">          &#125; <span class="keyword">yield</span> &#123;</span><br><span class="line">            val jsonObj = <span class="type">Json</span>.toJson(obj).<span class="keyword">as</span>[<span class="type">JsObject</span>]</span><br><span class="line">            val prefObj = <span class="keyword">if</span> (appId.<span class="keyword">as</span>[<span class="type">String</span>] == <span class="keyword">template</span>.id) &#123;</span><br><span class="line">              val favField = (<span class="string">"fav"</span> -&gt; <span class="type">JsBoolean</span>(<span class="literal">true</span>))</span><br><span class="line">              jsonObj + favField</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              jsonObj</span><br><span class="line">            &#125;</span><br><span class="line">            appList += prefObj	// add to list</span><br><span class="line">          &#125;</span><br><span class="line">          // convert favorite list to <span class="type">JsArray</span></span><br><span class="line">          val jsArray = appList.foldLeft(<span class="type">JsArray</span>())((acc, x) =&gt; acc ++ <span class="type">Json</span>.arr(x))</span><br><span class="line">          jsArray.<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125; getOrElse &#123;</span><br><span class="line">          <span class="type">Json</span>.toJson(templates).<span class="keyword">as</span>[<span class="type">JsArray</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">		// response <span class="keyword">is</span> <span class="type">Future</span>[<span class="type">JsArray</span>]</span><br><span class="line">      response flatMap &#123; res =&gt; // res <span class="keyword">is</span> <span class="type">JsArray</span></span><br><span class="line">        <span class="type">Future</span>.successful(res.value map(_.<span class="keyword">as</span>[<span class="type">TTemplate</span>])) // convert <span class="type">JsObject</span> to <span class="type">Scala</span> <span class="type">Object</span> , will <span class="keyword">return</span> <span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Object</span>]] </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如上所示， 我们对于处理Future的时候先进行flatMap操作，将Future[A] 包裹的T类型暴漏出来，进行各种操作，最后再返回一个 Future[A] 类型</p>
+<h3 id="for_loop">for loop</h3><p>能用flatMap情况下，我们当然也可以用for 循环来解决，例如</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">val</span> <span class="title">future3</span> =</span> <span class="keyword">for</span> &#123;</span><br><span class="line">	x &lt;- future1;</span><br><span class="line">	y &lt;- future2</span><br><span class="line">&#125; <span class="keyword">yield</span> (x + y)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以重写为<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">future3 =</span> future1.flatMap(<span class="variable">x =</span>&gt; future2.<span class="built_in">map</span>(<span class="variable">y =</span>&gt; x+y))</span><br></pre></td></tr></table></figure></p>
+<h3 id="Future-sequence_=&gt;_Future[Seq[Future[MyObject]]]">Future.sequence =&gt; Future[Seq[Future[MyObject]]]</h3><p>对于Future[Seq[Future[MyObject]]]情况， 这是一群Future[MyObject]组成的Sequence，最外层包裹着一个Future。 这里可以用Future.sequence 方法把Future[Seq[Future[MyObject]]] 映射为Future[Future[Seq[MyObject]]]，再用flatMap(identity)得到我们想要的类型Future[Seq[MyObject]]</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">Future</span></span><br><span class="line"><span class="keyword">import</span> scala.concurrent.<span class="type">ExecutionContext</span>.<span class="type">Implicits</span>.global</span><br><span class="line"></span><br><span class="line">scala&gt; val <span class="literal">result</span> = <span class="type">Future</span>&#123;<span class="type">Seq</span>(<span class="type">Future</span>(<span class="number">1</span>),<span class="type">Future</span>(<span class="number">2</span>),<span class="type">Future</span>(<span class="number">3</span>))&#125;</span><br><span class="line"><span class="literal">result</span>: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">7</span>e349560</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(<span class="type">Future</span>.sequence(_)) </span><br><span class="line">res10: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">6</span>d1818bd</span><br><span class="line"></span><br><span class="line">scala&gt; val resultSeq = <span class="literal">result</span>.map(x =&gt; <span class="type">Future</span>.sequence(x))</span><br><span class="line">resultSeq: scala.concurrent.<span class="type">Future</span>[scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@<span class="number">114</span>e9c16</span><br><span class="line"></span><br><span class="line">scala&gt; resultSeq.flatMap(identity)</span><br><span class="line">res12: scala.concurrent.<span class="type">Future</span>[<span class="type">Seq</span>[<span class="type">Int</span>]] = scala.concurrent.impl.<span class="type">Promise</span>$<span class="type">DefaultPromise</span>@b50676f</span><br></pre></td></tr></table></figure>
+<h3 id="Future-traverse">Future.traverse</h3><h3 id="Flatten">Flatten</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit <span class="function"><span class="keyword">def</span> <span class="title">flatten</span>[<span class="title">A</span>]<span class="params">(fofoa: Future[Option[Future[Option[A]]]])</span>:</span> Future[Option[A]] = &#123;</span><br><span class="line">	fofoa.flatMap(_.getOrElse(Future.successful(<span class="keyword">None</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>借鉴上述flatten方法</p>
+<h3 id="Reference">Reference</h3><p><a href="https://tersesystems.com/2014/07/10/composing-dependent-futures/" target="_blank" rel="external">Composing depending futures</a><br><a href="http://stackoverflow.com/questions/20276872/get-rid-of-scala-future-nesting" target="_blank" rel="external">Get rid of Scala Future nesting</a><br><a href="http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html" target="_blank" rel="external">The Neophyte’s Guide to Scala Part 8: Welcome to the Future</a><br><a href="http://docs.scala-lang.org/overviews/core/futures.html" target="_blank" rel="external">Futures and promises</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Play中经常会遇到在结构体中循环嵌套Async调用， 导致最后出现Future[Future[myObject]]类似代码，我们期望最终返回结果为Future[myObject]类型，而非嵌套Future的结构。在异步调用中，为了实现None-blocking I/O，应]]>
+    </summary>
+    
+      <category term="play" scheme="http://dyangspot.github.io/tags/play/"/>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[最近在读的书单]]></title>
+    <link href="http://dyangspot.github.io/2015/11/28/reading-list/"/>
+    <id>http://dyangspot.github.io/2015/11/28/reading-list/</id>
+    <published>2015-11-29T04:48:21.000Z</published>
+    <updated>2015-11-29T05:07:23.000Z</updated>
+    <content type="html"><![CDATA[<p>将最近的几个月的书单贴一下，做个备注.</p>
+<h4 id="正在读">正在读</h4><ul>
+<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_blank" rel="external">Functional Programming in Scala</a></li>
+<li><a href="https://www.manning.com/books/akka-in-action" target="_blank" rel="external">Akka in Action</a></li>
+<li><a href="http://www.amazon.com/Play-Framework-Cookbook-Alexander-Reelsen/dp/1784393134" target="_blank" rel="external">Play Framework Cookbook Second Edition</a></li>
+<li><a href="http://www.amazon.com/Cracking-Coding-Interview-6th-Edition/dp/0984782850" target="_blank" rel="external">Cracking the Code Interview Edition, 6th Edition</a></li>
+<li><a href="http://book.douban.com/subject/3924175/" target="_blank" rel="external">构建高性能Web站点</a></li>
+</ul>
+<h4 id="已读">已读</h4><ul>
+<li>Oreilly Learning Scala</li>
+</ul>
+<h4 id="打算读">打算读</h4><ul>
+<li>Pragmatic Functional Programming patterns in Scala and Clojure</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>将最近的几个月的书单贴一下，做个备注.</p>
+<h4 id="正在读">正在读</h4><ul>
+<li><a href="https://www.manning.com/books/functional-programming-in-scala" target="_bl]]>
+    </summary>
+    
+      <category term="others" scheme="http://dyangspot.github.io/tags/others/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于搭建Social Engagement Apps的总结]]></title>
+    <link href="http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/"/>
+    <id>http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/</id>
+    <published>2015-11-29T04:12:19.000Z</published>
+    <updated>2015-11-29T04:47:58.000Z</updated>
+    <content type="html"><![CDATA[<p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="external">talk</a>，介绍了下如何用Play框架在基于SalesForce平台上对Twitter用户进行整合. 讲座中涉及到了很多scala技术类的细节，许多代码值得学习，借此贴出来. 在此先占位</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近看了下James Ward关于如何搭建Social Engagement平台的<a href="http://dreamforce.vidyard.com/watch/l9mxd0T9ANT-fSVOvAGNww" target="_blank" rel="extern]]>
+    </summary>
+    
+      <category term="play" scheme="http://dyangspot.github.io/tags/play/"/>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scala中的=>, ()=> 与 Unit=>区别]]></title>
+    <link href="http://dyangspot.github.io/2015/04/26/call-by-name/"/>
+    <id>http://dyangspot.github.io/2015/04/26/call-by-name/</id>
+    <published>2015-04-26T04:54:46.000Z</published>
+    <updated>2015-04-26T05:37:53.000Z</updated>
+    <content type="html"><![CDATA[<p>在此总结下Call-by-Name的传递函数的类型问题.</p>
+<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name" target="_blank" rel="external">wiki解释</a>。 call by name本质上是利用给定的函数参数替换函数中的参数. 例如:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">f</span><span class="params">(x:=&gt;Int)</span></span>= x*x</span><br></pre></td></tr></table></figure>
+<p>调用函数 </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> y=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="title">f</span><span class="params">(y+=<span class="number">1</span>;y)</span></span></span><br></pre></td></tr></table></figure>
+<p>代码执行如下</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">&#123;y+=1;y&#125;</span> *<span class="list">&#123;y+=1;y&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="expr:()=&gt;Type">expr:()=&gt;Type</h3><p>()=&gt;Type 表示Function0, 即0-arity Functions.表示一个函数不给定初始参数，但返回结果是Type类型.  例如，调用函数size()，表示的是不给定输入参数，size（）执行后返回一个数值.<br><strong>注意</strong>： 与匿名函数表示进行区分，例如</p>
+<figure class="highlight"><figcaption><span>=> println("I'm an anonymous function")</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;&#20197;&#19978;&#21311;&#21517;&#20989;&#25968;&#31867;&#22411;&#26159; ()=&#62;Unit,&#25152;&#20197;&#25105;&#20204;&#20063;&#21487;&#20197;&#20889;&#20316;:&#10;&#10;```val expr: () =&#62; Unit = () =&#62; println(&#34;I&#39;m an anonymous function&#34;)</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.scala-lang.org/old/node/133" target="_blank" rel="external">A Tour of Scala:匿名函数</a></p>
+<h3 id="Unit_=&gt;_Type">Unit =&gt; Type</h3><p>这个实际上是Function1，其中第一个参数类型为Unit。此外，其他书写方式包括(Unit) =&gt; Type或者 Function1[Unit,Type]。<br>其中使用<em>Unit</em>的目的是表示 给定的唯一的参数值，我们不关心这个具体的值，固用Unit来表示。例如：<br>···<br>def f(x:Unit) = …<br>···</p>
+<p>参数x只有一个值，我们也不需要去接收这个值，我们可以应用到chaining 函数上面</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val <span class="variable">f =</span> (x: Unit) =&gt; println(<span class="string">"I'm f"</span>)             //&gt; f  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">g =</span> (x: Unit) =&gt; println(<span class="string">"I'm g"</span>)             //&gt; g  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br><span class="line">val <span class="variable">h =</span> f andThen g                               //&gt; h  : <span class="variable">Unit =</span>&gt; <span class="variable">Unit =</span> &lt;function1&gt;</span><br></pre></td></tr></table></figure>
+<p>andThen 只能定义在Function1，我们用来chaining的函数返回Unit. 也就是说我们需要定义Function1[Unit,Unit]的函数才能做chaining.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在此总结下Call-by-Name的传递函数的类型问题.</p>
+<h3 id="expr:=&gt;Type">expr:=&gt;Type</h3><p>=&gt;Type 表示call by name. <a href="http://en.wikipedia.org]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scala中的call by name与call by value区别]]></title>
+    <link href="http://dyangspot.github.io/2015/04/26/scala-parameter-type/"/>
+    <id>http://dyangspot.github.io/2015/04/26/scala-parameter-type/</id>
+    <published>2015-04-26T04:32:05.000Z</published>
+    <updated>2015-04-26T04:54:20.000Z</updated>
+    <content type="html"><![CDATA[<p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.<br>以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/11992134/scala-parameter-of-type-t-or-t" target="_blank" rel="external">stackoverflow</a>上的解答.</p>
+<p>首先给与两个函数分别为：</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def stringGen:<span class="type">String</span> = util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line"></span><br><span class="line">def callByValue(s: <span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br><span class="line"></span><br><span class="line">def callByName(s: =&gt;<span class="type">String</span>) = <span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其中，callByValue 函数中传递的是String类型的参数s， CallByName函数传递的是<strong>=&gt; String</strong>的函数s， 函数s的返回结果为String类型.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Scala中对于参数类型T 或=&gt;T，前者被称为call by value,后者叫call by name.<br>以上两种传递参数有什么区别呢？以下进行详细的说明，参照<a href="http://stackoverflow.com/questions/1199]]>
+    </summary>
+    
+      <category term="scala" scheme="http://dyangspot.github.io/tags/scala/"/>
+    
+  </entry>
+  
+</feed>

@@ -2,13 +2,233 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://dyangspot.github.io/about/index.html</loc>
-    <lastmod>2015-03-22T19:24:07.000Z</lastmod>
+    <loc>http://dyangspot.github.io/2016/02/01/scalability-availability-stability-patterns/</loc>
+    <lastmod>2016-02-01T22:36:55.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/databse-sharding/</loc>
+    <lastmod>2016-01-31T02:56:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/CAP-Theory/</loc>
+    <lastmod>2016-01-31T02:38:01.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/30/Ace-the-System-Design-Interview/</loc>
+    <lastmod>2016-01-31T02:04:10.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/28/intro-to-archit-systems-for-scale/</loc>
+    <lastmod>2016-01-28T21:59:42.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/25/scalability-for-dummies/</loc>
+    <lastmod>2016-01-28T00:31:50.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/25/CS75-Lecture-9-Scalability-Harvard-Web-Development/</loc>
+    <lastmod>2016-01-26T01:28:13.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2016/01/25/load-balancer-notes/</loc>
+    <lastmod>2016-01-25T17:34:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/14/twitter-play/</loc>
+    <lastmod>2015-12-15T04:47:40.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/13/summary-at-scala/</loc>
+    <lastmod>2015-12-14T04:27:36.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/10/stream-extractor-scala/</loc>
+    <lastmod>2015-12-14T04:06:08.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/10/extractor-at-scala/</loc>
+    <lastmod>2015-12-10T19:19:31.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/07/play-recipes/</loc>
+    <lastmod>2015-12-08T01:37:14.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/12/03/scala-implicits/</loc>
+    <lastmod>2015-12-04T05:03:59.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/11/30/scala-identity/</loc>
+    <lastmod>2015-12-01T03:54:14.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/11/30/nestedFuture-md/</loc>
+    <lastmod>2015-12-01T03:29:40.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/11/28/reading-list/</loc>
+    <lastmod>2015-11-29T05:07:23.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/11/28/summary_of_social_engagement_app/</loc>
+    <lastmod>2015-11-29T04:47:58.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/26/call-by-name/</loc>
+    <lastmod>2015-04-26T05:37:53.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/26/scala-parameter-type/</loc>
+    <lastmod>2015-04-26T04:54:20.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/13/reactive-prog-recap/</loc>
+    <lastmod>2015-04-14T03:23:41.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/13/reactive-programming/</loc>
+    <lastmod>2015-04-14T02:44:12.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/09/javascript-good-parts-notes/</loc>
+    <lastmod>2015-04-12T03:41:05.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/08/ember-tricks/</loc>
+    <lastmod>2015-04-09T04:05:18.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/05/computed-properties-emberjs/</loc>
+    <lastmod>2015-04-06T00:29:21.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/05/set-get-emberjs/</loc>
+    <lastmod>2015-04-06T00:13:12.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/05/emberjs-controller/</loc>
+    <lastmod>2015-04-05T06:18:55.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/05/ember-model/</loc>
+    <lastmod>2015-04-05T05:42:20.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/04/dynamic-route-emberjs/</loc>
+    <lastmod>2015-04-05T03:46:21.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/04/active-generation-in-ember/</loc>
+    <lastmod>2015-04-05T03:24:57.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/04/MDN-js-notes/</loc>
+    <lastmod>2015-04-04T05:37:42.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/03/set-up-emberjs-dev-env/</loc>
+    <lastmod>2015-04-04T02:18:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/03/04-03-2015/</loc>
+    <lastmod>2015-04-04T02:10:02.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/04/03/Ember-in-action/</loc>
+    <lastmod>2015-04-03T05:00:01.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/30/emberjs-fundamentals-notes/</loc>
+    <lastmod>2015-04-01T03:51:02.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/30/directed-graphs/</loc>
+    <lastmod>2015-03-31T02:08:55.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/29/emberjs-notes/</loc>
+    <lastmod>2015-03-30T03:25:02.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/28/03-28-2015/</loc>
+    <lastmod>2015-03-28T05:12:49.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/26/03-26-2015/</loc>
+    <lastmod>2015-03-27T05:00:37.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/23/worksummary-03-23-2015/</loc>
+    <lastmod>2015-03-27T04:54:40.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/24/breadth-first-search/</loc>
+    <lastmod>2015-03-25T02:21:27.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/24/connected-components-dfs/</loc>
+    <lastmod>2015-03-25T02:16:34.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/24/depth-first-search/</loc>
+    <lastmod>2015-03-24T21:12:17.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/2015/03/22/scala-test/</loc>
+    <lastmod>2015-03-23T03:58:54.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://dyangspot.github.io/2015/03/22/emberjs-reference/</loc>
-    <lastmod>2015-03-22T16:23:34.000Z</lastmod>
+    <lastmod>2015-03-23T03:41:54.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://dyangspot.github.io/about/index.html</loc>
+    <lastmod>2015-03-23T03:41:54.000Z</lastmod>
   </url>
   
 </urlset>
